@@ -3473,7 +3473,7 @@ function recuperer_liste_toutes_commandes()
 
 	if (!is_null($db)) {
 		// Requête SQL pour récupérer toutes les commandes
-		$requete = "SELECT c.num_cmd, c.num_res, c.num_chambre, c.prix_total, c.creer_le FROM commande c WHERE c.est_actif = 1";
+		$requete = "SELECT * FROM commande c WHERE c.est_actif = 1";
 
 		// Préparez la requête
 		$request_prepare = $db->prepare($requete);

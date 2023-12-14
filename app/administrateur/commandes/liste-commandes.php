@@ -61,6 +61,7 @@ include './app/commum/aside.php';
                                 <th scope="col">Liste des Repas</th>
                                 <th scope="col">Prix Unitaire</th>
                                 <th scope="col">Prix Total</th>
+                                <th scope="col">Statut</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -112,6 +113,21 @@ include './app/commum/aside.php';
                                     </td>
                                     <td>
                                         <?php echo $commande['prix_total']; ?>
+                                    </td>
+
+                                    <td>
+                                        <!-- Afficher les boutons avec les styles en fonction du statut -->
+                                        <div class="btn-group" role="group" aria-label="Actions de réservation">
+                                            <?php if ($commande['statut'] === 'En cours de validation') : ?>
+                                                <button type="button" class="btn btn-warning" style="color: #fff;">En cours de validation</button>
+                                            <?php elseif ($commande['statut'] === 'Rejeter') : ?>
+                                                <button type="button" class="btn btn-danger" style="color: #fff;">Rejeter</button>
+                                            <?php elseif ($commande['statut'] === 'Valider') : ?>
+                                                <button type="button" class="btn btn-success" style="color: #fff;">Validé</button>
+                                            <?php else : ?>
+                                                <button type="button" class="btn btn-secondary">Statut inconnu</button>
+                                            <?php endif; ?>
+                                        </div>
                                     </td>
 
                                     <td>
