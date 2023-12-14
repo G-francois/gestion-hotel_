@@ -3156,7 +3156,6 @@ function verifier_existence_num_res($numReservation): bool
 }
 
 
-
 /**
  * Cette fonction permet de vérifier si un numéro de réservation existe dans la base de données,
  *
@@ -3223,6 +3222,37 @@ function recuperer_donnee_reservation_par_num_chambre($numChambre)
 	return $donneesReservation;
 }
 
+/**
+ * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce son id
+ *
+ * @param  mixed $id
+ * @return void
+ */
+function recuperer_donnee_reservation_par_son_id($id)
+{
+	$donneesReservation = null;
+
+	$db = connect_db();
+
+	if (!is_null($db)) {
+
+		$requete = 'SELECT * FROM reservations WHERE id = :id';
+
+		$request_prepare = $db->prepare($requete);
+
+		if ($request_prepare->execute([
+
+			'id' => $id
+
+		])) {
+
+			$donneesReservation = $request_prepare->fetch(PDO::FETCH_ASSOC);
+		}
+	}
+
+	return $donneesReservation;
+}
+
 
 /**
  * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce num res
@@ -3270,7 +3300,7 @@ function verifier_chambre_supprimer($numChambre): bool
 
 	if (!is_null($db)) {
 
-		$requete = 'SELECT num_chambre FROM chambre WHERE num_chambre = :num_chambre AND est_supprimer = 0';
+		$requete = 'SELECT num_chambre FROM chambre WHERE num_chambre = :num_chambre AND est_actif = 0 AND est_supprimer = 0';
 
 		$request_prepare = $db->prepare($requete);
 
@@ -3409,7 +3439,7 @@ function recuperer_liste_commandes_client($clientConnecteID)
 
 	if (!is_null($db)) {
 		// Requête SQL pour récupérer les commandes du client connecté
-		$requete = " SELECT c.num_cmd, c.num_res, c;num_chambre, c.prix_total, c.creer_le FROM commande c JOIN reservations r ON c.num_res = r.num_res WHERE r.num_clt = :num_clt AND c.est_actif = 1";
+		$requete = " SELECT c.num_cmd, c.num_res, c.num_chambre, c.prix_total, c.creer_le FROM commande c JOIN reservations r ON c.num_res = r.id WHERE r.num_clt = :num_clt AND c.est_actif = 1";
 
 		// Préparez la requête
 		$request_prepare = $db->prepare($requete);

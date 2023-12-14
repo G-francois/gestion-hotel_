@@ -20,27 +20,30 @@ if (isset($_POST['enregistrer'])) {
 
         if (!$chambreExiste) {
             $erreurs["num_chambre"] = "Le numéro de la chambre n'existe pas. Veuiller réesayer!";
-        }
+        } else {
+            // Récupérer le numéro de reservation
+            $donneesReservation = recuperer_donnee_reservation_par_num_chambre($numChambre);
 
-        // Récupérer le numéro de reservation
-        $donneesReservation = recuperer_donnee_reservation_par_num_chambre($chambreExiste);
-
-        /* Extraire la valeur du champ num_res, 
+            /* Extraire la valeur du champ num_res, 
         vérifiez d'abord si le tableau retourné par la fonction n'est pas vide 
         (!empty($donneesReservation['num_res'])). Si le champ num_res existe dans le tableau, vous l'affectez à la variable $num_res. 
         Sinon, $num_res prend la valeur null 
         */
 
-        $num_res = !empty($donneesReservation['num_res']) ? $donneesReservation['num_res'] : null;
+            $num_res = !empty($donneesReservation['num_res']) ? $donneesReservation['num_res'] : null;
 
-        // Appeler la fonction pour vérifier l'existence de num_chambre dans la table "reservation"
-        $reservationExiste = verifier_existence_num_res($num_res);
+            // die(var_dump($num_res));
 
-        if (!$reservationExiste) {
-            $erreurs["num_chambre"] = "Le numéro de la chambre n'appartient à aucune réservation.";
-        } elseif (!verifier_appartenance_reservation($num_res, $clientConnecteID)) {
-            // La réservation existe, mais ne correspond pas au client connecté
-            $erreurs["num_chambre"] = "Le numéro de la chambre est pour une réservation qui ne vous appartient pas.";
+            // Appeler la fonction pour vérifier l'existence de num_chambre dans la table "reservation"
+            $reservationExiste = verifier_existence_num_res($num_res);
+
+            if (!$reservationExiste) {
+                $erreurs["num_chambre"] = "Le numéro de la chambre n'appartient à aucune réservation.";
+            } elseif (!verifier_appartenance_reservation($num_res, $clientConnecteID)) {
+                // La réservation existe, mais ne correspond pas au client connecté
+                $erreurs["num_chambre"] = "Le numéro de la chambre est pour une réservation qui ne vous appartient pas.";
+            }
+
         }
     } else {
         $erreurs["num_chambre"] = "Le champ numéro de chambre est requis. Veuillez le renseigner.";
@@ -63,11 +66,15 @@ if (isset($_POST['enregistrer'])) {
     // Si aucune erreur n'a été détectée
     if (empty($erreurs)) {
 
-        $num_res = !empty($donneesReservation['num_res']) ? $donneesReservation['num_res'] : null;
+        $donneesReservation = recuperer_donnees_reservation_par_num_res($num_res);
+
+        $num_res = !empty($donneesReservation['id']) ? $donneesReservation['id'] : null;
+
+        // die(var_dump($num_res));
 
         $numChambre = $donnees["num_chambre"];
-        
-        // $recupererNumChambre = recuperer_donnees_reservation_par_num_res($num_res);
+
+        // die(var_dump($num_res));
 
         if (!empty($donnees) && isset($numChambre)) {
 

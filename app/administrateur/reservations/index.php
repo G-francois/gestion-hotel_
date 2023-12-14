@@ -75,41 +75,38 @@ $liste_clients = recuperer_liste_clients_actifs();
             <div class="col-md-7">
                 <div class="card-body px-0">
                     <!-- <div style="border-radius: 30px; border: beige solid; padding: 20px;"> -->
-                    <form id="reservation" data-endpoint="<?= PATH_PROJECT ?>client/chambres/traitement_reservations">
+                    <form id="reservation" data-endpoint="<?= PATH_PROJECT ?>administrateur/reservations/traitement_reservations">
 
-                        <!-- Le champ email et Numéro de chambre -->
-                        <div class="row">
-                            <!-- Le champ email -->
-                            <div class="col-md-6 mb-1">
-                                <label for="num_chambre"> Email du Client :
-                                    <span class="text-danger">(*)</span>
-                                </label>
+                        <!-- Le champ email -->
+                        <div class="col-md-12 mb-4" style="padding-left: 0px;">
+                            <label for="num_chambre"> Email du Client :
+                                <span class="text-danger">(*)</span>
+                            </label>
 
-                                <!-- Champ de sélection dynamique avec les adresses e-mail -->
-                                <select class="form-control js-example-tags" >
-                                    <?php foreach ($liste_clients as $client) : ?>
-                                        <option><?= $client['email'] ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                            <!-- Champ de sélection dynamique avec les adresses e-mail -->
+                            <select name="email" class="form-control js-example-tags">
+                                <?php foreach ($liste_clients as $client) : ?>
+                                    <option><?= $client['email'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-                            <!-- Le champ Numéro de chambre -->
-                            <div class="col-md-6 mb-1" style="padding-left: 0rem;">
-                                <label for="num_chambre">Chambres :
-                                    <span class="text-danger">(*)</span>
-                                </label>
-                                <select class="form-control chambre-select" id="num_chambre" name="chambre1[num]" required>
-                                    <option value="" data-type="standard" data-prix="0">Sélectionnez le numéro de chambre</option>
+                        <!-- Le champ Numéro de chambre -->
+                        <div class="col-md-12 mb-2" style="padding-left: 0rem;">
+                            <label for="num_chambre">Chambres :
+                                <span class="text-danger">(*)</span>
+                            </label>
+                            <select class="form-control chambre-select" id="num_chambre" name="chambre1[num]" required>
+                                <option value="" data-type="standard" data-prix="0">Sélectionnez le numéro de chambre</option>
 
-                                    <?php
-                                    foreach ($liste_chambre as $chambre) {
-                                        $option_value = 'Chambre N°' . $chambre['num_chambre'] . ' - Type : ' . $chambre['lib_typ'];
-                                        $prix_par_chambre = $chambre['pu'];
-                                        echo '<option value="' . $chambre['num_chambre'] . '&' . $chambre['lib_typ'] . '" data-type="' . $chambre['lib_typ'] . '" data-prix="' . $prix_par_chambre[$chambre['num_chambre']] . '">' . $option_value . '</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+                                <?php
+                                foreach ($liste_chambre as $chambre) {
+                                    $option_value = 'Chambre N°' . $chambre['num_chambre'] . ' - Type : ' . $chambre['lib_typ'];
+                                    $prix_par_chambre = $chambre['pu'];
+                                    echo '<option value="' . $chambre['num_chambre'] . '&' . $chambre['lib_typ'] . '" data-type="' . $chambre['lib_typ'] . '" data-prix="' . $prix_par_chambre[$chambre['num_chambre']] . '">' . $option_value . '</option>';
+                                }
+                                ?>
+                            </select>
                         </div>
 
                         <!-- Le champ nom et contact accompagnateur -->

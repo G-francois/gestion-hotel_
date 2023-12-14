@@ -88,7 +88,14 @@ include('./app/commum/header_.php');
                                 <tr>
                                     <td><?php echo $commande['creer_le']; ?></td>
                                     <td><?php echo $commande['num_cmd']; ?></td>
-                                    <td><?php echo $commande['num_res']; ?></td>
+                                    <td>
+                                        <?php // Récupérer le numéro de reservation
+                                        $donneesReservation = recuperer_donnee_reservation_par_son_id($commande['num_res']);
+
+                                        $num_res = !empty($donneesReservation['num_res']) ? $donneesReservation['num_res'] : null;
+                                        
+                                        echo $num_res; ?>
+                                    </td>
                                     <td>
                                         <?php
                                         if (empty($repas_commande)) {
@@ -146,6 +153,7 @@ include('./app/commum/header_.php');
                                                             <form action="<?= PATH_PROJECT ?>client/liste_des_commandes/traitement-modifier-commande" method="post" enctype="multipart/form-data">
                                                                 <input type="hidden" name="commande_id" value="<?php echo $num_cmd ?>">
                                                                 <input type="hidden" name="reservation_id" value="<?php echo $commande['num_res']; ?>">
+                                                                <input type="hidden" name="num_chambre" value="<?php echo $commande['num_chambre']; ?>">
 
 
                                                                 <?php

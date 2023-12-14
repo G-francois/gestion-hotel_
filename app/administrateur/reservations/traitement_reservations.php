@@ -3,25 +3,36 @@
 // Initialisation de la variable d'erreur
 $errors = '';
 
+
+if (isset($_POST["email"]) && !empty($_POST["email"])) {
+    if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        $donnees["email"] = trim(htmlentities($_POST["email"]));
+    } else {
+        $errors = "Le champs email doit être une adresse mail valide. Veuillez le renseigner.";
+    }
+} else {
+    $errors = "Le champs email est requis. Veuillez le renseigner.";
+}
+
+
+if (check_email_and_profile_admin_in_db($_POST["email"])) {
+    $errors = "Cette adresse mail n'est pas autorisée pour faire une réservation car il est utiliser par un autre profil 'ADMINISTRATEUR'.";
+}
+
 // Récupération de l'ID client à partir de la session
-$numClient = recuperer_id_utilisateur_par_son_mail($_SESSION['utilisateur_connecter_client']['email']);
+$numClient = recuperer_id_utilisateur_par_son_mail($donnees["email"]);
 
-// Vérification si le formulaire a été soumis
+
 if (!empty($_POST)) {
-
-    // Si le champ 'editing' existe, alors c'est une modification de réservation existante
+//  die(var_dump($_POST));
     if (!empty($_POST['editing'])) {
 
         $numero_reservation = $_POST['editing'];
 
-        // Vérification si le client peut modifier cette réservation
         if (vérifier_client_reservation_exist_in_db($numClient, $numero_reservation)) {
-            // Récupération des informations de la réservation existante
             $liste_chambres_reservations = recuperer_liste_chambres_reservations($numero_reservation);
 
-            // Initialisation de variables pour les chambres et les accompagnateurs
             $chambres = [];
-            $liste_accompagnateurs_chambres_reservations = [];
 
             foreach ($liste_chambres_reservations as $_chambre) {
                 $chambres[] = $_chambre['num_chambre'];
@@ -35,13 +46,11 @@ if (!empty($_POST)) {
             }
             //die(var_dump($tab_accs));
         } else {
-            // Erreur si le client n'est pas autorisé à modifier cette réservation
             if (empty($errors)) {
                 $errors = "Vous essayez de modifier une réservation qui n'est pas la vôtre.";
             }
         }
 
-        // Vérification du mot de passe
         if (!empty($_POST['password'])) {
 
             if (!check_password_exist($_POST['password'], $numClient)) {
@@ -50,18 +59,15 @@ if (!empty($_POST)) {
                 }
             }
         } else {
-            // Erreur si le mot de passe est vide
             if (empty($errors)) {
                 $errors = "Le champs mot de passe est requis. Veuillez le remplir.";
             }
         }
-        // Nettoyage des données du formulaire
+
         unset($_POST['editing'], $_POST['password']);
     }
 
-    // Traitement des données du formulaire
     if (!empty($_POST)) {
-        // Validation des données pour chaque chambre
         foreach ($_POST as $k => $chambre) {
             $chambre_infos = [];
 
@@ -232,8 +238,8 @@ if (!empty($_POST)) {
             $errors = "Une réservation ne peut être sans chambre. Si vous souhaitez annuler ou supprimer cette réservation, cliquez sur l'icône de suppression dans la liste des actions pour cette réservation.";
         }
     }
+    
 } else {
-    // Erreur si le formulaire n'a pas été soumis
     if (empty($errors)) {
         $errors = "Veuillez remplir le formulaire de réservation avant soumission.";
     }
@@ -241,7 +247,6 @@ if (!empty($_POST)) {
 
 //die(var_dump($num_chambres, $numAccompagnateurs, $deb_occs, $fin_occs, $montants));
 
-// Si des erreurs sont présentes, on les traite
 if (!empty($errors)) {
 
     if (empty($numero_reservation)) {
@@ -249,7 +254,7 @@ if (!empty($errors)) {
             mettre_a_jour_statut_chambre_reserver($chambre['num'], 1);
         }
     }
-    // Réponse JSON pour indiquer une erreur
+
     $response = array('success' => false, 'message' => $errors);
 } else {
 
@@ -328,17 +333,14 @@ if (!empty($errors)) {
         }
     }
 
-    $redirectUrl = PATH_PROJECT . 'administrateur/reservation/liste-reservations';
+    $redirectUrl = PATH_PROJECT . 'administrateur/reservations/liste_des_reservations';
 
     if (!empty($numero_reservation)) {
-        // Réponse JSON pour indiquer le succès de l'opération
         $response = array('success' => true, 'message' => 'Votre réservation a bien été modifié.', 'redirectUrl' => $redirectUrl);
     } else {
-        // Réponse JSON pour indiquer le succès de l'opération
-        $response = array('success' => true, 'message' => 'Votre réservation a bien été effectué.', 'redirectUrl' => $redirectUrl);
+        $response = array('success' => true, 'message' => 'Votre réservation a bien été effectué. Un retour vous sera faite après validation.', 'redirectUrl' => $redirectUrl);
     }
 }
 
-// Envoi de la réponse au format JSON
 header('Content-Type: application/json');
 echo json_encode($response);

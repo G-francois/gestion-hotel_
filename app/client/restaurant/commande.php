@@ -105,7 +105,7 @@ include('./app/commum/header_.php');
                             <?php
                             }
                             ?>
-                            <form action="<?= PATH_PROJECT ?>client/restaurant/traitement-commande" method="post" class="user" novalidate>
+                            <form action="<?= PATH_PROJECT ?>client/restaurant/traitement-commande" method="post" class="user">
 
                                 <!-- Le champ numéro de réservation -->
                                 <div class="col-md-12 mb-3">

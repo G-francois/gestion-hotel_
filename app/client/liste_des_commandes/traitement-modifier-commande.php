@@ -32,60 +32,48 @@ if (check_password_exist($_POST['password'], $_SESSION['utilisateur_connecter_cl
     if (!empty($donnees['nom_repas']) && !empty($donnees['pu_repas']) && empty($message_erreur_global)) {
         $num_cmd = $_POST['commande_id'];
         $num_res = $_POST['reservation_id'];
+        $num_chambre = $_POST['num_chambre'];
+        // die(var_dump($num_chambre));
 
         supprimer_repas_commande($num_cmd);
 
-        // die(var_dump(supprimer_repas_commande($num_cmd)));
+        //  die(var_dump(supprimer_repas_commande($num_cmd)));
 
-        $recupererNumChambre = recuperer_donnees_reservation_par_num_res($num_res);
+        // Vérifier si la chambre est inactive
+        if (verifier_chambre_supprimer($num_chambre)) {
+            // Calculate the total price for all selected meals
+            $prix_total = array_sum($donnees["pu_repas"]);
 
-        // die(var_dump($recupererNumChambre));
+            // die(var_dump($prix_total));
 
-        if (!empty($recupererNumChambre) && isset($recupererNumChambre['num_chambre'])) {
+            // Ajouter une commande avec le montant total
+            $mise_a_jour_commande = modifier_commande($num_cmd, $prix_total);
 
-            $numChambre = $recupererNumChambre['num_chambre'];
+            // die(var_dump($mise_a_jour_commande));
 
-            // die(var_dump($numChambre));
+            if ($mise_a_jour_commande) {
+                // Enregistrer la quantité de repas pour chaque repas sélectionné
+                foreach ($donnees["nom_repas"] as $codeRepas) {
 
-            // Vérifier si la chambre est inactive
-            if (verifier_chambre_supprimer($numChambre)) {
-                // Calculate the total price for all selected meals
-                $prix_total = array_sum($donnees["pu_repas"]);
+                    $insertionCommandeQuantite = enregistrer_quantite_repas($codeRepas, $num_cmd, $num_chambre);
 
-                // die(var_dump($prix_total));
+                    // die(var_dump($insertionCommandeQuantite));
 
-                // Ajouter une commande avec le montant total
-                $mise_a_jour_commande = modifier_commande($num_cmd, $prix_total);
-
-                // die(var_dump($mise_a_jour_commande));
-
-                if ($mise_a_jour_commande) {
-                    // Enregistrer la quantité de repas pour chaque repas sélectionné
-                    foreach ($donnees["nom_repas"] as $codeRepas) {
-
-                        $insertionCommandeQuantite = enregistrer_quantite_repas($codeRepas, $num_cmd, $numChambre);
-
-                        // die(var_dump($insertionCommandeQuantite));
-
-                        // Vérifiez si l'insertion a échoué et gérez les erreurs si nécessaire
-                        if (!$insertionCommandeQuantite) {
-                            $message_erreur_global = "Erreur lors de l'enregistrement de(s) repas.";
-                            break; // Sortez de la boucle si une erreur se produit pour un repas
-                        }
+                    // Vérifiez si l'insertion a échoué et gérez les erreurs si nécessaire
+                    if (!$insertionCommandeQuantite) {
+                        $message_erreur_global = "Erreur lors de l'enregistrement de(s) repas.";
+                        break; // Sortez de la boucle si une erreur se produit pour un repas
                     }
-                    // La commande a été effectuée avec succès
-                    $message_success_global = "La commande a été modifiée avec succès.";
-                } else {
-                    // La mise à jour de la commande a échoué
-                    $message_erreur_global = "Désolé, une erreur s'est produite lors de la mise à jour de la commande.";
                 }
+                // La commande a été effectuée avec succès
+                $message_success_global = "La commande a été modifiée avec succès.";
             } else {
-                // La chambre est inactive
-                $message_erreur_global = "Désolé, la chambre est inactive.";
+                // La mise à jour de la commande a échoué
+                $message_erreur_global = "Désolé, une erreur s'est produite lors de la mise à jour de la commande.";
             }
         } else {
-            // La récupération du numéro de chambre a échoué
-            $message_erreur_global = "Désolé, la récupération du numéro de chambre a échoué.";
+            // La chambre est inactive
+            $message_erreur_global = "Désolé, la chambre est inactive.";
         }
     }
 } else {
