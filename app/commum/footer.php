@@ -62,19 +62,28 @@
  <!-- Bootstrap core JavaScript-->
     <script src="<?= PATH_PROJECT ?>public/outils/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="<?= PATH_PROJECT ?>public/vendor/select2/js/select2.min.js"></script>
+    <script src="<?= PATH_PROJECT ?>public/vendor/select2/js/select2.js"></script>
 
 <!-- Inclure Select2 JS -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> -->
 
 <!-- Initialiser Select2 -->
+
+
+
 <script>
     $(document).ready(function() {
-        $(".js-example-tags").select2({
-            tags: true
+        $('.js-example-tags').select2({
+            tags: true,
+            language: {
+                noResults: function() {
+                    return "Aucun résultat trouvé";
+                }
+            }
         });
     });
 </script>
+
 
 </body>
 

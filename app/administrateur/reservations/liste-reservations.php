@@ -12,7 +12,40 @@ include './app/commum/aside.php';
 $liste_chambre = recuperer_chambres();
 
 
+// Appeler la fonction pour récupérer la liste des clients
+$liste_clients = recuperer_liste_clients_actifs();
 ?>
+
+<style>
+    .btn-custom {
+        --bs-btn-color: #fff;
+        --bs-btn-border-color: #fff;
+        --bs-btn-bg: #cda45e;
+        --bs-btn-hover-bg: #cda45e;
+        --bs-btn-hover-border-color: #fff;
+    }
+
+    .btn-danger-custom {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #b30617;
+        --bs-btn-border-color: #fff;
+        --bs-btn-hover-bg: #b30617;
+        --bs-btn-hover-border-color: #fff;
+    }
+
+    .btn-success-custom {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #013534;
+        --bs-btn-border-color: #fff;
+        --bs-btn-hover-bg: #013534;
+        --bs-btn-hover-border-color: #fff;
+    }
+
+    .card-body {
+        color: black;
+    }
+</style>
+
 
 <!-- Commencement du contenu de la page -->
 <div class="container-fluid">
@@ -151,7 +184,7 @@ $liste_chambre = recuperer_chambres();
                                                         <div class="modal-body">
                                                             <div class="table-responsive">
                                                                 <table class="table table-borderless">
-                                                                    <thead>
+                                                                    <thead style="color: black;">
                                                                         <tr>
                                                                             <th scope="col">Chambres</th>
                                                                             <th scope="col">Type</th>
@@ -215,7 +248,7 @@ $liste_chambre = recuperer_chambres();
 
                                                             <!-- Formulaire de validation -->
                                                             <form action="<?= PATH_PROJECT ?>administrateur/reservations/traitement_rejeter_reservation" method="POST">
-                                                                <input type="hidden" name="num_res" value="<?php echo $reservation['num_res']; ?>"> 
+                                                                <input type="hidden" name="num_res" value="<?php echo $reservation['num_res']; ?>">
                                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-calendar-minus" title="Rejeter la réservation"></i></button>
                                                             </form>
                                                         </div>
@@ -235,12 +268,27 @@ $liste_chambre = recuperer_chambres();
                                                             <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier la réservation <?php echo $reservation['num_res']; ?></h1>
                                                             <!-- Bouton pour ajouter un conteneur -->
                                                             <div class="col-md" style="justify-content: end; display: flex;">
-                                                                <button type="button" class="btn btn-custom text-light" id="ajouter-chambres">Ajouter une chambre</button>
+                                                                <button type="button" class="btn btn-success text-light" id="ajouter-chambres">Ajouter une chambre</button>
                                                             </div>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form id="modification<?= $reservation['num_res']; ?>" data-endpoint="<?= PATH_PROJECT ?>administrateur/reservations/traitement_reservations">
+
+                                                                <!-- Le champ email -->
+                                                                <div class="col-md-12 mb-4" style="padding-left: 0px;">
+                                                                    <label for="email"> Email du Client :
+                                                                        <span class="text-danger">(*)</span>
+                                                                    </label>
+
+                                                                    <!-- Champ de sélection dynamique avec les adresses e-mail -->
+                                                                    <select name="email" class="form-control js-example-tags" style="width: 100%;">
+                                                                        <option value=""><?= $info_client_reservant['email'] ?></option>
+                                                                        <?php foreach ($liste_clients as $client) : ?>
+                                                                            <option><?= $client['email'] ?></option>
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                </div>
 
                                                                 <!-- Conteneur pour les champs de chambre dynamiques -->
                                                                 <div id="champs-chambres-dynamiques-container">
@@ -393,10 +441,10 @@ $liste_chambre = recuperer_chambres();
                                                                 </div>
 
                                                                 <div class="float-right" style="text-align: right;">
-                                                                    <button type="reset" class="btn btn-danger-custom text-light">
+                                                                    <button type="reset" class="btn btn-danger-custom text-light" style="background-color: red">
                                                                         Annuler
                                                                     </button>
-                                                                    <button type="submit" id="submitButton" class="btn btn-success-custom text-light">
+                                                                    <button type="submit" id="submitButton" class="btn btn-success-custom text-light" style="background-color: black">
                                                                         <span>Mettre à jour</span>
                                                                         <span class="loader"></span>
                                                                     </button>

@@ -204,11 +204,13 @@ if (isset($_SESSION['erreurs-commande']) && !empty($_SESSION['erreurs-commande']
     <!-- Custom styles for this template-->
     <link href="<?= PATH_PROJECT ?>public/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Inclure Select2 CSS -->
-    <link href="<?= PATH_PROJECT ?>public/vendor/select2/css/select2.min.css" rel="stylesheet" />
-
     <script src="<?= PATH_PROJECT ?>public/jquery/jquery.min.js"></script>
+
     <script src="<?= PATH_PROJECT ?>public/js/ajax.js"></script>
+
+    <!-- Inclure Select2 CSS -->
+    <link href="<?= PATH_PROJECT ?>public/vendor/select2/css/select2.css" rel="stylesheet" />
+
     <style>
         .bg-gradient-primary {
             margin-top: 0px;

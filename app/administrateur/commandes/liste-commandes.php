@@ -7,6 +7,9 @@ if (!check_if_user_connected_admin()) {
 include './app/commum/header.php';
 
 include './app/commum/aside.php';
+
+$liste_chambre = recuperer_chambres();
+
 ?>
 
 <!-- Begin Page Content -->
@@ -55,12 +58,10 @@ include './app/commum/aside.php';
                     <table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
                         <thead>
                             <tr>
-                                <th scope="col">Date & Heure</th>
                                 <th scope="col">Numéro de Commande</th>
-                                <th scope="col">Numéro de Réservation</th>
-                                <th scope="col">Liste des Repas</th>
-                                <th scope="col">Prix Unitaire</th>
-                                <th scope="col">Prix Total</th>
+                                <th scope="col">Date & Heure</th>
+                                <th scope="col">Client(e)</th>
+                                <th scope="col">Montant Total(FCFA)</th>
                                 <th scope="col">Statut</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -75,42 +76,33 @@ include './app/commum/aside.php';
                                 $repas_commande = recuperer_liste_repas_par_commande($num_cmd);
                             ?>
                                 <tr>
-                                    <td><?php echo $commande['creer_le']; ?></td>
                                     <td><?php echo $commande['num_cmd']; ?></td>
-                                    <td><?php echo $commande['num_res']; ?></td>
-                                    <td>
-                                        <?php
-                                        if (empty($repas_commande)) {
-                                            echo '---';
-                                        } else {
-                                            foreach ($repas_commande as $repas) {
-                                                $info_repas = recuperer_info_repas($repas['cod_repas']);
-                                                if ($info_repas !== null) {
-                                                    echo $info_repas['nom_repas'] . '<br>';
-                                                } else {
-                                                    echo 'Nom du repas non disponible<br>';
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <?php
+                                    <td><?php echo $commande['creer_le']; ?></td>
 
-                                        if (empty($repas_commande)) {
-                                            echo '---';
-                                        } else {
-                                            foreach ($repas_commande as $repas) {
-                                                $info_repas = recuperer_info_repas($repas['cod_repas']);
-                                                if ($info_repas !== null) {
-                                                    echo $info_repas['pu_repas'] . '<br>';
-                                                } else {
-                                                    echo 'Nom du repas non disponible<br>';
-                                                }
-                                            }
-                                        }
+                                    <td>
+                                        <?php
+                                        // Récupérer le numéro de reservation
+                                        $donneesReservation = recuperer_donnee_reservation_par_num_chambre($commande['num_chambre']);
+                                        // die(var_dump($donneesReservation));
+
+                                        // Récupérer les informations d'une chambre
+                                        $chambre = recuperer_chambre_par_son_num_chambre($commande['num_chambre']);
+
+                                        $num_res = !empty($donneesReservation['num_res']) ? $donneesReservation['num_res'] : null;
+
+                                        $donneesReservation2 = recuperer_donnees_reservation_par_num_res($num_res);
+
+                                        $num_clt = !empty($donneesReservation2['num_clt']) ? $donneesReservation2['num_clt'] : null;
+
+                                        $info_client_reservant = recuperer_user_par_son_id($num_clt);
+
                                         ?>
+
+                                        <?php echo $nom_clt = !empty($info_client_reservant['nom']) ? $info_client_reservant['nom'] : null; ?>
+                                        <?php echo $prenom_clt = !empty($info_client_reservant['prenom']) ? $info_client_reservant['prenom'] : null; ?>
+
                                     </td>
+
                                     <td>
                                         <?php echo $commande['prix_total']; ?>
                                     </td>
@@ -132,6 +124,130 @@ include './app/commum/aside.php';
 
                                     <td>
                                         <div style="display: flex; align-items: center;">
+
+                                            <!-- Button Détails modal -->
+                                            <i class="far fa-eye details-icon " style="margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal-<?= $commande['num_cmd']; ?>" title="Voir les détails">
+                                            </i>
+
+
+                                            <!-- Modal Détails-->
+                                            <div class="modal modal-blur fade" id="exampleModal-<?= $commande['num_cmd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Détails de la commande <?php echo $commande['num_cmd']; ?></h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-borderless">
+                                                                    <thead>
+                                                                        <?php
+                                                                        // Récupérer le numéro de reservation
+                                                                        $donneesReservation = recuperer_donnee_reservation_par_num_chambre($commande['num_chambre']);
+                                                                        // die(var_dump($donneesReservation));
+
+                                                                        // Récupérer les informations d'une chambre
+                                                                        $chambre = recuperer_chambre_par_son_num_chambre($commande['num_chambre']);
+
+                                                                        $num_res = !empty($donneesReservation['num_res']) ? $donneesReservation['num_res'] : null;
+
+                                                                        $donneesReservation2 = recuperer_donnees_reservation_par_num_res($num_res);
+
+                                                                        // die(var_dump($num_res))
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="col">Liste des Repas</th>
+                                                                            <th scope="col">Prix Unitaire</th>
+                                                                            <th scope="col">Numéro de Réservation</th>
+                                                                            <th scope="col">Numéro de Chambres</th>
+                                                                            <th scope="col">Type de chambre</th>
+                                                                            <th scope="col">Date de début d'occupation</th>
+                                                                            <th scope="col">Date de fin d'occupation</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <!-- Liste des repas commandé(s) -->
+                                                                            <td>
+                                                                                <?php
+                                                                                if (empty($repas_commande)) {
+                                                                                    echo '---';
+                                                                                } else {
+                                                                                    foreach ($repas_commande as $repas) {
+                                                                                        $info_repas = recuperer_info_repas($repas['cod_repas']);
+                                                                                        if ($info_repas !== null) {
+                                                                                            echo $info_repas['nom_repas'] . '<br>';
+                                                                                        } else {
+                                                                                            echo 'Nom du repas non disponible<br>';
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                ?>
+                                                                            </td>
+                                                                            <!-- Liste des prix unitaire de chaque repas commandé(s) -->
+                                                                            <td>
+                                                                                <?php
+
+                                                                                if (empty($repas_commande)) {
+                                                                                    echo '---';
+                                                                                } else {
+                                                                                    foreach ($repas_commande as $repas) {
+                                                                                        $info_repas = recuperer_info_repas($repas['cod_repas']);
+                                                                                        if ($info_repas !== null) {
+                                                                                            echo $info_repas['pu_repas'] . '<br>';
+                                                                                        } else {
+                                                                                            echo 'Nom du repas non disponible<br>';
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                ?>
+                                                                            </td>
+                                                                            <!-- Le numero de la reservation -->
+                                                                            <td>
+                                                                                <?php echo $num_res = !empty($donneesReservation['num_res']) ? $donneesReservation['num_res'] : null; ?>
+                                                                            </td>
+
+                                                                            <!-- Le numero de la chambre qui a fait la commande-->
+                                                                            <td>
+                                                                                <?php echo $commande['num_chambre']; ?>
+                                                                            </td>
+                                                                            <!-- Le type de la chambre qui a fait la commande-->
+                                                                            <td>
+                                                                                <?php echo $type_chambre = !empty($chambre['lib_typ']) ? $chambre['lib_typ'] : null; ?>
+                                                                            </td>
+                                                                            <!-- Le début d'occupation de la chambre qui a fait la commande-->
+                                                                            <td>
+                                                                                <?php echo $deb_occ_chambre = !empty($donneesReservation['deb_occ']) ? $donneesReservation['deb_occ'] : null; ?>
+                                                                            </td>
+                                                                            <!-- Le fin d'occupation de la chambre qui a fait la commande-->
+                                                                            <td>
+                                                                                <?php echo $fin_occ_chambre = !empty($donneesReservation['fin_occ']) ? $donneesReservation['fin_occ'] : null; ?>
+                                                                            </td>
+
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <!-- Formulaire de validation -->
+                                                            <form action="<?= PATH_PROJECT ?>administrateur/reservations/traitement_validation_reservation" method="POST">
+                                                                <input type="hidden" name="num_res" value="<?php echo $commande['num_cmd']; ?>">
+                                                                <button type="submit" class="btn btn-success"><i class="fas fa-calendar-check" title="Valider la réservation"></i></button>
+                                                            </form>
+
+                                                            <!-- Formulaire de validation -->
+                                                            <form action="<?= PATH_PROJECT ?>administrateur/reservations/traitement_rejeter_reservation" method="POST">
+                                                                <input type="hidden" name="num_res" value="<?php echo $commande['num_cmd']; ?>">
+                                                                <button type="submit" class="btn btn-danger"><i class="fas fa-calendar-minus" title="Rejeter la réservation"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <!-- Button Modifier modal -->
                                             <i class="far fa-edit modifier-icon" style="margin-right: 20px;" data-bs-target="#modifierModal-<?php echo $num_cmd ?>" data-num-cmd="<?php echo $num_cmd ?>" data-nom-repas="<?= htmlspecialchars(json_encode($repas_commande)) ?>" title="Modifier la commande ">

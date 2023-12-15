@@ -79,12 +79,13 @@ $liste_clients = recuperer_liste_clients_actifs();
 
                         <!-- Le champ email -->
                         <div class="col-md-12 mb-4" style="padding-left: 0px;">
-                            <label for="num_chambre"> Email du Client :
+                            <label for="email"> Email du Client :
                                 <span class="text-danger">(*)</span>
                             </label>
 
                             <!-- Champ de sélection dynamique avec les adresses e-mail -->
-                            <select name="email" class="form-control js-example-tags">
+                            <select name="email" class="form-control js-example-tags" style="width: 100%;">
+                                <option value="">Sélectionnez un e-mail existant</option>
                                 <?php foreach ($liste_clients as $client) : ?>
                                     <option><?= $client['email'] ?></option>
                                 <?php endforeach; ?>
@@ -186,7 +187,6 @@ $liste_clients = recuperer_liste_clients_actifs();
                         <div class="col-md-12 mb-3" style="justify-content: center; display: flex;">
                             <button type="button" class="btn btn-success" id="ajouter-chambres">Ajouter une chambre</button>
                         </div>
-
 
                         <!-- Conteneur pour les champs de chambre dynamiques -->
                         <div id="champs-chambres-dynamiques-container">

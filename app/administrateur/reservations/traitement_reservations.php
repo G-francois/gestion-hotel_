@@ -23,8 +23,11 @@ if (check_email_and_profile_admin_in_db($_POST["email"])) {
 $numClient = recuperer_id_utilisateur_par_son_mail($donnees["email"]);
 
 
+
+unset($_POST['email']);
+
 if (!empty($_POST)) {
-//  die(var_dump($_POST));
+  //die(var_dump($_POST));
     if (!empty($_POST['editing'])) {
 
         $numero_reservation = $_POST['editing'];
@@ -53,7 +56,7 @@ if (!empty($_POST)) {
 
         if (!empty($_POST['password'])) {
 
-            if (!check_password_exist($_POST['password'], $numClient)) {
+            if (!check_password_exist($_POST['password'], $_SESSION['utilisateur_connecter_admin']['id'])) {
                 if (empty($errors)) {
                     $errors = "Mot de passe incorrect. Veuillez réessayer.";
                 }
@@ -333,7 +336,7 @@ if (!empty($errors)) {
         }
     }
 
-    $redirectUrl = PATH_PROJECT . 'administrateur/reservations/liste_des_reservations';
+    $redirectUrl = PATH_PROJECT . 'administrateur/reservations/liste-reservations';
 
     if (!empty($numero_reservation)) {
         $response = array('success' => true, 'message' => 'Votre réservation a bien été modifié.', 'redirectUrl' => $redirectUrl);

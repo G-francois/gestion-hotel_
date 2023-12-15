@@ -3257,7 +3257,7 @@ function recuperer_donnee_reservation_par_son_id($id)
 /**
  * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce num res
  *
- * @param  int $numReservation
+ * @param mixed $numReservation
  * @return void
  */
 function recuperer_donnees_reservation_par_num_res($numReservation)
@@ -3284,6 +3284,38 @@ function recuperer_donnees_reservation_par_num_res($numReservation)
 
 	return $donneesReservation;
 }
+
+/**
+ * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce num res
+ *
+ * @param  int $numReservation
+ * @return void
+ */
+function recuperer_donnees_reservation_chambre_par_num_res($numReservation)
+{
+	$donneesReservation = null;
+
+	$db = connect_db();
+
+	if (!is_null($db)) {
+
+		$requete = 'SELECT * FROM reservation_chambres WHERE num_res = :num_res';
+
+		$request_prepare = $db->prepare($requete);
+
+		if ($request_prepare->execute([
+
+			'num_res' => $numReservation
+
+		])) {
+
+			$donneesReservation = $request_prepare->fetch(PDO::FETCH_ASSOC);
+		}
+	}
+
+	return $donneesReservation;
+}
+
 
 
 /**

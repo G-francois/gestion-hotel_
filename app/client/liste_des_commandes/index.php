@@ -17,13 +17,18 @@ include('./app/commum/header_.php');
 <!-- Commencement du contenu de la page -->
 <div class="container-fluid">
     <!-- Titre de la page -->
-    <div class="pagetitle" style="padding-top: 126px;">
+    <div class="pagetitle" style="padding-top: 126px; padding-bottom: 12px; display: flex; justify-content: space-between;">
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                 <li class="breadcrumb-item active">Liste des commandes</li>
             </ol>
         </nav>
+
+        <a class="btn btn-primary" style="--bs-btn-color: #fff; --bs-btn-bg: #cda45e; --bs-btn-border-color: #000000; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #9d6b15; --bs-btn-hover-border-color: #000000;" href="<?= PATH_PROJECT . 'client/restaurant/commande' ?>">
+            <!-- Afficher le bouton de commande ici -->
+            Faire une Commande
+        </a>
     </div>
 
     <!-- Tableau de données liste reservations -->
@@ -93,7 +98,7 @@ include('./app/commum/header_.php');
                                         $donneesReservation = recuperer_donnee_reservation_par_son_id($commande['num_res']);
 
                                         $num_res = !empty($donneesReservation['num_res']) ? $donneesReservation['num_res'] : null;
-                                        
+
                                         echo $num_res; ?>
                                     </td>
                                     <td>

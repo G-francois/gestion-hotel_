@@ -53,7 +53,7 @@ $liste_chambre = recuperer_chambres();
         </nav>
 
 
-        <a class="btn btn-primary" href="<?= PATH_PROJECT . 'client/chambres/reservations' ?>">
+        <a class="btn btn-primary" style="--bs-btn-color: #fff; --bs-btn-bg: #cda45e; --bs-btn-border-color: #000000; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #9d6b15; --bs-btn-hover-border-color: #000000;" href="<?= PATH_PROJECT . 'client/chambres/reservations' ?>">
             <!-- Afficher le bouton de réservation ici -->
             Faire une Réservation
         </a>
