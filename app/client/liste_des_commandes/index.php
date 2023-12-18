@@ -184,8 +184,8 @@ include('./app/commum/header_.php');
                                                                         <div class="row">
                                                                             <!-- Le champ nom_repas -->
                                                                             <div class="col-md-6 mb-3">
-                                                                                <label for="modification-nom_repas">Nom du repas:</label>
-                                                                                <select class="form-control nom_repas" id="modification-nom_repas" name="nom_repas[]">
+                                                                                <label for="modification-nom_repas-<?php echo $num_cmd; ?>-<?php echo $repas['cod_repas']; ?>">Nom du repas:</label>
+                                                                                <select class="form-control nom_repas" id="modification-nom_repas-<?php echo $num_cmd; ?>-<?php echo $repas['cod_repas']; ?>" name="nom_repas[]">
                                                                                     <option value="">Sélectionnez un repas</option>
                                                                                     <?php
                                                                                     $liste_repas = recuperer_nom_prix_repas();
@@ -232,8 +232,8 @@ include('./app/commum/header_.php');
 
                                                                 <!-- Champ de saisie de mot de passe -->
                                                                 <div class="form-group">
-                                                                    <label for="passwordImput">Mot de passe :</label>
-                                                                    <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Veuillez entrer votre mot de passe" required>
+                                                                    <label for="passwordInput-<?php echo $num_cmd; ?>">Mot de passe :</label>
+                                                                    <input type="password" name="password" id="passwordInput-<?php echo $num_cmd; ?>" class="form-control" placeholder="Veuillez entrer votre mot de passe" required>
                                                                 </div>
 
 
@@ -267,8 +267,8 @@ include('./app/commum/header_.php');
                                                                 <input type="hidden" name="commande_id" value="<?php echo $num_cmd ?>">
 
                                                                 <div class="form-group">
-                                                                    <label for="passwordImput" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe</label>
-                                                                    <input type="password" name="password" id="passwordImput" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
+                                                                    <label for="passwordImput2-<?php echo $num_cmd; ?>" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe</label>
+                                                                    <input type="password" name="password" id="passwordImput2-<?php echo $num_cmd; ?>" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
                                                                 </div>
 
                                                                 <div class="modal-footer">
@@ -329,8 +329,8 @@ include('./app/commum/header_.php');
             var nouveauChamp = `
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="nom_repas">Nom du Repas : <span class="text-danger">(*)</span></label>
-                    <select class="form-control nom_repas" id="nom_repas" name="nom_repas[]">
+                <label for="modification-nom_repas-<?php echo $num_cmd; ?>-<?php echo $repas['cod_repas']; ?>">Nom du repas:</label>
+                    <select class="form-control nom_repas" id="modification-nom_repas-<?php echo $num_cmd; ?>-<?php echo $repas['cod_repas']; ?>" name="nom_repas[]">
                         <option value="">Sélectionnez un repas</option>
                         <?php
                         $liste_repas = recuperer_nom_prix_repas();

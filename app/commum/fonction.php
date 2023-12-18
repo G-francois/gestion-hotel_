@@ -3081,11 +3081,11 @@ function recuperer_nom_prix_repas()
 /**
  * Cette fonction vérifie si la réservation appartient au client connecté
  *
- * @param  mixed $numRes
- * @param  mixed $clientConnecteID
+ * @param  string $numRes
+ * @param  int $clientConnecteID
  * @return void
  */
-function verifier_appartenance_reservation($numRes, $clientConnecteID)
+function verifier_appartenance_reservation(string $numRes, int $clientConnecteID)
 {
 	$db = connect_db();
 
@@ -3123,10 +3123,10 @@ function verifier_appartenance_reservation($numRes, $clientConnecteID)
 /**
  * Cette fonction permet de vérifier si un numéro de réservation existe dans la base de données,
  *
- * @param  mixed $numReservation
+ * @param  string $numReservation
  * @return bool
  */
-function verifier_existence_num_res($numReservation): bool
+function verifier_existence_num_res(string $numReservation): bool
 {
 	$existe = false;
 
@@ -3134,12 +3134,13 @@ function verifier_existence_num_res($numReservation): bool
 
 	if (!is_null($db)) {
 
-		$requete = 'SELECT COUNT(*) as count FROM reservations WHERE num_res = :num_res and est_supprimer = :est_supprimer';
+		$requete = 'SELECT COUNT(*) as count FROM reservations WHERE num_res = :num_res and statut = :statut and est_supprimer = :est_supprimer';
 
 		$request_prepare = $db->prepare($requete);
 
 		if ($request_prepare->execute([
 			'num_res' => $numReservation,
+			'statut' => "En cours de validation",
 			'est_supprimer' => 0
 		])) {
 
@@ -3159,10 +3160,84 @@ function verifier_existence_num_res($numReservation): bool
 /**
  * Cette fonction permet de vérifier si un numéro de réservation existe dans la base de données,
  *
- * @param  mixed $numChambre
+ * @param  string $numReservation
  * @return bool
  */
-function verifier_existence_num_chambre($numChambre): bool
+function verifier_existence_num_res_avec_statut(string $numReservation): bool
+{
+	$existe = false;
+
+	$db = connect_db();
+
+	if (!is_null($db)) {
+
+		$requete = 'SELECT COUNT(*) as count FROM reservations WHERE num_res = :num_res and statut = :statut and est_supprimer = :est_supprimer';
+
+		$request_prepare = $db->prepare($requete);
+
+		if ($request_prepare->execute([
+			'num_res' => $numReservation,
+			'statut' => "Valider",
+			'est_supprimer' => 0
+		])) {
+
+			$resultat = $request_prepare->fetch(PDO::FETCH_ASSOC);
+
+			if ($resultat && isset($resultat['count']) && $resultat['count'] > 0) {
+
+				$existe = true;
+			}
+		}
+	}
+
+	return $existe;
+}
+
+
+/**
+ * Cette fonction permet de vérifier si un numéro de commande existe dans la base de données,
+ *
+ * @param  int $numCommande
+ * @return bool
+ */
+function verifier_existence_num_cmd($numCommande): bool
+{
+	$existe = false;
+
+	$db = connect_db();
+
+	if (!is_null($db)) {
+
+		$requete = 'SELECT COUNT(*) as count FROM commande WHERE num_cmd = :num_cmd and est_supprimer = :est_supprimer';
+
+		$request_prepare = $db->prepare($requete);
+
+		if ($request_prepare->execute([
+			'num_cmd' => $numCommande,
+			'est_supprimer' => 0
+		])) {
+
+			$resultat = $request_prepare->fetch(PDO::FETCH_ASSOC);
+
+			if ($resultat && isset($resultat['count']) && $resultat['count'] > 0) {
+
+				$existe = true;
+			}
+		}
+	}
+
+	return $existe;
+}
+
+
+
+/**
+ * Cette fonction permet de vérifier si un numéro de réservation existe dans la base de données,
+ *
+ * @param  int $numChambre
+ * @return bool
+ */
+function verifier_existence_num_chambre(int $numChambre): bool
 {
 	$existe = false;
 
@@ -3194,10 +3269,10 @@ function verifier_existence_num_chambre($numChambre): bool
 /**
  * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce num_chambre
  *
- * @param  mixed $numChambre
+ * @param  int $numChambre
  * @return void
  */
-function recuperer_donnee_reservation_par_num_chambre($numChambre)
+function recuperer_donnee_reservation_par_num_chambre(int $numChambre)
 {
 	$donneesReservation = null;
 
@@ -3257,10 +3332,10 @@ function recuperer_donnee_reservation_par_son_id($id)
 /**
  * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce num res
  *
- * @param mixed $numReservation
+ * @param string $numReservation
  * @return void
  */
-function recuperer_donnees_reservation_par_num_res($numReservation)
+function recuperer_donnees_reservation_par_num_res(string $numReservation)
 {
 	$donneesReservation = null;
 
@@ -3321,10 +3396,10 @@ function recuperer_donnees_reservation_chambre_par_num_res($numReservation)
 /**
  * verifier_chambre_supprimer
  *
- * @param  mixed $numChambre
+ * @param  int $numChambre
  * @return bool
  */
-function verifier_chambre_supprimer($numChambre): bool
+function verifier_chambre_supprimer(int $numChambre): bool
 {
 	$estSupprimee = false;
 
@@ -3358,7 +3433,8 @@ function verifier_chambre_supprimer($numChambre): bool
 /**
  * Cette fonction permet d'ajouter une commande avec un prix total
  *
- * @param mixed $num_res
+ * @param int $num_res
+ * @param int $numChambre
  * @param float $prix_total
  * @return bool
  */
@@ -3390,10 +3466,10 @@ function enregistrer_une_commande_avec_prix_total($num_res, $numChambre, $prix_t
 /**
  * recuperer_num_cmd_par_num_res
  *
- * @param  mixed $num_res
+ * @param  int $num_res
  * @return int
  */
-function recuperer_num_cmd_par_num_res($num_res): ?int
+function recuperer_num_cmd_par_num_res(int $num_res): ?int
 {
 	$numCommande = null;
 	$db = connect_db();
@@ -3419,20 +3495,20 @@ function recuperer_num_cmd_par_num_res($num_res): ?int
 
 
 /**
- * enregistrer_quantite_repas
+ * enregistrer_commande_repas
  *
- * @param  mixed $numCommande
- * @param  mixed $numChambre
- * @param  mixed $codeRepas
+ * @param  int $numCommande
+ * @param  int $numChambre
+ * @param  int $codeRepas
  * @return bool
  */
-function enregistrer_quantite_repas($codeRepas, $numCommande, $numChambre): bool
+function enregistrer_commande_repas( $codeRepas,int $numCommande,int $numChambre): bool
 {
 	$enregistrerQuantite = false;
 	$db = connect_db();
 
 	if (!is_null($db)) {
-		$requete = 'INSERT INTO quantite (cod_repas, num_cmd, num_chambre) VALUES (:cod_repas, :num_cmd, :num_chambre)';
+		$requete = 'INSERT INTO commande_repas (cod_repas, num_cmd, num_chambre) VALUES (:cod_repas, :num_cmd, :num_chambre)';
 		$insererQuantite = $db->prepare($requete);
 
 		if ($insererQuantite) {
@@ -3447,7 +3523,7 @@ function enregistrer_quantite_repas($codeRepas, $numCommande, $numChambre): bool
 			} else {
 				// En cas d'erreur lors de l'exécution de la requête, affichez les informations sur l'erreur
 				$errorInfo = $insererQuantite->errorInfo();
-				die("Erreur lors de l'insertion dans la table 'quantite': " . $errorInfo[2]);
+				die("Erreur lors de l'insertion dans la table 'commande_repas': " . $errorInfo[2]);
 			}
 		} else {
 			// En cas d'erreur lors de la préparation de la requête
@@ -3538,7 +3614,7 @@ function recuperer_liste_repas_par_commande($num_cmd): array
 
 	if (!is_null($db)) {
 
-		$requette = 'SELECT * FROM quantite WHERE num_cmd = :num_cmd and est_actif = 1 and est_supprimer = 0';
+		$requette = 'SELECT * FROM commande_repas WHERE num_cmd = :num_cmd and est_actif = 1 and est_supprimer = 0';
 
 		$verifier_liste_repas = $db->prepare($requette);
 
@@ -3595,7 +3671,7 @@ function recuperer_info_repas($cod_repas): ?array
 
 
 /**
- * Supprime les entrées des repas associées à une commande dans la table quantite.
+ * Supprime les entrées des repas associées à une commande dans la table commande_repas.
  *
  * @param int $num_cmd Le numéro de commande.
  * @return bool Indique si la suppression a réussi ou non.
@@ -3608,7 +3684,7 @@ function supprimer_repas_commande($num_cmd): bool
 
 	if (!is_null($db)) {
 
-		$requete = "DELETE FROM quantite WHERE num_cmd = :num_cmd";
+		$requete = "DELETE FROM commande_repas WHERE num_cmd = :num_cmd";
 
 		$suppression_reussie = $db->prepare($requete);
 
@@ -3758,7 +3834,7 @@ function enregistrer_messages($numClient, $type_sujet, $messages): bool
 			} else {
 				// En cas d'erreur lors de l'exécution de la requête, affichez les informations sur l'erreur
 				$errorInfo = $inserermessage->errorInfo();
-				die("Erreur lors de l'insertion dans la table 'quantite': " . $errorInfo[2]);
+				die("Erreur lors de l'insertion dans la table 'contact': " . $errorInfo[2]);
 			}
 		} else {
 			// En cas d'erreur lors de la préparation de la requête

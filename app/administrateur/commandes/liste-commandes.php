@@ -234,15 +234,16 @@ $liste_chambre = recuperer_chambres();
                                                         </div>
                                                         <div class="modal-footer">
                                                             <!-- Formulaire de validation -->
-                                                            <form action="<?= PATH_PROJECT ?>administrateur/reservations/traitement_validation_reservation" method="POST">
-                                                                <input type="hidden" name="num_res" value="<?php echo $commande['num_cmd']; ?>">
-                                                                <button type="submit" class="btn btn-success"><i class="fas fa-calendar-check" title="Valider la réservation"></i></button>
+                                                            <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-validation-commande" method="POST">
+                                                                <input type="hidden" name="num_cmd" value="<?php echo $commande['num_cmd']; ?>">
+                                                                <input type="hidden" name="num_res" value="<?php echo $commande['num_res']; ?>">
+                                                                <button type="submit" class="btn btn-success"><i class="fas fa-calendar-check" title="Valider la commande"></i></button>
                                                             </form>
 
                                                             <!-- Formulaire de validation -->
-                                                            <form action="<?= PATH_PROJECT ?>administrateur/reservations/traitement_rejeter_reservation" method="POST">
+                                                            <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-rejeter-commande" method="POST">
                                                                 <input type="hidden" name="num_res" value="<?php echo $commande['num_cmd']; ?>">
-                                                                <button type="submit" class="btn btn-danger"><i class="fas fa-calendar-minus" title="Rejeter la réservation"></i></button>
+                                                                <button type="submit" class="btn btn-danger"><i class="fas fa-calendar-minus" title="Rejeter la commande"></i></button>
                                                             </form>
                                                         </div>
                                                     </div>

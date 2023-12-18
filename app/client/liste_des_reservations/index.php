@@ -319,7 +319,7 @@ $liste_chambre = recuperer_chambres();
                                                                             <div class="row">
                                                                                 <!-- Le champ nom_acc -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="modification-nom_acc">
+                                                                                    <label for="modification-nom_acc-<?php echo $reservation['num_res']; ?>">
                                                                                         Nom de l'accompagnateur:
                                                                                     </label>
                                                                                     <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][nom_acc]" id="modification-nom_acc" class="form-control">
@@ -327,7 +327,7 @@ $liste_chambre = recuperer_chambres();
 
                                                                                 <!-- Le champ contact_acc -->
                                                                                 <div class="col-md-5 mb-1">
-                                                                                    <label for="modification-contact_acc">
+                                                                                    <label for="modification-contact_acc-<?php echo $reservation['num_res']; ?>">
                                                                                         Contact de l'accompagnateur:
                                                                                     </label>
                                                                                     <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][contact_acc]" id="modification-contact_acc" class="form-control">
@@ -348,23 +348,23 @@ $liste_chambre = recuperer_chambres();
                                                                             <div class="row">
                                                                                 <!-- Le champ date de début occupation -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="inscription-deb_occ">
+                                                                                    <label for="inscription-deb_occ-<?php echo $reservation['num_res']; ?>-1">
                                                                                         Début de séjour:
                                                                                         <span class="text-danger">(*)</span>
                                                                                     </label>
                                                                                     <div class="input-group mb-3">
-                                                                                        <input type="date" name="chambre<?= $i + 1 ?>[deb_occ]" id="inscription-deb_occ" class="form-control" placeholder="Veuillez entrer votre date de début occupation" value="<?= date('Y-m-d', strtotime($chambre_['deb_occ'])) ?>" required>
+                                                                                        <input type="date" id="inscription-deb_occ-<?php echo $reservation['num_res']; ?>" name="chambre<?= $i + 1 ?>[deb_occ]" id="inscription-deb_occ" class="form-control" placeholder="Veuillez entrer votre date de début occupation" value="<?= date('Y-m-d', strtotime($chambre_['deb_occ'])) ?>" required>
                                                                                     </div>
                                                                                 </div>
 
                                                                                 <!-- Le champ date de fin occupation -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="inscription-fin_occ">
+                                                                                    <label for="inscription-fin_occ-<?php echo $reservation['num_res']; ?>-2">
                                                                                         Fin de séjour:
                                                                                         <span class="text-danger">(*)</span>
                                                                                     </label>
                                                                                     <div class="input-group mb-3">
-                                                                                        <input type="date" name="chambre<?= $i + 1 ?>[fin_occ]" id="inscription-fin_occ" class="form-control" placeholder="Veuillez entrer votre date de fin occupation" value="<?= date('Y-m-d', strtotime($chambre_['fin_occ'])) ?>" required>
+                                                                                        <input type="date" id="inscription-fin_occ-<?php echo $reservation['num_res']; ?>" name="chambre<?= $i + 1 ?>[fin_occ]" id="inscription-fin_occ" class="form-control" placeholder="Veuillez entrer votre date de fin occupation" value="<?= date('Y-m-d', strtotime($chambre_['fin_occ'])) ?>" required>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -385,12 +385,12 @@ $liste_chambre = recuperer_chambres();
                                                                     <hr>
 
                                                                     <div class="col-md mb-1">
-                                                                        <label for="inscription-deb_occ">
+                                                                        <label for="password-<?php echo $reservation['num_res']; ?>">
                                                                             Mot de passe:
                                                                             <span class="text-danger">(*)</span>
                                                                         </label>
                                                                         <div class="input-group mb-3">
-                                                                            <input type="password" name="password" class="form-control mb-2" placeholder="Veuillez entrez votre mot de passe utilisateur puis valider" id="">
+                                                                            <input type="password" id="password-<?php echo $reservation['num_res']; ?>" name="password" class="form-control mb-2" placeholder="Veuillez entrez votre mot de passe utilisateur puis valider" id="">
                                                                         </div>
                                                                     </div>
 
@@ -580,7 +580,6 @@ foreach ($liste_reservations as $reservation) {
     foreach ($liste_chambres_reservations as $i => $chambre_) {
     ?>
         <!-- edt -->
-
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var ajouterAccompagnateurBtn = document.getElementById('ajouter-accompagnateur-btn<?= $chambre_['num_chambre'] + 1 ?>');
@@ -677,14 +676,14 @@ foreach ($liste_reservations as $reservation) {
                         <div class="row">
                             <!-- Le champ nom_acc -->
                             <div class="col-md-6 mb-1">
-                                <label for="modification-nom_acc">Nom de l'accompagnateur:</label>
+                                <label for="modification-nom_acc-<?php echo $reservation['num_chambre']; ?>">Nom de l'accompagnateur:</label>
                                 <input type="text" name="chambre${incCh}[ACCS][acc1][nom_acc]" class="form-control">
                             </div>
 
                             <!-- Le champ contact_acc -->
                             <div class="col-md-5 mb-1">
-                                <label for="modification-contact_acc">Contact de l'accompagnateur:</label>
-                                <input type="text" name="chambre${incCh}[ACCS][acc1][contact_acc]" class="form-control">
+                                <label for="modification-contact_acc-<?php echo $reservation['num_chambre']; ?>">Contact de l'accompagnateur:</label>
+                                <input type="text" id="modification-contact_acc-<?php echo $reservation['num_chambre']; ?>" name="chambre${incCh}[ACCS][acc1][contact_acc]" class="form-control">
                             </div>
 
                             <!-- Bouton pour ajouter un accompagnateur -->
@@ -702,21 +701,21 @@ foreach ($liste_reservations as $reservation) {
                         <div class="row">
                             <!-- Le champ date de début occupation -->
                             <div class="col-md-6 mb-1">
-                                <label for="inscription-deb_occ">Début de séjour:
+                                <label for="inscription-deb_occ-<?php echo $reservation['num_chambre']; ?>-1">Début de séjour:
                                     <span class="text-danger">(*)</span>
                                 </label>
                                 <div class="input-group mb-3">
-                                    <input type="date" name="chambre${incCh}[deb_occ]" class="form-control" placeholder="Veuillez entrer votre date de début occupation" value="" required>
+                                    <input type="date" id="inscription-deb_occ-<?php echo $reservation['num_res']; ?>-1" name="chambre${incCh}[deb_occ]" class="form-control" placeholder="Veuillez entrer votre date de début occupation" value="" required>
                                 </div>
                             </div>
 
                             <!-- Le champ date de fin occupation -->
                             <div class="col-md-6 mb-1">
-                                <label for="inscription-fin_occ">Fin de séjour:
+                                <label for="inscription-fin_occ-<?php echo $reservation['num_chambre']; ?>-2">Fin de séjour:
                                     <span class="text-danger">(*)</span>
                                 </label>
                                 <div class="input-group mb-3">
-                                    <input type="date" name="chambre${incCh}[fin_occ]" class="form-control" placeholder="Veuillez entrer votre date de fin occupation" value="" required>
+                                    <input type="date" id="inscription-fin_occ-<?php echo $reservation['num_chambre']; ?>-2" name="chambre${incCh}[fin_occ]" class="form-control" placeholder="Veuillez entrer votre date de fin occupation" value="" required>
                                 </div>
                             </div>
 
@@ -748,11 +747,11 @@ foreach ($liste_reservations as $reservation) {
                             <div class="row">
                                 <div class="col-md-6 mb-1">
                                     <label for="nouveau-nom_acc">Nom de l'accompagnateur:</label>
-                                    <input type="text" name="chambre${incCh}[ACCS][acc${incAcc}][nom_acc]" class="form-control">
+                                    <input type="text" id="nouveau-nom_acc" name="chambre${incCh}[ACCS][acc${incAcc}][nom_acc]" class="form-control">
                                 </div>
                                 <div class="col-md-5 mb-1">
                                     <label for="nouveau-contact_acc">Contact de l'accompagnateur:</label>
-                                    <input type="text" name="chambre${incCh}[ACCS][acc${incAcc}][contact_acc]" class="form-control">
+                                    <input type="text" id="nouveau-contact_acc" name="chambre${incCh}[ACCS][acc${incAcc}][contact_acc]" class="form-control">
                                 </div>
 
                                 <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
@@ -776,8 +775,6 @@ foreach ($liste_reservations as $reservation) {
         }
     }
 </script>
-
-
 
 <script>
     $(document).ready(function() {

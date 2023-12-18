@@ -16,13 +16,15 @@ if (isset($_POST['enregistrer'])) {
         $numChambre = $donnees["num_chambre"];
 
         // Appeler la fonction pour vérifier l'existence de num_chambre dans la table "chambre"
-        $chambreExiste = verifier_existence_num_chambre($donnees["num_chambre"]);
+        $chambreExiste = verifier_existence_num_chambre($numChambre);
+
+        //  die(var_dump($chambreExiste));
 
         if (!$chambreExiste) {
             $erreurs["num_chambre"] = "Le numéro de la chambre n'existe pas. Veuiller réesayer!";
         } else {
             // Récupérer le numéro de reservation
-            $donneesReservation = recuperer_donnee_reservation_par_num_chambre($numChambre);
+            $donneesReservations = recuperer_donnee_reservation_par_num_chambre($donnees["num_chambre"]);
 
             /* Extraire la valeur du champ num_res, 
         vérifiez d'abord si le tableau retourné par la fonction n'est pas vide 
@@ -30,30 +32,29 @@ if (isset($_POST['enregistrer'])) {
         Sinon, $num_res prend la valeur null 
         */
 
-            $num_res = !empty($donneesReservation['num_res']) ? $donneesReservation['num_res'] : null;
-
-            // die(var_dump($num_res));
+            $num_res = !empty($donneesReservations['num_res']) ? $donneesReservations['num_res'] : null;
+            //die(var_dump($num_res));
 
             // Appeler la fonction pour vérifier l'existence de num_chambre dans la table "reservation"
-            $reservationExiste = verifier_existence_num_res($num_res);
+            $reservationExiste = verifier_existence_num_res_avec_statut($num_res);
+            // die(var_dump($reservationExiste));
 
             if (!$reservationExiste) {
-                $erreurs["num_chambre"] = "Le numéro de la chambre n'appartient à aucune réservation.";
+                $erreurs["num_chambre"] = "Le numéro de la chambre n'appartient à aucune réservation ou peut être que votre reservation n'est pas encore valide.";
             } elseif (!verifier_appartenance_reservation($num_res, $clientConnecteID)) {
                 // La réservation existe, mais ne correspond pas au client connecté
                 $erreurs["num_chambre"] = "Le numéro de la chambre est pour une réservation qui ne vous appartient pas.";
             }
-
         }
     } else {
         $erreurs["num_chambre"] = "Le champ numéro de chambre est requis. Veuillez le renseigner.";
     }
 
-    // Vérifier si le nom du repas est fourni
-    if (isset($_POST["nom_repas"]) && !empty($_POST["nom_repas"])) {
-        $donnees["nom_repas"] = $_POST["nom_repas"];
-    } else {
-        $erreurs["nom_repas"] = "Le champ nom de repas est requis. Veuillez le renseigner.";
+    
+
+    if (empty($_POST['nom_repas']) || count($_POST['nom_repas']) == 0 || empty(array_filter($_POST['nom_repas']))) {
+        // Aucun repas n'a été sélectionné, affichez un message d'erreur
+        $erreurs["nom_repas"] = "Veuillez sélectionner au moins un repas.";
     }
 
     // Vérifier si le prix du repas est fourni
@@ -68,6 +69,7 @@ if (isset($_POST['enregistrer'])) {
 
         $donneesReservation = recuperer_donnees_reservation_par_num_res($num_res);
 
+        // die(var_dump($donneesReservation));
         $num_res = !empty($donneesReservation['id']) ? $donneesReservation['id'] : null;
 
         // die(var_dump($num_res));
@@ -83,23 +85,29 @@ if (isset($_POST['enregistrer'])) {
             // Vérifier si la chambre est inactive
             if (verifier_chambre_supprimer($numChambre)) {
 
+                // die(var_dump(verifier_chambre_supprimer($numChambre)));
+
                 // Calculate the total price for all selected meals
                 $prix_total = 0;
                 foreach ($donnees["pu_repas"] as $puRepas) {
+                    // Cast the $puRepas value to an integer
+                    $puRepas = (int)$puRepas;
+
+                    // Add the integer value to $prix_total
                     $prix_total += $puRepas;
                 }
 
                 // Ajouter une commande avec le montant total
                 $insertionCommande = enregistrer_une_commande_avec_prix_total($num_res, $numChambre, $prix_total);
+                // die(var_dump($insertionCommande));
 
                 // Récupérer le numéro de commande
                 $numCommande = recuperer_num_cmd_par_num_res($num_res);
-
                 // die(var_dump($numCommande));
 
                 // Enregistrer la quantité de repas pour chaque repas sélectionné
                 foreach ($donnees["nom_repas"] as $codeRepas) {
-                    $insertionCommandeQuantite = enregistrer_quantite_repas($codeRepas, $numCommande, $numChambre);
+                    $insertionCommandeQuantite = enregistrer_commande_repas($codeRepas, $numCommande, $numChambre);
 
                     // Vérifiez si l'insertion a échoué et gérez les erreurs si nécessaire
                     if (!$insertionCommandeQuantite) {

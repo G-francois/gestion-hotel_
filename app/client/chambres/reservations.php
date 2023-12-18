@@ -1,4 +1,8 @@
 <?php
+if (!check_if_user_connected_client()) {
+    header('location: ' . PATH_PROJECT . 'client/connexion/index');
+    exit;
+}
 
 $include_client_header = true;
 include('./app/commum/header_.php');
