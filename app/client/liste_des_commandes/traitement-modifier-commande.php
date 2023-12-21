@@ -55,7 +55,7 @@ if (check_password_exist($_POST['password'], $_SESSION['utilisateur_connecter_cl
                 // Enregistrer la quantité de repas pour chaque repas sélectionné
                 foreach ($donnees["nom_repas"] as $codeRepas) {
 
-                    $insertionCommandeQuantite = enregistrer_quantite_repas($codeRepas, $num_cmd, $num_chambre);
+                    $insertionCommandeQuantite = enregistrer_commande_repas($codeRepas, $num_cmd, $num_chambre);
 
                     // die(var_dump($insertionCommandeQuantite));
 

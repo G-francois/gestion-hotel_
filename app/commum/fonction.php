@@ -3502,7 +3502,7 @@ function recuperer_num_cmd_par_num_res(int $num_res): ?int
  * @param  int $codeRepas
  * @return bool
  */
-function enregistrer_commande_repas( $codeRepas,int $numCommande,int $numChambre): bool
+function enregistrer_commande_repas(int $codeRepas,int $numCommande,int $numChambre): bool
 {
 	$enregistrerQuantite = false;
 	$db = connect_db();

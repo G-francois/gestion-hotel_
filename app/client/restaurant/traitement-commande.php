@@ -50,7 +50,7 @@ if (isset($_POST['enregistrer'])) {
         $erreurs["num_chambre"] = "Le champ numéro de chambre est requis. Veuillez le renseigner.";
     }
 
-    
+
 
     if (empty($_POST['nom_repas']) || count($_POST['nom_repas']) == 0 || empty(array_filter($_POST['nom_repas']))) {
         // Aucun repas n'a été sélectionné, affichez un message d'erreur
@@ -106,8 +106,11 @@ if (isset($_POST['enregistrer'])) {
                 // die(var_dump($numCommande));
 
                 // Enregistrer la quantité de repas pour chaque repas sélectionné
-                foreach ($donnees["nom_repas"] as $codeRepas) {
+                foreach ($_POST["nom_repas"] as $codeRepas) {
+
                     $insertionCommandeQuantite = enregistrer_commande_repas($codeRepas, $numCommande, $numChambre);
+                    
+                    // die(var_dump($insertionCommandeQuantite));
 
                     // Vérifiez si l'insertion a échoué et gérez les erreurs si nécessaire
                     if (!$insertionCommandeQuantite) {

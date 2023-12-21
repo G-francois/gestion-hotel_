@@ -64,8 +64,10 @@ include('./app/commum/header_.php');
                 // $liste_reservations = recuperer_liste_reservations($_SESSION['utilisateur_connecter_client']['id']);
 
                 $clientConnecteID = $_SESSION['utilisateur_connecter_client']['id'];
+                // die(var_dump($clientConnecteID));
 
                 $liste_commandes_client = recuperer_liste_commandes_client($clientConnecteID);
+                // die(var_dump($liste_commandes_client));
 
                 if (!empty($liste_commandes_client)) {
                 ?>
@@ -84,11 +86,15 @@ include('./app/commum/header_.php');
 
                         <tbody>
                             <?php
-                            // Parcours de la liste des chambres
+                            // Parcours de la liste des commandes
                             foreach ($liste_commandes_client as $commande) {
                                 $num_cmd = $commande['num_cmd'];
+                                // die(var_dump($num_cmd));
+
                                 // Récupérer la liste des repas pour cette commande
                                 $repas_commande = recuperer_liste_repas_par_commande($num_cmd);
+                                // die(var_dump($repas_commande));
+
                             ?>
                                 <tr>
                                     <td><?php echo $commande['creer_le']; ?></td>
@@ -165,7 +171,6 @@ include('./app/commum/header_.php');
                                                                 // foreach ($liste_commandes_client as $commande) {
                                                                 $num_cmd = $commande['num_cmd'];
                                                                 $repas_commande = recuperer_liste_repas_par_commande($num_cmd);
-
                                                                 // Vérifiez s'il y a des repas associés à cette commande
                                                                 if (!empty($repas_commande)) {
                                                                 ?>
