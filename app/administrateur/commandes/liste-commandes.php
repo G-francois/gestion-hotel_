@@ -10,6 +10,8 @@ include './app/commum/aside.php';
 
 $liste_chambre = recuperer_chambres();
 
+// Appeler la fonction pour récupérer la liste des clients
+$liste_clients = recuperer_liste_clients_actifs();
 ?>
 
 <!-- Begin Page Content -->
@@ -62,7 +64,6 @@ $liste_chambre = recuperer_chambres();
                                 <th scope="col">Date & Heure</th>
                                 <th scope="col">Client(e)</th>
                                 <th scope="col">Montant Total(FCFA)</th>
-                                <th scope="col">Statut</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -107,20 +108,7 @@ $liste_chambre = recuperer_chambres();
                                         <?php echo $commande['prix_total']; ?>
                                     </td>
 
-                                    <td>
-                                        <!-- Afficher les boutons avec les styles en fonction du statut -->
-                                        <div class="btn-group" role="group" aria-label="Actions de réservation">
-                                            <?php if ($commande['statut'] === 'En cours de validation') : ?>
-                                                <button type="button" class="btn btn-warning" style="color: #fff;">En cours de validation</button>
-                                            <?php elseif ($commande['statut'] === 'Rejeter') : ?>
-                                                <button type="button" class="btn btn-danger" style="color: #fff;">Rejeter</button>
-                                            <?php elseif ($commande['statut'] === 'Valider') : ?>
-                                                <button type="button" class="btn btn-success" style="color: #fff;">Validé</button>
-                                            <?php else : ?>
-                                                <button type="button" class="btn btn-secondary">Statut inconnu</button>
-                                            <?php endif; ?>
-                                        </div>
-                                    </td>
+
 
                                     <td>
                                         <div style="display: flex; align-items: center;">
@@ -233,15 +221,15 @@ $liste_chambre = recuperer_chambres();
                                                             </div>
                                                         </div>
                                                         <!-- <div class="modal-footer"> -->
-                                                            <!-- Formulaire de validation -->
-                                                            <!-- <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-validation-commande" method="POST">
+                                                        <!-- Formulaire de validation -->
+                                                        <!-- <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-validation-commande" method="POST">
                                                                 <input type="hidden" name="num_cmd" value="<?php echo $commande['num_cmd']; ?>">
                                                                 <input type="hidden" name="num_res" value="<?php echo $commande['num_res']; ?>">
                                                                 <button type="submit" class="btn btn-success"><i class="fas fa-calendar-check" title="Valider la commande"></i></button>
                                                             </form> -->
 
-                                                            <!-- Formulaire de validation -->
-                                                            <!-- <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-rejeter-commande" method="POST">
+                                                        <!-- Formulaire de validation -->
+                                                        <!-- <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-rejeter-commande" method="POST">
                                                                 <input type="hidden" name="num_res" value="<?php echo $commande['num_cmd']; ?>">
                                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-calendar-minus" title="Rejeter la commande"></i></button>
                                                             </form>
@@ -251,12 +239,12 @@ $liste_chambre = recuperer_chambres();
                                             </div>
 
                                             <!-- Button Modifier modal -->
-                                            <i class="far fa-edit modifier-icon" style="margin-right: 20px;" data-bs-target="#modifierModal-<?php echo $num_cmd ?>" data-num-cmd="<?php echo $num_cmd ?>" data-nom-repas="<?= htmlspecialchars(json_encode($repas_commande)) ?>" title="Modifier la commande ">
+                                            <i class="far fa-edit modifier-icon" style="margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#modifierModal-<?php echo $num_cmd ?>" data-num-cmd="<?php echo $num_cmd ?>" data-nom-repas="<?= htmlspecialchars(json_encode($repas_commande)) ?>" title="Modifier la commande ">
                                             </i>
 
 
                                             <!-- Modal Modifier-->
-                                            <div class="modal fade" id="modifierModal-<?php echo $num_cmd ?>" style="display: none;" aria-hidden="true">
+                                            <div class="modal modal-blur fade" id="modifierModal-<?php echo $num_cmd ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -268,6 +256,26 @@ $liste_chambre = recuperer_chambres();
                                                             <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-modifier-commande" method="post" enctype="multipart/form-data">
                                                                 <input type="hidden" name="commande_id" value="<?php echo $num_cmd ?>">
                                                                 <input type="hidden" name="reservation_id" value="<?php echo $commande['num_res']; ?>">
+
+                                                                <!-- Le champ email -->
+                                                                <div class="col-md-12 mb-3">
+                                                                    <label for="email"> Email du Client :
+                                                                        <span class="text-danger">(*)</span>
+                                                                    </label>
+
+                                                                    <!-- Champ de sélection dynamique avec les adresses e-mail -->
+                                                                    <select name="email" class="js-example-basic-single" style="width: 100%;">
+                                                                        <option value=""><?php echo $email_clt = !empty($info_client_reservant['email']) ? $info_client_reservant['email'] : null; ?></option>
+                                                                        <?php foreach ($liste_clients as $client) : ?>
+                                                                            <option><?= $client['email'] ?></option>
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                    <?php if (isset($erreurs["email"]) && !empty($erreurs["email"])) { ?>
+                                                                        <span class="text-danger">
+                                                                            <?= $erreurs["email"]; ?>
+                                                                        </span>
+                                                                    <?php } ?>
+                                                                </div>
 
 
                                                                 <?php
@@ -486,6 +494,7 @@ $liste_chambre = recuperer_chambres();
         $(button).closest('.row').remove();
     }
 </script>
+
 
 
 

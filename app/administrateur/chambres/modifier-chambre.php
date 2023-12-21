@@ -189,7 +189,7 @@ if (!empty($params[3])) {
                         <form action="<?= PATH_PROJECT . "administrateur/chambres/modifier-chambre-traitement" ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" novalidate method="post" class="user">
                             <div class="form-group row">
                                 <!-- Le champ Libellé du type de chambre -->
-                                <div class="col-sm-6 mb-3">
+                                <div class="col-sm-6 mb-2">
                                     <label for="inscription-libelle" class="col-sm-4 col-form-label">
                                         Libellé:
                                         <span class="text-danger">(*)</span>
@@ -215,7 +215,7 @@ if (!empty($params[3])) {
                                 </div>
 
                                 <!-- Le champ Code du type de chambre -->
-                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="col-sm-6 mb-2 mb-sm-0">
                                     <label for="inscription-code" class="col-sm-4 col-form-label">
                                         Code:
                                         <span class="text-danger">(*)</span>

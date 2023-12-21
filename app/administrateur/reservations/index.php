@@ -90,6 +90,11 @@ $liste_clients = recuperer_liste_clients_actifs();
                                     <option><?= $client['email'] ?></option>
                                 <?php endforeach; ?>
                             </select>
+                            <?php if (isset($erreurs["email"]) && !empty($erreurs["email"])) { ?>
+                                <span class="text-danger">
+                                    <?= $erreurs["email"]; ?>
+                                </span>
+                            <?php } ?>
                         </div>
 
                         <!-- Le champ Numéro de chambre -->

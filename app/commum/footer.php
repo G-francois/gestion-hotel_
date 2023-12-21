@@ -62,12 +62,8 @@
 <!-- Bootstrap core JavaScript-->
 <script src="<?= PATH_PROJECT ?>public/outils/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<script src="<?= PATH_PROJECT ?>public/select2/js/select2.min.js"></script>
-
 <!-- Inclure Select2 JS -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> -->
-
-<!-- Initialiser Select2 -->
+<script src="<?= PATH_PROJECT ?>public/select2/js/select2.min.js"></script>
 
 
 

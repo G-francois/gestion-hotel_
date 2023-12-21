@@ -111,7 +111,7 @@ include('./app/commum/header_.php');
                             ?>
                             <form action="<?= PATH_PROJECT ?>client/restaurant/traitement-commande" method="post" class="user">
 
-                                <!-- Le champ numéro de réservation -->
+                                <!-- Le champ numéro de chambre -->
                                 <div class="col-md-12 mb-3">
                                     <label for="num_chambre">Numéro de la chambre :
                                         <span class="text-danger">(*)</span>
