@@ -232,20 +232,20 @@ $liste_chambre = recuperer_chambres();
 
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer">
+                                                        <!-- <div class="modal-footer"> -->
                                                             <!-- Formulaire de validation -->
-                                                            <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-validation-commande" method="POST">
+                                                            <!-- <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-validation-commande" method="POST">
                                                                 <input type="hidden" name="num_cmd" value="<?php echo $commande['num_cmd']; ?>">
                                                                 <input type="hidden" name="num_res" value="<?php echo $commande['num_res']; ?>">
                                                                 <button type="submit" class="btn btn-success"><i class="fas fa-calendar-check" title="Valider la commande"></i></button>
-                                                            </form>
+                                                            </form> -->
 
                                                             <!-- Formulaire de validation -->
-                                                            <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-rejeter-commande" method="POST">
+                                                            <!-- <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-rejeter-commande" method="POST">
                                                                 <input type="hidden" name="num_res" value="<?php echo $commande['num_cmd']; ?>">
                                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-calendar-minus" title="Rejeter la commande"></i></button>
                                                             </form>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>

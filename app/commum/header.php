@@ -209,7 +209,7 @@ if (isset($_SESSION['erreurs-commande']) && !empty($_SESSION['erreurs-commande']
     <script src="<?= PATH_PROJECT ?>public/js/ajax.js"></script>
 
     <!-- Inclure Select2 CSS -->
-    <link href="<?= PATH_PROJECT ?>public/vendor/select2/css/select2.css" rel="stylesheet" />
+    <link href="<?= PATH_PROJECT ?>public/select2/css/select2.min.css" rel="stylesheet" />
 
     <style>
         .bg-gradient-primary {

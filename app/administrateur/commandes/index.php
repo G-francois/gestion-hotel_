@@ -7,6 +7,10 @@ if (!check_if_user_connected_admin()) {
 include './app/commum/header.php';
 
 include './app/commum/aside.php';
+
+// Appeler la fonction pour récupérer la liste des clients
+$liste_clients = recuperer_liste_clients_actifs();
+
 ?>
 
 <!-- Begin Page Content -->
@@ -44,6 +48,34 @@ include './app/commum/aside.php';
     ?>
     <form action="<?= PATH_PROJECT ?>administrateur/commandes/ajout-commande-traitement" method="post" class="user">
         <div class="form-group row pt-5">
+            <!-- Le champ email -->
+            <div class="col-md-6 mb-3" style="padding-right: 25px;">
+                <label for="email"> Email du Client :
+                    <span class="text-danger">(*)</span>
+                </label>
+
+                <!-- Champ de sélection dynamique avec les adresses e-mail -->
+                <select name="email" class="js-example-basic-single" style="width: 100%;">
+                    <option value="">Sélectionnez un e-mail du client existant </option>
+                    <?php foreach ($liste_clients as $client) : ?>
+                        <option><?= $client['email'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Le champ numéro de réservation -->
+            <div class="col-md-6 mb-3">
+                <label for="num_res">Numéro de Réservation :
+                    <span class="text-danger">(*)</span>
+                </label>
+                <input type="text" name="num_res" id="num_res" class="form-control" placeholder="Entrez le numéro de réservation" required>
+                <?php if (isset($erreurs["num_res"]) && !empty($erreurs["num_res"])) { ?>
+                    <span class="text-danger">
+                        <?= $erreurs["num_res"]; ?>
+                    </span>
+                <?php } ?>
+            </div>
+
 
             <div class="row">
                 <!-- Le champ Nom du Repas -->
@@ -69,7 +101,7 @@ include './app/commum/aside.php';
                 </div>
 
                 <!-- Le champ Prix du Repas -->
-                <div class="col-md-4 mb-3">
+                <div class="col-md-5 mb-3">
                     <label for="pu_repas">Prix :</label>
                     <input type="text" class="form-control" placeholder="Prix total du repas" id="pu_repas" name="pu_repas[]" readonly>
                     <?php if (isset($erreurs["pu_repas"]) && !empty($erreurs["pu_repas"])) { ?>
@@ -80,7 +112,7 @@ include './app/commum/aside.php';
                 </div>
 
                 <!-- Bouton pour ajouter un repas -->
-                <div class="col-md-2 mb-3" style="display: flex; align-items: flex-end; justify-content: center;">
+                <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center;">
                     <button type="button" class="btn btn-success" id="ajouter-repas" style="--bs-btn-color: #fff; --bs-btn-bg: #cda45e; --bs-btn-border-color: #000000; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #9d6b15; --bs-btn-hover-border-color: #000000;">+</button>
                 </div>
             </div>
@@ -95,25 +127,14 @@ include './app/commum/aside.php';
                 <input type="text" class="form-control" id="montant-total" name="montant-total" readonly>
             </div> -->
 
-            <!-- Le champ numéro de réservation -->
-            <div class="col-md-6 mb-3">
-                <label for="num_res">Numéro de Réservation :
-                    <span class="text-danger">(*)</span>
-                </label>
-                <input type="text" name="num_res" id="num_res" class="form-control" placeholder="Entrez le numéro de réservation" required>
-                <?php if (isset($erreurs["num_res"]) && !empty($erreurs["num_res"])) { ?>
-                    <span class="text-danger">
-                        <?= $erreurs["num_res"]; ?>
-                    </span>
-                <?php } ?>
-            </div>
+
 
             <!-- Le bouton d'ajout -->
             <div class="col-sm-6" style="margin-top: 2rem">
                 <button type="submit" name="enregistrer" class="btn btn-primary btn-block">Ajouter</button>
             </div>
 
-            
+
 
             <div style="margin-top: 12px; font-weight: bold; font-size: large;" id="total-price"></div>
         </div>
