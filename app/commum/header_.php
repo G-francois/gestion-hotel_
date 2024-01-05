@@ -33,8 +33,47 @@ if (isset($include_icm_header) && $include_icm_header) {
         exit;
     }
 
-    //mettre_a_jour_etat_reservations_accompagnateurs();
 ?>
+
+    <?php
+
+    // Récupérez les numéros de chambre expirés (vous pouvez utiliser la fonction précédente)
+    $reservations_expirees = recuperer_reservations_expirees();
+
+    $numeros_chambre = array_column($reservations_expirees, 'num_chambre');
+    // Mettez à jour est_actif dans la table chambre
+    $resultat_mise_a_jour = mettre_a_jour_est_actif_chambre($numeros_chambre);
+
+    $numReservations = array_column($reservations_expirees, 'num_res');
+    // die(var_dump($numReservations));
+
+    // Mettez à jour est_actif dans la table reservations
+    $resultat_mise_a_jour = mettre_a_jour_est_actif_reservations($numReservations);
+
+
+    // Récupérez les ID des réservations à partir des numéros de réservation
+    $idReservations = recuperer_id_reservations_par_num_res($numReservations);
+    // die(var_dump($idReservations));
+
+    // Mettez à jour est_actif dans la table commande
+    $resultat_mise_a_jour = mettre_a_jour_est_actif_commandes($idReservations);
+    // die(var_dump($resultat_mise_a_jour));
+
+    // Utilisez la fonction pour récupérer les numéros de commande
+    $numeros_commande_a_metre_a_jour = recuperer_tous_num_cmd_par_num_res($idReservations);
+    // die(var_dump($numeros_commande_a_metre_a_jour));
+
+    // Mettez à jour est_actif et est_supprimer dans la table commande
+    $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
+    // die(var_dump($resultat_mise_a_jour_commande_repas));
+
+    /* if ($resultat_mise_a_jour) {
+        echo "La mise à jour est terminée avec succès.";
+    } else {
+        echo "Une erreur s'est produite lors de la mise à jour.";
+    } */
+
+    ?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -234,6 +273,45 @@ if (isset($include_icm_header) && $include_icm_header) {
     //mettre_a_jour_etat_reservations_accompagnateurs();
 
     ?>
+        <?php
+
+        // Récupérez les numéros de chambre expirés (vous pouvez utiliser la fonction précédente)
+        $reservations_expirees = recuperer_reservations_expirees();
+
+        $numeros_chambre = array_column($reservations_expirees, 'num_chambre');
+        // Mettez à jour est_actif dans la table chambre
+        $resultat_mise_a_jour = mettre_a_jour_est_actif_chambre($numeros_chambre);
+
+        $numReservations = array_column($reservations_expirees, 'num_res');
+        // die(var_dump($numReservations));
+
+        // Mettez à jour est_actif dans la table reservations
+        $resultat_mise_a_jour = mettre_a_jour_est_actif_reservations($numReservations);
+
+
+        // Récupérez les ID des réservations à partir des numéros de réservation
+        $idReservations = recuperer_id_reservations_par_num_res($numReservations);
+        // die(var_dump($idReservations));
+
+        // Mettez à jour est_actif dans la table commande
+        $resultat_mise_a_jour = mettre_a_jour_est_actif_commandes($idReservations);
+        // die(var_dump($resultat_mise_a_jour));
+
+        // Utilisez la fonction pour récupérer les numéros de commande
+        $numeros_commande_a_metre_a_jour = recuperer_tous_num_cmd_par_num_res($idReservations);
+        // die(var_dump($numeros_commande_a_metre_a_jour));
+
+        // Mettez à jour est_actif et est_supprimer dans la table commande
+        $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
+        // die(var_dump($resultat_mise_a_jour_commande_repas));
+
+        /* if ($resultat_mise_a_jour) {
+            echo "La mise à jour est terminée avec succès.";
+        } else {
+            echo "Une erreur s'est produite lors de la mise à jour.";
+        } */
+
+        ?>
         <!DOCTYPE html>
         <html lang="fr">
 
@@ -436,21 +514,21 @@ if (isset($include_icm_header) && $include_icm_header) {
                                     <!-- Contenu du dropdown pour l'utilisateur connecté -->
                                     <div class="dropdown-menu dropdown-menu-center shadow animated--grow-in text-center" style="min-width: 12rem; width: -webkit-fill-available;" aria-labelledby="userDropdown">
 
-
-                                        <a class="dropdown-item d-flex align-items-center mb-3 <?= is_current_page('client/profil') ?>" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;" href="<?= PATH_PROJECT ?>client/profil">
+                                        <a class="dropdown-item d-flex align-items-center mb-3" href="<?= PATH_PROJECT ?>client/profil" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;" >
                                             <i class="bi bi-person" style="margin-right: 12px;"></i>
                                             <span>Mon Profile</span>
                                         </a>
-                                        <a class="dropdown-item d-flex align-items-center mb-3 <?= is_current_page('client/liste_des_reservations') ?>" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;" href="<?= PATH_PROJECT ?>client/liste_des_reservations">
+
+                                        <a class="dropdown-item d-flex align-items-center mb-3" href="<?= PATH_PROJECT ?>client/liste_des_reservations" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;">
                                             <i class="bi bi-card-checklist" style="margin-right: 12px;"></i>
                                             <span>Liste des reservations</span>
                                         </a>
 
-                                        <a class="dropdown-item d-flex align-items-center mb-3 <?= is_current_page('client/liste_des_commandes') ?>" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;" href="<?= PATH_PROJECT ?>client/liste_des_commandes">
+                                        <a class="dropdown-item d-flex align-items-center mb-3" href="<?= PATH_PROJECT ?>client/liste_des_commandes" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;" >
                                             <i class="bi bi-card-list" style="margin-right: 12px;"></i>
                                             <span>Liste des commandes</span>
                                         </a>
-                                        <a class="dropdown-item d-flex align-items-center mb-3 <?= is_current_page('client/liste_des_messages') ?>" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;" href="<?= PATH_PROJECT ?>client/liste_des_messages">
+                                        <a class="dropdown-item d-flex align-items-center mb-3" href="<?= PATH_PROJECT ?>client/liste_des_messages" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;">
                                             <i class="bi bi-mailbox" style="margin-right: 12px;"></i>
                                             <span>Liste des messages</span>
                                         </a>

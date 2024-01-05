@@ -23,6 +23,223 @@ function connect_db()
 	return $db;
 }
 
+/**
+ * recuperer_reservations_expirees
+ *
+ * @return array
+ */
+function recuperer_reservations_expirees(): array
+{
+    $reservations = [];
+
+    $connexion = connect_db();
+
+    if (is_object($connexion)) {
+        $requete = "SELECT num_res, num_chambre FROM reservation_chambres WHERE fin_occ < NOW() AND est_actif = 1 AND est_supprimer = 0";
+        $requete_preparee = $connexion->prepare($requete);
+
+        $requete_executee = $requete_preparee->execute();
+
+        if ($requete_executee) {
+            $donnees = $requete_preparee->fetchAll(PDO::FETCH_ASSOC);
+
+            if (isset($donnees) && !empty($donnees) && is_array($donnees)) {
+                $reservations = $donnees;
+            }
+        }
+    }
+
+    return $reservations;
+}
+
+
+/**
+ * Cette fonction permet de récupérer les ID des réservations à partir des numéros de réservation
+ *
+ * @param array $numerosReservations
+ * @return array
+ */
+function recuperer_id_reservations_par_num_res(array $numerosReservations): array
+{
+    $idsReservations = [];
+
+    $db = connect_db();
+
+    if (!is_null($db)) {
+        // Créez une chaîne de placeholders "?" en fonction du nombre de numéros de réservation fournis
+        $placeholders = implode(',', array_fill(0, count($numerosReservations), '?'));
+
+        $requete = "SELECT id FROM reservations WHERE num_res IN ($placeholders)";
+
+        $request_prepare = $db->prepare($requete);
+
+        if ($request_prepare->execute($numerosReservations)) {
+            $idsReservations = $request_prepare->fetchAll(PDO::FETCH_COLUMN);
+        }
+    }
+
+    return $idsReservations;
+}
+
+
+/**
+ * Cette fonction permet de mettre à jour le champ est_actif dans la table commande
+ * pour les commandes associées aux ID de réservation fournis.
+ *
+ * @param array $idsReservations
+ * @return bool
+ */
+function mettre_a_jour_est_actif_commandes(array $idsReservations): bool
+{
+    $connexion = connect_db();
+
+    if (is_object($connexion)) {
+        // Créez une chaîne de placeholders "?" en fonction du nombre d'ID de réservation fournis
+        $placeholders = implode(',', array_fill(0, count($idsReservations), '?'));
+
+        // Préparez la requête de mise à jour
+        $requete = "UPDATE commande SET est_actif = 0, est_supprimer = 1 WHERE num_res IN ($placeholders)";
+        $requete_preparee = $connexion->prepare($requete);
+
+        // Exécutez la requête avec les ID de réservation en tant que valeurs de remplacement
+        $requete_executee = $requete_preparee->execute($idsReservations);
+
+        return $requete_executee;
+    }
+
+    return false;
+}
+
+/**
+ * Cette fonction permet de récupérer les numéros de commande associés aux ID de réservation fournis.
+ *
+ * @param array $idsReservations
+ * @return array|false Un tableau contenant les numéros de commande ou false en cas d'erreur.
+ */
+function recuperer_tous_num_cmd_par_num_res(array $idsReservations)
+{
+    $connexion = connect_db();
+
+    if (is_object($connexion)) {
+        // Créez une chaîne de placeholders "?" en fonction du nombre d'ID de réservation fournis
+        $placeholders = implode(',', array_fill(0, count($idsReservations), '?'));
+
+        // Préparez la requête SELECT pour récupérer les numéros de commande
+        $requete_select = "SELECT num_cmd FROM commande WHERE num_res IN ($placeholders)";
+        $requete_preparee_select = $connexion->prepare($requete_select);
+
+        // Exécutez la requête SELECT avec les ID de réservation en tant que valeurs de remplacement
+        $requete_executee_select = $requete_preparee_select->execute($idsReservations);
+
+        if ($requete_executee_select) {
+            // Récupérez les résultats de la requête SELECT
+            $resultats_select = $requete_preparee_select->fetchAll(PDO::FETCH_COLUMN);
+
+            return $resultats_select;
+        }
+    }
+
+    return false;
+}
+
+
+/**
+ * Cette fonction permet de mettre à jour le champ est_actif dans la table commande_repas
+ * pour les numéros de commande fournis.
+ *
+ * @param array $numerosCommande
+ * @return bool
+ */
+function mettre_a_jour_est_actif_commande_repas(array $numerosCommande): bool
+{
+    $connexion = connect_db();
+
+    if (is_object($connexion)) {
+        // Créez une chaîne de placeholders "?" en fonction du nombre de numéros de commande fournis
+        $placeholders = implode(',', array_fill(0, count($numerosCommande), '?'));
+
+        // Préparez la requête de mise à jour
+        $requete = "UPDATE commande_repas SET est_actif = 0, est_supprimer = 1 WHERE num_cmd IN ($placeholders)";
+        $requete_preparee = $connexion->prepare($requete);
+
+        // Exécutez la requête avec les numéros de commande en tant que valeurs de remplacement
+        $requete_executee = $requete_preparee->execute($numerosCommande);
+
+        return $requete_executee;
+    }
+
+    return false;
+}
+
+
+/**
+ * mettre_a_jour_est_actif_chambre
+ *
+ * @param  mixed $numeros_chambre
+ * @return bool
+ */
+function mettre_a_jour_est_actif_chambre(array $numeros_chambre): bool
+{
+    // Vérifiez si la liste des numéros de chambre est vide
+    if (empty($numeros_chambre)) {
+        return false;
+    }
+
+    $connexion = connect_db();
+
+    if (is_object($connexion)) {
+        // Créez une chaîne de placeholders "?" en fonction du nombre de numéros de chambre fournis
+        $placeholders = implode(',', array_fill(0, count($numeros_chambre), '?'));
+
+        // Préparez la requête de mise à jour
+        $requete = "UPDATE chambre SET est_actif = 1 WHERE num_chambre IN ($placeholders)";
+        $requete_preparee = $connexion->prepare($requete);
+
+        // Exécutez la requête avec les numéros de chambre en tant que valeurs de remplacement
+        $requete_executee = $requete_preparee->execute($numeros_chambre);
+
+        return $requete_executee;
+    }
+
+    return false;
+}
+
+
+/**
+ * mettre_a_jour_est_actif_reservations
+ *
+ * @param  mixed $numReservations
+ * @return bool
+ */
+function mettre_a_jour_est_actif_reservations(array $numReservations): bool
+{
+
+	
+    // Vérifiez si la liste des numéros de reservations est vide
+    if (empty($numReservations)) {
+        return false;
+    }
+
+    $success = false;
+
+    $connexion = connect_db();
+
+    if (is_object($connexion)) {
+        $numReservationsList = implode(',', array_map('intval', $numReservations));
+        $requete = "UPDATE reservations SET est_actif = 0 WHERE num_res IN ({$numReservationsList})";
+        $requete_preparee = $connexion->prepare($requete);
+
+        $requete_executee = $requete_preparee->execute();
+
+        if ($requete_executee) {
+            $success = true;
+        }
+    }
+
+    return $success;
+}
+
+
 
 /**
  * Vérifie si la page actuelle correspond au nom de la page donné.
@@ -779,6 +996,7 @@ function check_if_user_connected_admin(): bool
 	return !empty($_SESSION['utilisateur_connecter_admin']);
 }
 
+
 /**
  * Cette fonction permet de savoir si un utilisateur client est déjà connecté ou pas
  *
@@ -788,6 +1006,7 @@ function check_if_user_connected_client(): bool
 {
 	return !empty($_SESSION['utilisateur_connecter_client']);
 }
+
 
 /**
  * Cette fonction permet de savoir si un utilisateur receptionniste est déjà connecté ou pas
@@ -1132,69 +1351,6 @@ function activer_utilisateur(int $id): bool
 	return $profile_active;
 }
 
-/**
- * Cette fonction permet d'activer reservation
- *
- * @param  string $num_res
- * @return bool
- */
-function activer_reservation(string $num_res): bool
-{
-	$reservation_active = false;
-
-	$date = date("Y-m-d H:i:s");
-
-	$db = connect_db();
-
-	if (is_object($db)) {
-		$request = "UPDATE reservations SET statut = :statut, maj_le = :maj_le WHERE num_res = :num_res";
-		$request_prepare = $db->prepare($request);
-		$request_execution = $request_prepare->execute(array(
-			'num_res' => $num_res,
-			'statut' => "Valider",
-			'maj_le' => $date
-		));
-
-		if ($request_execution) {
-			$reservation_active = true;
-		}
-	}
-
-	return $reservation_active;
-}
-
-
-/**
- * Cette fonction permet d'activer reservation
- *
- * @param  string $num_res
- * @return bool
- */
-function rejeter_reservation(string $num_res): bool
-{
-	$reservation_rejeter = false;
-
-	$date = date("Y-m-d H:i:s");
-
-	$db = connect_db();
-
-	if (is_object($db)) {
-		$request = "UPDATE reservations SET statut = :statut, maj_le = :maj_le WHERE num_res = :num_res";
-		$request_prepare = $db->prepare($request);
-		$request_execution = $request_prepare->execute(array(
-			'num_res' => $num_res,
-			'statut' => "Rejeter",
-			'maj_le' => $date
-		));
-
-		if ($request_execution) {
-			$reservation_rejeter = true;
-		}
-	}
-
-	return $reservation_rejeter;
-}
-
 
 /**
  * Cette fonction permet de supprimer un utilisateur de façon définitive de la base de données à partir de son id.
@@ -1467,20 +1623,6 @@ function supprimer_repas(int $cod_repas): bool
 }
 
 
-
-/**
- * 
- *
- * @param  int $cod_typ
- * @param  string $lib_typ
- * @param  string $details_chambre
- * @param  int $details_personne_chambre
- * @param  string $details_superficie_chambre
- * @param  float $pu
- * @param  string $image_path
- * @param  int $est_actif
- * @return bool
- */
 /**
  * Cette fonction permet d'enregistrer une chambre
  *
@@ -1643,6 +1785,7 @@ function verifier_chambre_actif_non_supprime(int $num_chambre): bool
 	return $check;
 }
 
+
 /**
  * Cette fonction permet de modifier une chambre existant dans la base de données via son numéro de chambre.
  *
@@ -1688,6 +1831,7 @@ function modifier_chambre(int $num_chambre, int $cod_typ, string $lib_typ, strin
 
 	return $modifier_chambre;
 }
+
 
 /**
  * Cette fonction permet d'effectuer la mise à jour de la photo de chambre
@@ -1758,6 +1902,7 @@ function supprimer_chambre(int $num_chambre): bool
 	return $chambre_est_supprimer;
 }
 
+
 /**
  * Cette fonction permet d'obtenir un numéro de chambre selon le type.
  * @param string $type Le type de chambre.
@@ -1791,6 +1936,7 @@ function obtenir_numero_chambre_disponible(string $type): ?int
 	return $num;
 }
 
+
 /**
  * Cette fonction permet d'enregistrer un client lors d'une reservation 
  *
@@ -1822,6 +1968,7 @@ function enregistrer_client(string $nom_clt, string $contact, string $email): bo
 
 	return $enregistrer_client;
 }
+
 
 /**
  * Cette fonction permet de verifier si un client dans la base de donnée ne possède pas cette adresse mail.
@@ -1923,6 +2070,7 @@ function recuperer_user_par_son_id(int $id): array
 
 	return $client;
 }
+
 
 /**
  * Cette fonction permet d'effectuer la mise à jour de la photo de chambre
@@ -2134,7 +2282,6 @@ function get_reservation_user_info($num_res)
 }
 
 
-
 /**
  * Cette fonction permet de vérifier si le client de reservation exist dans la base de donnee
  *
@@ -2170,6 +2317,7 @@ function vérifier_client_reservation_exist_in_db(int $num_clt, string $num_res)
 
 	return $check;
 }
+
 
 /**
  *  Cette fonction permet de mettre a jour la reservation
@@ -2245,6 +2393,7 @@ function enregistrer_reservation_chambres($numRes, $numChambreDisponible, $debOc
 
 	return $enregistrer_reservation_chambres;
 }
+
 
 /**
  * supprimer_reservation_chambres
@@ -2346,6 +2495,76 @@ function recuperer_num_res_par_num_chambre($numChambre): ?int
 }
 
 
+/**
+ * Cette fonction permet d'activer reservation
+ *
+ * @param  string $num_res
+ * @return bool
+ */
+function activer_reservation(string $num_res): bool
+{
+	$reservation_active = false;
+
+	$date = date("Y-m-d H:i:s");
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$request = "UPDATE reservations SET statut = :statut, maj_le = :maj_le WHERE num_res = :num_res";
+		$request_prepare = $db->prepare($request);
+		$request_execution = $request_prepare->execute(array(
+			'num_res' => $num_res,
+			'statut' => "Valider",
+			'maj_le' => $date
+		));
+
+		if ($request_execution) {
+			$reservation_active = true;
+		}
+	}
+
+	return $reservation_active;
+}
+
+
+/**
+ * Cette fonction permet d'activer reservation
+ *
+ * @param  string $num_res
+ * @return bool
+ */
+function rejeter_reservation(string $num_res): bool
+{
+	$reservation_rejeter = false;
+
+	$date = date("Y-m-d H:i:s");
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$request = "UPDATE reservations SET statut = :statut, maj_le = :maj_le WHERE num_res = :num_res";
+		$request_prepare = $db->prepare($request);
+		$request_execution = $request_prepare->execute(array(
+			'num_res' => $num_res,
+			'statut' => "Rejeter",
+			'maj_le' => $date
+		));
+
+		if ($request_execution) {
+			$reservation_rejeter = true;
+		}
+	}
+
+	return $reservation_rejeter;
+}
+
+
+/**
+ * recuperer_id_utilisateur_par_num_res
+ *
+ * @param  mixed $num_res
+ * @return int
+ */
 function recuperer_id_utilisateur_par_num_res($num_res): ?int
 {
 	$idUtilisateur = null;
@@ -2371,6 +2590,7 @@ function recuperer_id_utilisateur_par_num_res($num_res): ?int
 
 	return $idUtilisateur;
 }
+
 
 /**
  * Cette fonction permet d'enregistrer un client lors d'une reservation 
@@ -2401,6 +2621,7 @@ function enregistrer_accompagnateur($nom_acc, $contact_acc): bool
 
 	return $enregistrer_accompagnateur;
 }
+
 
 /**
  * Cette fonction permet de mettre a jour accompagnateur
@@ -2476,6 +2697,7 @@ function vérifier_nom_contact_accompagnateur_exist_in_db(string $nom_acc, strin
 
 	return $check;
 }
+
 
 /**
  * Cette fonction permet de verifier si un accompagnateur dans la base de donnée ne possède pas ce contact.
@@ -2644,6 +2866,7 @@ function recuperer_noms_et_contacts_accompagnateurs($num_res): array
 	return $accompagnateurs_info;
 }
 
+
 /**
  * recuperer_accompagnateurs_par_chambre_sur_une_reservation
  *
@@ -2676,6 +2899,7 @@ function recuperer_accompagnateurs_par_chambre_sur_une_reservation($num_res, $nu
 	return $accompagnateurs;
 }
 
+
 /**
  * Cette fonction permet de récupérer les informations des accompagnateurs par le numero des accompagnateurs de la base de donnée.
  *
@@ -2706,6 +2930,7 @@ function recuperer_info_accompagnateur($num_acc): array
 	}
 	return $nom_accompagnateur;
 }
+
 
 /**
  * Cette fonction permet de récupérer la liste des réservations de la base de donnée en fonction du client connecter.
@@ -2742,8 +2967,6 @@ function recuperer_liste_reservations($num_clt = null): array
 	}
 	return $liste_reservation;
 }
-
-
 
 
 /**
@@ -2980,7 +3203,7 @@ function mis_a_jour_accompagnateur_des_reservations($num_res, $numAccompagnateur
 
 
 /**
- * Supprime les entrées d'accompagnateurs associées à une réservation dans la table listes_accompagnateurs_reservation.
+ * Cette fonction permet de supprimer les entrées d'accompagnateurs associées à une réservation dans la table listes_accompagnateurs_reservation.
  *
  * @param int $num_res Le numéro de réservation.
  * @return bool Indique si la suppression a réussi ou non.
@@ -3266,6 +3489,7 @@ function verifier_existence_num_chambre(int $numChambre): bool
 	return $existe;
 }
 
+
 /**
  * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce num_chambre
  *
@@ -3296,6 +3520,7 @@ function recuperer_donnee_reservation_par_num_chambre(int $numChambre)
 
 	return $donneesReservation;
 }
+
 
 /**
  * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce son id
@@ -3360,6 +3585,7 @@ function recuperer_donnees_reservation_par_num_res(string $numReservation)
 	return $donneesReservation;
 }
 
+
 /**
  * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce num res
  *
@@ -3392,9 +3618,8 @@ function recuperer_donnees_reservation_chambre_par_num_res($numReservation)
 }
 
 
-
 /**
- * verifier_chambre_supprimer
+ * Cette fonction permet de verifier si la chambre est supprimer
  *
  * @param  int $numChambre
  * @return bool
@@ -3464,7 +3689,7 @@ function enregistrer_une_commande_avec_prix_total($num_res, $numChambre, $prix_t
 
 
 /**
- * recuperer_num_cmd_par_num_res
+ * Cette fonction permet de recuperer le num_cmd par le num_res
  *
  * @param  int $num_res
  * @return int
@@ -3495,7 +3720,7 @@ function recuperer_num_cmd_par_num_res(int $num_res): ?int
 
 
 /**
- * enregistrer_commande_repas
+ * Cette fonction permet d'enregistrer une commande de repas
  *
  * @param  int $numCommande
  * @param  int $numChambre

@@ -19,7 +19,9 @@ if (isset($_SESSION['erreurs-commande']) && !empty($_SESSION['erreurs-commande']
 }
 
 // Appeler la fonction pour mettre à jour les états
-mettre_a_jour_etat_reservations_accompagnateurs();
+$reservations_expirees = recuperer_reservations_expirees();
+print_r($reservations_expirees);
+
 
 
 ?>
