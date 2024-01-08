@@ -9,7 +9,7 @@ $_SESSION['donnees-utilisateur']  = []; // Initialisation des données utilisate
 
 // Vérification et stockage du champ "email-nom-utilisateur"
 if (isset($_POST["email-nom-utilisateur"]) && !empty($_POST["email-nom-utilisateur"])) {
-    $donnees["email-nom-utilisateur"] = $_POST["email-nom-utilisateur"];
+    $donnees["email-nom-utilisateur"] = trim(htmlentities($_POST["email-nom-utilisateur"]));
 } else {
     $erreurs["email-nom-utilisateur"] = "Le champ email ou nom d'utilisateur est requis. Veuillez le renseigner.";
 }
