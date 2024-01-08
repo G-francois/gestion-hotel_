@@ -1,5 +1,11 @@
 <?php
 if (isset($include_icm_header) && $include_icm_header) {
+
+    if (check_if_user_connected_client()) {
+        header('location: ' . PATH_PROJECT . 'client/dashboard/index');
+        exit;
+    }
+
     // Inclure la partie du header spécifique à include_icm_header.php
     $erreurs = [];
     $donnees = [];
@@ -63,9 +69,15 @@ if (isset($include_icm_header) && $include_icm_header) {
     $numeros_commande_a_metre_a_jour = recuperer_tous_num_cmd_par_num_res($idReservations);
     // die(var_dump($numeros_commande_a_metre_a_jour));
 
-    // Mettez à jour est_actif et est_supprimer dans la table commande
-    $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
-    // die(var_dump($resultat_mise_a_jour_commande_repas));
+    // Vérifiez si $numeros_commande_a_metre_a_jour est un tableau avant d'appeler la fonction
+    if (is_array($numeros_commande_a_metre_a_jour) && !empty($numeros_commande_a_metre_a_jour)) {
+        // Mettez à jour est_actif et est_supprimer dans la table commande_repas
+        $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
+        // die(var_dump($resultat_mise_a_jour_commande_repas));
+    } else {
+        // Ajoutez un message de débogage en cas d'erreur
+        // echo "Aucun numéro de commande à mettre à jour.";
+    }
 
     /* if ($resultat_mise_a_jour) {
         echo "La mise à jour est terminée avec succès.";
@@ -301,9 +313,15 @@ if (isset($include_icm_header) && $include_icm_header) {
         $numeros_commande_a_metre_a_jour = recuperer_tous_num_cmd_par_num_res($idReservations);
         // die(var_dump($numeros_commande_a_metre_a_jour));
 
-        // Mettez à jour est_actif et est_supprimer dans la table commande
-        $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
-        // die(var_dump($resultat_mise_a_jour_commande_repas));
+        // Vérifiez si $numeros_commande_a_metre_a_jour est un tableau avant d'appeler la fonction
+        if (is_array($numeros_commande_a_metre_a_jour) && !empty($numeros_commande_a_metre_a_jour)) {
+            // Mettez à jour est_actif et est_supprimer dans la table commande_repas
+            $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
+            // die(var_dump($resultat_mise_a_jour_commande_repas));
+        } else {
+            // Ajoutez un message de débogage en cas d'erreur
+            // echo "Aucun numéro de commande à mettre à jour.";
+        }
 
         /* if ($resultat_mise_a_jour) {
             echo "La mise à jour est terminée avec succès.";
@@ -514,7 +532,7 @@ if (isset($include_icm_header) && $include_icm_header) {
                                     <!-- Contenu du dropdown pour l'utilisateur connecté -->
                                     <div class="dropdown-menu dropdown-menu-center shadow animated--grow-in text-center" style="min-width: 12rem; width: -webkit-fill-available;" aria-labelledby="userDropdown">
 
-                                        <a class="dropdown-item d-flex align-items-center mb-3" href="<?= PATH_PROJECT ?>client/profil" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;" >
+                                        <a class="dropdown-item d-flex align-items-center mb-3" href="<?= PATH_PROJECT ?>client/profil" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;">
                                             <i class="bi bi-person" style="margin-right: 12px;"></i>
                                             <span>Mon Profile</span>
                                         </a>
@@ -524,7 +542,7 @@ if (isset($include_icm_header) && $include_icm_header) {
                                             <span>Liste des reservations</span>
                                         </a>
 
-                                        <a class="dropdown-item d-flex align-items-center mb-3" href="<?= PATH_PROJECT ?>client/liste_des_commandes" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;" >
+                                        <a class="dropdown-item d-flex align-items-center mb-3" href="<?= PATH_PROJECT ?>client/liste_des_commandes" style="justify-content: unset; color: black; padding: 0px 0 0px 20px;">
                                             <i class="bi bi-card-list" style="margin-right: 12px;"></i>
                                             <span>Liste des commandes</span>
                                         </a>

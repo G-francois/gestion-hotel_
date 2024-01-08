@@ -32,11 +32,11 @@ function recuperer_reservations_expirees(): array
 {
     $reservations = [];
 
-    $connexion = connect_db();
+    $db = connect_db();
 
-    if (is_object($connexion)) {
+    if (!is_null($db)) {
         $requete = "SELECT num_res, num_chambre FROM reservation_chambres WHERE fin_occ < NOW() AND est_actif = 1 AND est_supprimer = 0";
-        $requete_preparee = $connexion->prepare($requete);
+        $requete_preparee = $db->prepare($requete);
 
         $requete_executee = $requete_preparee->execute();
 
@@ -45,12 +45,16 @@ function recuperer_reservations_expirees(): array
 
             if (isset($donnees) && !empty($donnees) && is_array($donnees)) {
                 $reservations = $donnees;
+            } else {
+                // Ajoutez ce message de débogage
+                // echo "Aucune réservation expirée trouvée.";
             }
         }
     }
 
     return $reservations;
 }
+
 
 
 /**
@@ -65,7 +69,7 @@ function recuperer_id_reservations_par_num_res(array $numerosReservations): arra
 
     $db = connect_db();
 
-    if (!is_null($db)) {
+    if (!is_null($db) && !empty($numerosReservations)) {
         // Créez une chaîne de placeholders "?" en fonction du nombre de numéros de réservation fournis
         $placeholders = implode(',', array_fill(0, count($numerosReservations), '?'));
 
@@ -73,13 +77,20 @@ function recuperer_id_reservations_par_num_res(array $numerosReservations): arra
 
         $request_prepare = $db->prepare($requete);
 
-        if ($request_prepare->execute($numerosReservations)) {
+        // Utilisez bindValue pour associer chaque numéro de réservation à son placeholder
+        foreach ($numerosReservations as $key => $numRes) {
+            $request_prepare->bindValue(($key + 1), $numRes, PDO::PARAM_STR);
+        }
+
+        if ($request_prepare->execute()) {
             $idsReservations = $request_prepare->fetchAll(PDO::FETCH_COLUMN);
         }
     }
 
     return $idsReservations;
 }
+
+
 
 
 /**
@@ -91,23 +102,23 @@ function recuperer_id_reservations_par_num_res(array $numerosReservations): arra
  */
 function mettre_a_jour_est_actif_commandes(array $idsReservations): bool
 {
-    $connexion = connect_db();
+	$db = connect_db();
 
-    if (is_object($connexion)) {
-        // Créez une chaîne de placeholders "?" en fonction du nombre d'ID de réservation fournis
-        $placeholders = implode(',', array_fill(0, count($idsReservations), '?'));
+	if (!is_null($db) && !empty($idsReservations)) {
+		// Créez une chaîne de placeholders "?" en fonction du nombre d'ID de réservation fournis
+		$placeholders = implode(',', array_fill(0, count($idsReservations), '?'));
 
-        // Préparez la requête de mise à jour
-        $requete = "UPDATE commande SET est_actif = 0, est_supprimer = 1 WHERE num_res IN ($placeholders)";
-        $requete_preparee = $connexion->prepare($requete);
+		// Préparez la requête de mise à jour
+		$requete = "UPDATE commande SET est_actif = 0, est_supprimer = 1 WHERE num_res IN ($placeholders)";
+		$requete_preparee = $db->prepare($requete);
 
-        // Exécutez la requête avec les ID de réservation en tant que valeurs de remplacement
-        $requete_executee = $requete_preparee->execute($idsReservations);
+		// Exécutez la requête avec les ID de réservation en tant que valeurs de remplacement
+		$requete_executee = $requete_preparee->execute($idsReservations);
 
-        return $requete_executee;
-    }
+		return $requete_executee;
+	}
 
-    return false;
+	return false;
 }
 
 /**
@@ -116,31 +127,51 @@ function mettre_a_jour_est_actif_commandes(array $idsReservations): bool
  * @param array $idsReservations
  * @return array|false Un tableau contenant les numéros de commande ou false en cas d'erreur.
  */
+/**
+ * Cette fonction permet de récupérer les numéros de commande associés aux ID de réservation fournis.
+ *
+ * @param array $idsReservations
+ * @return array|false Un tableau contenant les numéros de commande ou false en cas d'erreur.
+ */
 function recuperer_tous_num_cmd_par_num_res(array $idsReservations)
 {
-    $connexion = connect_db();
+    $db = connect_db();
 
-    if (is_object($connexion)) {
-        // Créez une chaîne de placeholders "?" en fonction du nombre d'ID de réservation fournis
-        $placeholders = implode(',', array_fill(0, count($idsReservations), '?'));
+    if (!is_null($db)) {
+        if (!empty($idsReservations)) {
+            $placeholders = implode(',', array_fill(0, count($idsReservations), '?'));
 
-        // Préparez la requête SELECT pour récupérer les numéros de commande
-        $requete_select = "SELECT num_cmd FROM commande WHERE num_res IN ($placeholders)";
-        $requete_preparee_select = $connexion->prepare($requete_select);
+            $requete_select = "SELECT num_cmd FROM commande WHERE num_res IN ($placeholders)";
+            $requete_preparee_select = $db->prepare($requete_select);
 
-        // Exécutez la requête SELECT avec les ID de réservation en tant que valeurs de remplacement
-        $requete_executee_select = $requete_preparee_select->execute($idsReservations);
+            $requete_executee_select = $requete_preparee_select->execute($idsReservations);
 
-        if ($requete_executee_select) {
-            // Récupérez les résultats de la requête SELECT
-            $resultats_select = $requete_preparee_select->fetchAll(PDO::FETCH_COLUMN);
+            if ($requete_executee_select) {
+                $resultats_select = $requete_preparee_select->fetchAll(PDO::FETCH_COLUMN);
 
-            return $resultats_select;
+                // Ajoutez ces messages de débogage
+                // echo "Requête exécutée avec succès. Résultats : ";
+                // var_dump($resultats_select);
+
+                return $resultats_select;
+            } else {
+                // Ajoutez ces messages de débogage
+                // echo "Erreur lors de l'exécution de la requête. Informations sur la requête : ";
+                // var_dump($requete_preparee_select->errorInfo());
+            }
+        } else {
+            // Ajoutez ces messages de débogage
+            // echo "Les IDs de réservation sont vides.";
         }
+    } else {
+        // Ajoutez ces messages de débogage
+        // echo "La base de données est invalide.";
     }
 
     return false;
 }
+
+
 
 
 /**
@@ -152,15 +183,20 @@ function recuperer_tous_num_cmd_par_num_res(array $idsReservations)
  */
 function mettre_a_jour_est_actif_commande_repas(array $numerosCommande): bool
 {
-    $connexion = connect_db();
+    // Vérifiez si le tableau n'est pas vide
+    if (empty($numerosCommande)) {
+        return false;
+    }
 
-    if (is_object($connexion)) {
+    $db = connect_db();
+
+    if (!is_null($db)) {
         // Créez une chaîne de placeholders "?" en fonction du nombre de numéros de commande fournis
         $placeholders = implode(',', array_fill(0, count($numerosCommande), '?'));
 
         // Préparez la requête de mise à jour
         $requete = "UPDATE commande_repas SET est_actif = 0, est_supprimer = 1 WHERE num_cmd IN ($placeholders)";
-        $requete_preparee = $connexion->prepare($requete);
+        $requete_preparee = $db->prepare($requete);
 
         // Exécutez la requête avec les numéros de commande en tant que valeurs de remplacement
         $requete_executee = $requete_preparee->execute($numerosCommande);
@@ -180,28 +216,28 @@ function mettre_a_jour_est_actif_commande_repas(array $numerosCommande): bool
  */
 function mettre_a_jour_est_actif_chambre(array $numeros_chambre): bool
 {
-    // Vérifiez si la liste des numéros de chambre est vide
-    if (empty($numeros_chambre)) {
-        return false;
-    }
+	// Vérifiez si la liste des numéros de chambre est vide
+	if (empty($numeros_chambre)) {
+		return false;
+	}
 
-    $connexion = connect_db();
+	$db = connect_db();
 
-    if (is_object($connexion)) {
-        // Créez une chaîne de placeholders "?" en fonction du nombre de numéros de chambre fournis
-        $placeholders = implode(',', array_fill(0, count($numeros_chambre), '?'));
+	if (!is_null($db)) {
+		// Créez une chaîne de placeholders "?" en fonction du nombre de numéros de chambre fournis
+		$placeholders = implode(',', array_fill(0, count($numeros_chambre), '?'));
 
-        // Préparez la requête de mise à jour
-        $requete = "UPDATE chambre SET est_actif = 1 WHERE num_chambre IN ($placeholders)";
-        $requete_preparee = $connexion->prepare($requete);
+		// Préparez la requête de mise à jour
+		$requete = "UPDATE chambre SET est_actif = 1 WHERE num_chambre IN ($placeholders)";
+		$requete_preparee = $db->prepare($requete);
 
-        // Exécutez la requête avec les numéros de chambre en tant que valeurs de remplacement
-        $requete_executee = $requete_preparee->execute($numeros_chambre);
+		// Exécutez la requête avec les numéros de chambre en tant que valeurs de remplacement
+		$requete_executee = $requete_preparee->execute($numeros_chambre);
 
-        return $requete_executee;
-    }
+		return $requete_executee;
+	}
 
-    return false;
+	return false;
 }
 
 
@@ -214,29 +250,29 @@ function mettre_a_jour_est_actif_chambre(array $numeros_chambre): bool
 function mettre_a_jour_est_actif_reservations(array $numReservations): bool
 {
 
-	
-    // Vérifiez si la liste des numéros de reservations est vide
-    if (empty($numReservations)) {
-        return false;
-    }
 
-    $success = false;
+	// Vérifiez si la liste des numéros de reservations est vide
+	if (empty($numReservations)) {
+		return false;
+	}
 
-    $connexion = connect_db();
+	$success = false;
 
-    if (is_object($connexion)) {
-        $numReservationsList = implode(',', array_map('intval', $numReservations));
-        $requete = "UPDATE reservations SET est_actif = 0 WHERE num_res IN ({$numReservationsList})";
-        $requete_preparee = $connexion->prepare($requete);
+	$db = connect_db();
 
-        $requete_executee = $requete_preparee->execute();
+	if (!is_null($db)) {
+		$numReservationsList = implode(',', array_map('intval', $numReservations));
+		$requete = "UPDATE reservations SET est_actif = 0 WHERE num_res IN ({$numReservationsList})";
+		$requete_preparee = $db->prepare($requete);
 
-        if ($requete_executee) {
-            $success = true;
-        }
-    }
+		$requete_executee = $requete_preparee->execute();
 
-    return $success;
+		if ($requete_executee) {
+			$success = true;
+		}
+	}
+
+	return $success;
 }
 
 
@@ -454,26 +490,26 @@ function check_email_exist_in_db(string $email): bool
  */
 function check_email_and_profile_in_db(string $email): bool
 {
-    $check = false;
-    $db = connect_db();
+	$check = false;
+	$db = connect_db();
 
-    if (is_object($db)) {
-        $query = "SELECT count(*) as nbr_utilisateur FROM utilisateur WHERE email = :email AND est_supprimer = :est_supprimer AND profil = 'client'";
+	if (is_object($db)) {
+		$query = "SELECT count(*) as nbr_utilisateur FROM utilisateur WHERE email = :email AND est_supprimer = :est_supprimer AND profil = 'client'";
 
-        $verify_email = $db->prepare($query);
+		$verify_email = $db->prepare($query);
 
-        $result = $verify_email->execute([
-            'email' => $email,
-            'est_supprimer' => 0
-        ]);
+		$result = $verify_email->execute([
+			'email' => $email,
+			'est_supprimer' => 0
+		]);
 
-        if ($result) {
-            $nbr_utilisateur = $verify_email->fetch(PDO::FETCH_ASSOC)["nbr_utilisateur"];
-            $check = ($nbr_utilisateur > 0) ? true : false;
-        }
-    }
+		if ($result) {
+			$nbr_utilisateur = $verify_email->fetch(PDO::FETCH_ASSOC)["nbr_utilisateur"];
+			$check = ($nbr_utilisateur > 0) ? true : false;
+		}
+	}
 
-    return $check;
+	return $check;
 }
 
 /**
@@ -484,26 +520,26 @@ function check_email_and_profile_in_db(string $email): bool
  */
 function check_email_and_profile_admin_in_db(string $email): bool
 {
-    $check = false;
-    $db = connect_db();
+	$check = false;
+	$db = connect_db();
 
-    if (is_object($db)) {
-        $query = "SELECT count(*) as nbr_utilisateur FROM utilisateur WHERE email = :email AND est_supprimer = :est_supprimer AND profil = 'ADMINISTRATEUR'";
+	if (is_object($db)) {
+		$query = "SELECT count(*) as nbr_utilisateur FROM utilisateur WHERE email = :email AND est_supprimer = :est_supprimer AND profil = 'ADMINISTRATEUR'";
 
-        $verify_email = $db->prepare($query);
+		$verify_email = $db->prepare($query);
 
-        $result = $verify_email->execute([
-            'email' => $email,
-            'est_supprimer' => 0
-        ]);
+		$result = $verify_email->execute([
+			'email' => $email,
+			'est_supprimer' => 0
+		]);
 
-        if ($result) {
-            $nbr_utilisateur = $verify_email->fetch(PDO::FETCH_ASSOC)["nbr_utilisateur"];
-            $check = ($nbr_utilisateur > 0) ? true : false;
-        }
-    }
+		if ($result) {
+			$nbr_utilisateur = $verify_email->fetch(PDO::FETCH_ASSOC)["nbr_utilisateur"];
+			$check = ($nbr_utilisateur > 0) ? true : false;
+		}
+	}
 
-    return $check;
+	return $check;
 }
 
 
@@ -3727,7 +3763,7 @@ function recuperer_num_cmd_par_num_res(int $num_res): ?int
  * @param  int $codeRepas
  * @return bool
  */
-function enregistrer_commande_repas(int $codeRepas,int $numCommande,int $numChambre): bool
+function enregistrer_commande_repas(int $codeRepas, int $numCommande, int $numChambre): bool
 {
 	$enregistrerQuantite = false;
 	$db = connect_db();
@@ -4237,30 +4273,30 @@ function supprimer_messages(int $id): bool
  */
 function recuperer_liste_clients_actifs(): array
 {
-    $liste_clients = [];
+	$liste_clients = [];
 
-    $db = connect_db();
+	$db = connect_db();
 
-    if (!is_null($db)) {
-        $requette = 'SELECT * FROM utilisateur WHERE profil = :profil AND est_actif = :est_actif';
+	if (!is_null($db)) {
+		$requette = 'SELECT * FROM utilisateur WHERE profil = :profil AND est_actif = :est_actif';
 
-        $verifier_liste_clients = $db->prepare($requette);
+		$verifier_liste_clients = $db->prepare($requette);
 
-        $resultat = $verifier_liste_clients->execute([
-            'profil' => 'client',
-            'est_actif' => 1
-        ]);
+		$resultat = $verifier_liste_clients->execute([
+			'profil' => 'client',
+			'est_actif' => 1
+		]);
 
-        if ($resultat) {
-            $liste_clients = $verifier_liste_clients->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            // Gestion d'erreur
-            // Dans cet exemple, nous n'ajoutons rien à $liste_clients en cas d'erreur.
-            // $liste_clients reste un tableau vide.
-        }
-    }
+		if ($resultat) {
+			$liste_clients = $verifier_liste_clients->fetchAll(PDO::FETCH_ASSOC);
+		} else {
+			// Gestion d'erreur
+			// Dans cet exemple, nous n'ajoutons rien à $liste_clients en cas d'erreur.
+			// $liste_clients reste un tableau vide.
+		}
+	}
 
-    return $liste_clients;
+	return $liste_clients;
 }
 
 
