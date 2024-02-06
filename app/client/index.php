@@ -4,7 +4,7 @@ include './app/commum/fonction.php';
 
 $params = explode('/', $_GET['p']);
 $profile = "client";
-$default_ressource = "Acceuil";
+$default_ressource = "acceuil";
 $default_action = "index";
 $default_action_folder = "app/" . $profile . "/" . $default_ressource . "/" . $default_action . ".php";
 
