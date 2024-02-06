@@ -319,18 +319,18 @@ $liste_chambre = recuperer_chambres();
                                                                             <div class="row">
                                                                                 <!-- Le champ nom_acc -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="modification-nom_acc-<?php echo $reservation['num_res']; ?>">
+                                                                                    <label for="modification-nom_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>">
                                                                                         Nom de l'accompagnateur:
                                                                                     </label>
-                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][nom_acc]" id="modification-nom_acc" class="form-control">
+                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][nom_acc]" id="modification-nom_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>" class="form-control">
                                                                                 </div>
 
                                                                                 <!-- Le champ contact_acc -->
                                                                                 <div class="col-md-5 mb-1">
-                                                                                    <label for="modification-contact_acc-<?php echo $reservation['num_res']; ?>">
+                                                                                    <label for="modification-contact_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>">
                                                                                         Contact de l'accompagnateur:
                                                                                     </label>
-                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][contact_acc]" id="modification-contact_acc" class="form-control">
+                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][contact_acc]" id="modification-contact_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>" class="form-control">
                                                                                 </div>
 
                                                                                 <!-- Bouton pour ajouter un accompagnateur -->
@@ -398,7 +398,7 @@ $liste_chambre = recuperer_chambres();
                                                                         <button type="reset" class="btn btn-danger-custom text-light">
                                                                             Annuler
                                                                         </button>
-                                                                        <button type="submit" id="submitButton" class="btn btn-success-custom text-light">
+                                                                        <button type="submit" id="submitButton-<?= $reservation['num_res']; ?>" class="btn btn-success-custom text-light">
                                                                             <span>Mettre à jour</span>
                                                                             <span class="loader"></span>
                                                                         </button>
@@ -512,7 +512,7 @@ foreach ($liste_reservations as $reservation) {
     <script>
         $(document).ready(function() {
 
-            var $submitButton = $('#submitButton');
+            var $submitButton = $('#submitButton-<?= $reservation['num_res']; ?>');
             var $loader = $submitButton.find('.loader');
 
             $('#modification<?= $reservation['num_res']; ?>').submit(function(event) {
@@ -634,6 +634,54 @@ foreach ($liste_reservations as $reservation) {
     }
 }
 ?>
+
+
+<!-- Ajoutez cette balise script à la fin de la page -->
+<script>
+    $(document).ready(function() {
+        $('.ajouter-accompagnateur').click(function() {
+            var reservationId = $(this).data('reservation-id');
+            var nouveauChamp = `
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Nom de l'accompagnateur <span class="text-danger">(*)</span> </label>
+                <input type="text" name="nom_acc[]" class="form-control" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Contact <span class="text-danger">(*)</span> : </label>
+                <input type="text" name="contact_acc[]" class="form-control" required>
+            </div>
+
+            <div class="col-md-2 mb-3" style="display: flex; align-items: flex-end; justify-content: center;">
+                <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)" style="--bs-btn-color: #fff; --bs-btn-bg: #3b070c; --bs-btn-border-color: #3b070c; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #b30617; --bs-btn-hover-border-color: #b30617;">-</button>
+            </div>
+        </div>
+    `;
+
+            $('#nouveaux-accompagnateurs-' + reservationId).append(nouveauChamp);
+
+            // Ajoutez une validation pour le champ "Contact de l'accompagnateur" ici
+            $('#nouveaux-accompagnateurs-' + reservationId + ' input[name="contact_acc[]"]').on('input', function() {
+                var contactAcc = $(this).val();
+
+                // Utilisez une expression régulière pour vérifier si contact_acc contient uniquement des nombres
+                var numbersOnlyRegex = /^[0-9]+$/;
+
+                if (!numbersOnlyRegex.test(contactAcc)) {
+                    alert('Le champ Contact de l\'accompagnateur doit contenir uniquement des nombres.');
+                    $(this).val(''); // Effacez la saisie incorrecte
+                }
+            });
+        });
+    });
+
+    // Function to remove an accompagnateur
+    function supprimerAccompagnateur(button) {
+        $(button).closest('.row').remove();
+    }
+</script>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -776,97 +824,6 @@ foreach ($liste_reservations as $reservation) {
     }
 </script>
 
-<script>
-    $(document).ready(function() {
-        // Gestionnaire de clic pour l'icône de détails
-        $('.details-icon').click(function() {
-            var targetModal = $(this).data('target');
-            $(targetModal).modal('show');
-        });
-
-        // Gestionnaire de clic pour l'icône de modification
-        $('.modifier-icon').click(function() {
-            var targetModal = $(this).data('target');
-            $(targetModal).modal('show');
-        });
-
-        // Gestionnaire de clic pour l'icône de suppression
-        $('.supprimer-icon').click(function() {
-            var targetModal = $(this).data('target');
-            $(targetModal).modal('show');
-        });
-    });
-
-
-    $(document).ready(function() {
-        $('.btn-modifier').click(function() {
-            var reservationId = $(this).data('reservation-id');
-            var typeChambre = "<?php echo $type_chambre; ?>"; // Récupérez le type de chambre de la réservation
-            var accompagnateursInfo = JSON.parse($(this).data('accompagnateurs'));
-
-            // Réinitialisez les champs du modal
-            // ...
-
-            // Afficher le modal de modification
-            $('#modal-modifier-' + reservationId).modal('show');
-
-            // Manipulez les champs en fonction du type de chambre
-            if (typeChambre === 'Doubles') {
-                // Affichez et pré-remplissez les champs pour le type Doubles
-            } else if (typeChambre === 'Triples') {
-                // Affichez et pré-remplissez les champs pour le type Triples
-            } else if (typeChambre === 'Suite') {
-                // Affichez et pré-remplissez les champs pour le type Suite
-            }
-        });
-    });
-</script>
-
-<!-- Ajoutez cette balise script à la fin de la page -->
-<script>
-    $(document).ready(function() {
-        $('.ajouter-accompagnateur').click(function() {
-            var reservationId = $(this).data('reservation-id');
-            var nouveauChamp = `
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label>Nom de l'accompagnateur <span class="text-danger">(*)</span> </label>
-                <input type="text" name="nom_acc[]" class="form-control" required>
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label>Contact <span class="text-danger">(*)</span> : </label>
-                <input type="text" name="contact_acc[]" class="form-control" required>
-            </div>
-
-            <div class="col-md-2 mb-3" style="display: flex; align-items: flex-end; justify-content: center;">
-                <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)" style="--bs-btn-color: #fff; --bs-btn-bg: #3b070c; --bs-btn-border-color: #3b070c; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #b30617; --bs-btn-hover-border-color: #b30617;">-</button>
-            </div>
-        </div>
-    `;
-
-            $('#nouveaux-accompagnateurs-' + reservationId).append(nouveauChamp);
-
-            // Ajoutez une validation pour le champ "Contact de l'accompagnateur" ici
-            $('#nouveaux-accompagnateurs-' + reservationId + ' input[name="contact_acc[]"]').on('input', function() {
-                var contactAcc = $(this).val();
-
-                // Utilisez une expression régulière pour vérifier si contact_acc contient uniquement des nombres
-                var numbersOnlyRegex = /^[0-9]+$/;
-
-                if (!numbersOnlyRegex.test(contactAcc)) {
-                    alert('Le champ Contact de l\'accompagnateur doit contenir uniquement des nombres.');
-                    $(this).val(''); // Effacez la saisie incorrecte
-                }
-            });
-        });
-    });
-
-    // Function to remove an accompagnateur
-    function supprimerAccompagnateur(button) {
-        $(button).closest('.row').remove();
-    }
-</script>
 <?php
 
 $include_icm_footer = true;

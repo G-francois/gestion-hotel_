@@ -256,235 +256,276 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                 </div>
                                             </div>
 
-                                            <!-- Button Modifier modal -->
-                                            <i class="far fa-edit modifier-icon" style="margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal1-<?= $reservation['num_res']; ?>" title="Modifier la réservation">
-                                            </i>
 
-                                            <!-- Modal Modifier -->
-                                            <div class="modal modal-blur fade" id="exampleModal1-<?= $reservation['num_res']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-                                                    <div class="modal-content" id="container<?= $reservation['num_res']; ?>">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier la réservation <?php echo $reservation['num_res']; ?></h1>
-                                                            <!-- Bouton pour ajouter un conteneur -->
-                                                            <div class="col-md" style="justify-content: end; display: flex;">
-                                                                <button type="button" class="btn btn-success text-light" id="ajouter-chambres">Ajouter une chambre</button>
+                                            <?php if ($reservation['statut'] === 'En cours de validation') {
+                                            ?>
+                                                <!-- Button Modifier modal -->
+                                                <i class="far fa-edit modifier-icon" style="margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal1-<?= $reservation['num_res']; ?>" title="Modifier la réservation">
+                                                </i>
+
+                                                <!-- Modal Modifier -->
+                                                <div class="modal modal-blur fade" id="exampleModal1-<?= $reservation['num_res']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                                                        <div class="modal-content" id="container<?= $reservation['num_res']; ?>">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier la réservation <?php echo $reservation['num_res']; ?></h1>
+                                                                <!-- Bouton pour ajouter un conteneur -->
+                                                                <div class="col-md" style="justify-content: end; display: flex;">
+                                                                    <button type="button" class="btn btn-custom text-light" style="background-color: #cda45e;" id="ajouter-chambres">Ajouter une chambre</button>
+                                                                </div>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form id="modification<?= $reservation['num_res']; ?>" data-endpoint="<?= PATH_PROJECT ?>administrateur/reservations/traitement_reservations">
+                                                            <div class="modal-body">
+                                                                <form id="modification<?= $reservation['num_res']; ?>" data-endpoint="<?= PATH_PROJECT ?>administrateur/reservations/traitement_reservations">
 
-                                                                <!-- Le champ email -->
-                                                                <div class="col-md-12 mb-4" style="padding-left: 0px;">
-                                                                    <label for="email"> Email du Client :
-                                                                        <span class="text-danger">(*)</span>
-                                                                    </label>
+                                                                    <!-- Le champ email -->
+                                                                    <div class="col-md-12 mb-4" style="padding-left: 0px;">
+                                                                        <label for="email"> Email du Client :
+                                                                            <span class="text-danger">(*)</span>
+                                                                        </label>
 
-                                                                    <!-- Champ de sélection dynamique avec les adresses e-mail -->
-                                                                    <select name="email"  class="js-example-basic-single" style="width: 100%;">
-                                                                        <option value=""></option>
-                                                                        <?php foreach ($liste_clients as $client) : ?>
-                                                                            <option <?= $client['email'] == $info_client_reservant['email'] ? 'selected' : ''  ?> value="<?= $client['email'] ?>"><?= $client['email'] ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </div>
+                                                                        <!-- Champ de sélection dynamique avec les adresses e-mail -->
+                                                                        <select name="email" class="js-example-basic-single" style="width: 100%;">
+                                                                            <option value=""></option>
+                                                                            <?php foreach ($liste_clients as $client) : ?>
+                                                                                <option <?= $client['email'] == $info_client_reservant['email'] ? 'selected' : ''  ?> value="<?= $client['email'] ?>"><?= $client['email'] ?></option>
+                                                                            <?php endforeach; ?>
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- Conteneur pour les champs de chambre dynamiques -->
+                                                                    <div id="champs-chambres-dynamiques-container">
+                                                                        <!-- Les champs de chambre seront ajoutés ici en fonction des boutons "+" et "-" -->
+                                                                    </div>
 
-                                                                <!-- Conteneur pour les champs de chambre dynamiques -->
-                                                                <div id="champs-chambres-dynamiques-container">
-                                                                    <!-- Les champs de chambre seront ajoutés ici en fonction des boutons "+" et "-" -->
-                                                                </div>
+                                                                    <hr>
 
-                                                                <hr>
+                                                                    <?php
+                                                                    $l = sizeof($liste_chambres_reservations);
+                                                                    foreach ($liste_chambres_reservations as $i => $chambre_) {
+                                                                        $typ_chambre = recuperer_type_chambre_pour_affichage($chambre_['num_chambre']);
+                                                                    ?>
+                                                                        <div id="champs-chambres-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>">
 
-                                                                <?php
-                                                                $l = sizeof($liste_chambres_reservations);
-                                                                foreach ($liste_chambres_reservations as $i => $chambre_) {
-                                                                    $typ_chambre = recuperer_type_chambre_pour_affichage($chambre_['num_chambre']);
-                                                                ?>
-                                                                    <div id="champs-chambres-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>">
+                                                                            <!-- Le champ Numéro de chambre -->
+                                                                            <div class="col-md-12 mb-3">
+                                                                                <label for="num_chambre">Chambres :
+                                                                                    <span class="text-danger">(*)</span>
+                                                                                </label>
+                                                                                <select class="form-control chambre-select" id="num_chambre" name="chambre<?= $i + 1 ?>[num]" required>
+                                                                                    <option value="">Sélectionnez le numéro de chambre</option>
 
-                                                                        <!-- Le champ Numéro de chambre -->
-                                                                        <div class="col-md-12 mb-3">
-                                                                            <label for="num_chambre">Chambres :
-                                                                                <span class="text-danger">(*)</span>
-                                                                            </label>
-                                                                            <select class="form-control chambre-select" id="num_chambre" name="chambre<?= $i + 1 ?>[num]" required>
-                                                                                <option value="">Sélectionnez le numéro de chambre</option>
-
-                                                                                <?php
-                                                                                foreach ($liste_chambre as $chambre) {
-                                                                                    if ($chambre['est_actif'] == 1 || ($chambre['est_actif'] == 0 && $chambre['num_chambre'] == $chambre_['num_chambre'])) {
-                                                                                        $compared_value = $chambre_['num_chambre'] . '&' . $typ_chambre;
-                                                                                        $value = $chambre['num_chambre'] . '&' . $chambre['lib_typ'];
-                                                                                        $option_text = 'Chambre N°' . $chambre['num_chambre'] . ' - Type : ' . $chambre['lib_typ'];
-                                                                                        //$prix_par_chambre = $chambre['pu'];
-                                                                                        ///echo '<option value="' . $chambre['num_chambre'] . '&' . $chambre['lib_typ'] . '">' . $option_value . '</option>';
-                                                                                ?>
-                                                                                        <option value="<?= $value ?>" <?= $compared_value == $value ? 'selected' : '' ?>><?= $option_text ?></option>
-                                                                                <?php
+                                                                                    <?php
+                                                                                    foreach ($liste_chambre as $chambre) {
+                                                                                        if ($chambre['est_actif'] == 1 || ($chambre['est_actif'] == 0 && $chambre['num_chambre'] == $chambre_['num_chambre'])) {
+                                                                                            $compared_value = $chambre_['num_chambre'] . '&' . $typ_chambre;
+                                                                                            $value = $chambre['num_chambre'] . '&' . $chambre['lib_typ'];
+                                                                                            $option_text = 'Chambre N°' . $chambre['num_chambre'] . ' - Type : ' . $chambre['lib_typ'];
+                                                                                            //$prix_par_chambre = $chambre['pu'];
+                                                                                            ///echo '<option value="' . $chambre['num_chambre'] . '&' . $chambre['lib_typ'] . '">' . $option_value . '</option>';
+                                                                                    ?>
+                                                                                            <option value="<?= $value ?>" <?= $compared_value == $value ? 'selected' : '' ?>><?= $option_text ?></option>
+                                                                                    <?php
+                                                                                        }
                                                                                     }
-                                                                                }
-                                                                                ?>
-                                                                            </select>
-                                                                        </div>
+                                                                                    ?>
+                                                                                </select>
+                                                                            </div>
 
-                                                                        <?php
-                                                                        $k = sizeof($liste_accompagnateurs_chambres_reservations[$chambre_['num_chambre']]);
-                                                                        foreach ($liste_accompagnateurs_chambres_reservations[$chambre_['num_chambre']] as $j => $accompagnateur) {
-                                                                        ?>
-                                                                            <!-- Le(s) champ(s) nom et contact accompagnateur(s) anciennements ajoutés -->
+                                                                            <?php
+                                                                            $k = sizeof($liste_accompagnateurs_chambres_reservations[$chambre_['num_chambre']]);
+                                                                            foreach ($liste_accompagnateurs_chambres_reservations[$chambre_['num_chambre']] as $j => $accompagnateur) {
+                                                                            ?>
+                                                                                <!-- Le(s) champ(s) nom et contact accompagnateur(s) anciennements ajoutés -->
+                                                                                <div class="row">
+                                                                                    <!-- Le champ nom_acc -->
+                                                                                    <div class="col-md-6 mb-1">
+                                                                                        <label for="modification-nom_acc">
+                                                                                            Nom de l'accompagnateur:
+                                                                                        </label>
+                                                                                        <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $j + 1 ?>][nom_acc]" id="modification-nom_acc" class="form-control" value="<?= $accompagnateur['nom_acc'] ?>">
+                                                                                    </div>
+
+                                                                                    <!-- Le champ contact_acc -->
+                                                                                    <div class="col-md-5 mb-1">
+                                                                                        <label for="modification-contact_acc">
+                                                                                            Contact de l'accompagnateur:
+                                                                                        </label>
+                                                                                        <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $j + 1 ?>][contact_acc]" id="modification-contact_acc" class="form-control" value="<?= $accompagnateur['contact'] ?>">
+                                                                                    </div>
+
+                                                                                    <!-- Bouton pour retirer un accompagnateur anciennement ajouter -->
+                                                                                    <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
+                                                                                        <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)">-</button>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+
+                                                                            <!-- Le champ nom et contact nouveau accompagnateur -->
                                                                             <div class="row">
                                                                                 <!-- Le champ nom_acc -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="modification-nom_acc">
+                                                                                    <label for="modification-nom_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>">
                                                                                         Nom de l'accompagnateur:
                                                                                     </label>
-                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $j + 1 ?>][nom_acc]" id="modification-nom_acc" class="form-control" value="<?= $accompagnateur['nom_acc'] ?>">
+                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][nom_acc]" id="modification-nom_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>" class="form-control">
                                                                                 </div>
 
                                                                                 <!-- Le champ contact_acc -->
                                                                                 <div class="col-md-5 mb-1">
-                                                                                    <label for="modification-contact_acc">
+                                                                                    <label for="modification-contact_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>">
                                                                                         Contact de l'accompagnateur:
                                                                                     </label>
-                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $j + 1 ?>][contact_acc]" id="modification-contact_acc" class="form-control" value="<?= $accompagnateur['contact'] ?>">
+                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][contact_acc]" id="modification-contact_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>" class="form-control">
                                                                                 </div>
 
-                                                                                <!-- Bouton pour retirer un accompagnateur anciennement ajouter -->
+                                                                                <!-- Bouton pour ajouter un accompagnateur -->
                                                                                 <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
-                                                                                    <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)">-</button>
+                                                                                    <button type="button" id="ajouter-accompagnateur-btn<?= $chambre_['num_chambre'] + 1 ?>" class="btn btn-custom ajouter-accompagnateur-btn">+</button>
                                                                                 </div>
 
-                                                                            </div>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-
-                                                                        <!-- Le champ nom et contact nouveau accompagnateur -->
-                                                                        <div class="row">
-                                                                            <!-- Le champ nom_acc -->
-                                                                            <div class="col-md-6 mb-1">
-                                                                                <label for="modification-nom_acc">
-                                                                                    Nom de l'accompagnateur:
-                                                                                </label>
-                                                                                <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][nom_acc]" id="modification-nom_acc" class="form-control">
-                                                                            </div>
-
-                                                                            <!-- Le champ contact_acc -->
-                                                                            <div class="col-md-5 mb-1">
-                                                                                <label for="modification-contact_acc">
-                                                                                    Contact de l'accompagnateur:
-                                                                                </label>
-                                                                                <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][contact_acc]" id="modification-contact_acc" class="form-control">
-                                                                            </div>
-
-                                                                            <!-- Bouton pour ajouter un accompagnateur -->
-                                                                            <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
-                                                                                <button type="button" id="ajouter-accompagnateur-btn<?= $chambre_['num_chambre'] + 1 ?>" class="btn btn-custom ajouter-accompagnateur-btn">+</button>
-                                                                            </div>
-
-                                                                            <!-- Conteneur pour les champs d'accompagnateur dynamiques -->
-                                                                            <div id="champs-accompagnateur-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>">
-                                                                                <!-- Les champs d'accompagnateur seront ajoutés ici en fonction des boutons "+" -->
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <!-- Le champ début et fin occupation -->
-                                                                        <div class="row">
-                                                                            <!-- Le champ date de début occupation -->
-                                                                            <div class="col-md-6 mb-1">
-                                                                                <label for="inscription-deb_occ">
-                                                                                    Début de séjour:
-                                                                                    <span class="text-danger">(*)</span>
-                                                                                </label>
-                                                                                <div class="input-group mb-3">
-                                                                                    <input type="date" name="chambre<?= $i + 1 ?>[deb_occ]" id="inscription-deb_occ" class="form-control" placeholder="Veuillez entrer votre date de début occupation" value="<?= date('Y-m-d', strtotime($chambre_['deb_occ'])) ?>" required>
+                                                                                <!-- Conteneur pour les champs d'accompagnateur dynamiques -->
+                                                                                <div id="champs-accompagnateur-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>">
+                                                                                    <!-- Les champs d'accompagnateur seront ajoutés ici en fonction des boutons "+" -->
                                                                                 </div>
                                                                             </div>
 
-                                                                            <!-- Le champ date de fin occupation -->
-                                                                            <div class="col-md-6 mb-1">
-                                                                                <label for="inscription-fin_occ">
-                                                                                    Fin de séjour:
-                                                                                    <span class="text-danger">(*)</span>
-                                                                                </label>
-                                                                                <div class="input-group mb-3">
-                                                                                    <input type="date" name="chambre<?= $i + 1 ?>[fin_occ]" id="inscription-fin_occ" class="form-control" placeholder="Veuillez entrer votre date de fin occupation" value="<?= date('Y-m-d', strtotime($chambre_['fin_occ'])) ?>" required>
+                                                                            <!-- Le champ début et fin occupation -->
+                                                                            <div class="row">
+                                                                                <!-- Le champ date de début occupation -->
+                                                                                <div class="col-md-6 mb-1">
+                                                                                    <label for="inscription-deb_occ-<?php echo $reservation['num_res']; ?>-1">
+                                                                                        Début de séjour:
+                                                                                        <span class="text-danger">(*)</span>
+                                                                                    </label>
+                                                                                    <div class="input-group mb-3">
+                                                                                        <input type="date" id="inscription-deb_occ-<?php echo $reservation['num_res']; ?>" name="chambre<?= $i + 1 ?>[deb_occ]" id="inscription-deb_occ" class="form-control" placeholder="Veuillez entrer votre date de début occupation" value="<?= date('Y-m-d', strtotime($chambre_['deb_occ'])) ?>" required>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <!-- Le champ date de fin occupation -->
+                                                                                <div class="col-md-6 mb-1">
+                                                                                    <label for="inscription-fin_occ-<?php echo $reservation['num_res']; ?>-2">
+                                                                                        Fin de séjour:
+                                                                                        <span class="text-danger">(*)</span>
+                                                                                    </label>
+                                                                                    <div class="input-group mb-3">
+                                                                                        <input type="date" id="inscription-fin_occ-<?php echo $reservation['num_res']; ?>" name="chambre<?= $i + 1 ?>[fin_occ]" id="inscription-fin_occ" class="form-control" placeholder="Veuillez entrer votre date de fin occupation" value="<?= date('Y-m-d', strtotime($chambre_['fin_occ'])) ?>" required>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
 
-                                                                        <!-- Bouton pour supprimer un conteneur -->
-                                                                        <div class="col-md-12 mb-2" style="justify-content: center; display: flex;">
-                                                                            <button type="button" class="btn btn-danger" onclick="retirer_Chambre('champs-chambres-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>')" style="--bs-btn-color: #fff; --bs-btn-bg: #b30617; --bs-btn-border-color: #b30617;">Retirer cette chambre</button>
-                                                                        </div>
+                                                                            <!-- Bouton pour supprimer un conteneur -->
+                                                                            <div class="col-md-12 mb-2" style="justify-content: center; display: flex;">
+                                                                                <button type="button" class="btn btn-danger" onclick="retirer_Chambre('champs-chambres-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>')" style="--bs-btn-color: #fff; --bs-btn-bg: #b30617; --bs-btn-border-color: #b30617;">Retirer cette chambre</button>
+                                                                            </div>
 
+                                                                        </div>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                    <!-- </div> -->
+
+                                                                    <input type="hidden" name="editing" value="<?= $reservation['num_res'] ?>">
+
+                                                                    <hr>
+
+                                                                    <div class="col-md mb-1">
+                                                                        <label for="password-<?php echo $reservation['num_res']; ?>">
+                                                                            Mot de passe:
+                                                                            <span class="text-danger">(*)</span>
+                                                                        </label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="password" id="password-<?php echo $reservation['num_res']; ?>" name="password" class="form-control mb-2" placeholder="Veuillez entrez votre mot de passe utilisateur puis valider" id="">
+                                                                        </div>
                                                                     </div>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                                <!-- </div> -->
 
-                                                                <input type="hidden" name="editing" value="<?= $reservation['num_res'] ?>">
-
-                                                                <hr>
-
-                                                                <div class="col-md mb-1">
-                                                                    <label for="inscription-deb_occ">
-                                                                        Mot de passe:
-                                                                        <span class="text-danger">(*)</span>
-                                                                    </label>
-                                                                    <div class="input-group mb-3">
-                                                                        <input type="password" name="password" class="form-control mb-2" placeholder="Veuillez entrez votre mot de passe utilisateur puis valider" id="">
+                                                                    <div class="float-right" style="text-align: right;">
+                                                                        <button type="reset" class="btn btn-danger">
+                                                                            Annuler
+                                                                        </button>
+                                                                        <button type="submit" id="submitButton-<?= $reservation['num_res']; ?>" class="btn btn-success">
+                                                                            <span>Mettre à jour</span>
+                                                                            <span class="loader"></span>
+                                                                        </button>
                                                                     </div>
-                                                                </div>
-
-                                                                <div class="float-right" style="text-align: right;">
-                                                                    <button type="reset" class="btn btn-danger-custom text-light" style="background-color: red">
-                                                                        Annuler
-                                                                    </button>
-                                                                    <button type="submit" id="submitButton" class="btn btn-success-custom text-light" style="background-color: black">
-                                                                        <span>Mettre à jour</span>
-                                                                        <span class="loader"></span>
-                                                                    </button>
-                                                                </div>
-                                                            </form>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Button supprimer modal -->
-                                            <i class="far fa-trash-alt supprimer-icon" data-bs-toggle="modal" data-bs-target="#exampleModal2-<?= $reservation['num_res']; ?>" title="Supprimer la réservation">
-                                            </i>
+                                                <!-- Button supprimer modal -->
+                                                <i class="far fa-trash-alt supprimer-icon" data-bs-toggle="modal" data-bs-target="#exampleModal2-<?= $reservation['num_res']; ?>" title="Supprimer la réservation">
+                                                </i>
 
-                                            <!-- Modal supprimer -->
-                                            <div class="modal fade" id="exampleModal2-<?= $reservation['num_res']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer la réservation <?php echo $reservation['num_res']; ?></h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form action="<?= PATH_PROJECT ?>administrateur/reservations/traitement-supprimer-reservation" method="post" enctype="multipart/form-data">
-                                                                <!-- Début du formulaire de supression du reservation -->
-                                                                <input type="hidden" name="reservation_id" value="<?php echo $reservation['num_res']; ?>">
-                                                                <div class="form-group">
-                                                                    <label for="passwordImput2-<?php echo $reservation['num_res']; ?>" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe pour supprimer la réservation</label>
-                                                                    <input type="password" name="password" id="passwordImput2-<?php echo $reservation['num_res']; ?>" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="" required>
-                                                                </div>
+                                                <!-- Modal supprimer -->
+                                                <div class="modal fade" id="exampleModal2-<?= $reservation['num_res']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer la réservation <?php echo $reservation['num_res']; ?></h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="<?= PATH_PROJECT ?>client/liste_des_reservations/traitement_supprimer_reservation" method="post" enctype="multipart/form-data">
+                                                                    <!-- Début du formulaire de supression du reservation -->
+                                                                    <input type="hidden" name="reservation_id" value="<?php echo $reservation['num_res']; ?>">
+                                                                    <div class="form-group">
+                                                                        <label for="passwordImput2-<?php echo $reservation['num_res']; ?>" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe pour supprimer la réservation</label>
+                                                                        <input type="password" name="password" id="passwordImput2-<?php echo $reservation['num_res']; ?>" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="" required>
+                                                                    </div>
 
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" name="supprimer" class="btn btn-primary">Valider</button>
-                                                                </div>
-                                                            </form>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" name="supprimer" class="btn btn-primary">Valider</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
+                                            <?php
+                                            }
+                                            ?>
+
+                                            <?php if ($reservation['statut'] === 'Rejeter') {
+                                            ?>
+                                                <!-- Button supprimer modal -->
+                                                <i class="far fa-trash-alt supprimer-icon" data-bs-toggle="modal" data-bs-target="#exampleModal2-<?= $reservation['num_res']; ?>" title="Supprimer la réservation">
+                                                </i>
+
+                                                <!-- Modal supprimer -->
+                                                <div class="modal fade" id="exampleModal2-<?= $reservation['num_res']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer la réservation <?php echo $reservation['num_res']; ?></h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="<?= PATH_PROJECT ?>client/liste_des_reservations/traitement_supprimer_reservation" method="post" enctype="multipart/form-data">
+                                                                    <!-- Début du formulaire de supression du reservation -->
+                                                                    <input type="hidden" name="reservation_id" value="<?php echo $reservation['num_res']; ?>">
+                                                                    <div class="form-group">
+                                                                        <label for="passwordImput2-<?php echo $reservation['num_res']; ?>" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe pour supprimer la réservation</label>
+                                                                        <input type="password" name="password" id="passwordImput2-<?php echo $reservation['num_res']; ?>" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="" required>
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" name="supprimer" class="btn btn-primary">Valider</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -515,10 +556,11 @@ $liste_clients = recuperer_liste_clients_actifs();
 foreach ($liste_reservations as $reservation) {
 ?>
     <!-- ajx -->
+
     <script>
         $(document).ready(function() {
 
-            var $submitButton = $('#submitButton');
+            var $submitButton = $('#submitButton-<?= $reservation['num_res']; ?>');
             var $loader = $submitButton.find('.loader');
 
             $('#modification<?= $reservation['num_res']; ?>').submit(function(event) {
@@ -597,21 +639,21 @@ foreach ($liste_reservations as $reservation) {
                     var container = document.getElementById('champs-accompagnateur-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>');
                     var nouvelAccompagnateur = document.createElement('div');
                     nouvelAccompagnateur.innerHTML = `
-            <div class="row">
-                <div class="col-md-6 mb-1">
-                    <label for="nouveau-nom_acc">Nom de l'accompagnateur:</label>
-                    <input type="text" name="chambre${<?= $i + 1 ?>}[ACCS][acc${incAc}][nom_acc]" class="form-control">
-                </div>
-                <div class="col-md-5 mb-1">
-                    <label for="nouveau-contact_acc">Contact de l'accompagnateur:</label>
-                    <input type="text" name="chambre${<?= $i + 1 ?>}[ACCS][acc${incAc}][contact_acc]" class="form-control">
-                </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-1">
+                            <label for="nouveau-nom_acc">Nom de l'accompagnateur:</label>
+                            <input type="text" name="chambre${<?= $i + 1 ?>}[ACCS][acc${incAc}][nom_acc]" class="form-control">
+                        </div>
+                        <div class="col-md-5 mb-1">
+                            <label for="nouveau-contact_acc">Contact de l'accompagnateur:</label>
+                            <input type="text" name="chambre${<?= $i + 1 ?>}[ACCS][acc${incAc}][contact_acc]" class="form-control">
+                        </div>
 
-                <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
-                    <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)">-</button>
-                </div>
-            </div>
-            `;
+                        <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
+                            <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)">-</button>
+                        </div>
+                    </div>
+                    `;
                     container.appendChild(nouvelAccompagnateur);
                     incAc++
                 });
@@ -641,6 +683,54 @@ foreach ($liste_reservations as $reservation) {
 }
 ?>
 
+
+<!-- Ajoutez cette balise script à la fin de la page -->
+<script>
+    $(document).ready(function() {
+        $('.ajouter-accompagnateur').click(function() {
+            var reservationId = $(this).data('reservation-id');
+            var nouveauChamp = `
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Nom de l'accompagnateur <span class="text-danger">(*)</span> </label>
+                <input type="text" name="nom_acc[]" class="form-control" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Contact <span class="text-danger">(*)</span> : </label>
+                <input type="text" name="contact_acc[]" class="form-control" required>
+            </div>
+
+            <div class="col-md-2 mb-3" style="display: flex; align-items: flex-end; justify-content: center;">
+                <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)" style="--bs-btn-color: #fff; --bs-btn-bg: #3b070c; --bs-btn-border-color: #3b070c; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #b30617; --bs-btn-hover-border-color: #b30617;">-</button>
+            </div>
+        </div>
+    `;
+
+            $('#nouveaux-accompagnateurs-' + reservationId).append(nouveauChamp);
+
+            // Ajoutez une validation pour le champ "Contact de l'accompagnateur" ici
+            $('#nouveaux-accompagnateurs-' + reservationId + ' input[name="contact_acc[]"]').on('input', function() {
+                var contactAcc = $(this).val();
+
+                // Utilisez une expression régulière pour vérifier si contact_acc contient uniquement des nombres
+                var numbersOnlyRegex = /^[0-9]+$/;
+
+                if (!numbersOnlyRegex.test(contactAcc)) {
+                    alert('Le champ Contact de l\'accompagnateur doit contenir uniquement des nombres.');
+                    $(this).val(''); // Effacez la saisie incorrecte
+                }
+            });
+        });
+    });
+
+    // Function to remove an accompagnateur
+    function supprimerAccompagnateur(button) {
+        $(button).closest('.row').remove();
+    }
+</script>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var ajouterChambreBtn = document.querySelector('#ajouter-chambres');
@@ -656,86 +746,86 @@ foreach ($liste_reservations as $reservation) {
                 var container = document.getElementById('champs-chambres-dynamiques-container');
                 var nouvelleChambre = document.createElement('div');
                 nouvelleChambre.innerHTML = `
-                <!-- Le champ Numéro de chambre -->
-                <div class="col-md-12 mb-3">
-                    <label for="num_chambre">Chambres :
-                        <span class="text-danger">(*)</span>
-                    </label>
-                    <select class="form-control num_chambre" name="chambre${incCh}[num]" required>
-                        <option value="">Sélectionnez le numéro de chambre</option>
-                        <?php
-                        foreach ($liste_chambre as $chambre) {
-                            if ($chambre['est_actif'] == 1) {
+                        <!-- Le champ Numéro de chambre -->
+                        <div class="col-md-12 mb-3">
+                            <label for="num_chambre">Chambres :
+                                <span class="text-danger">(*)</span>
+                            </label>
+                            <select class="form-control num_chambre" name="chambre${incCh}[num]" required>
+                                <option value="">Sélectionnez le numéro de chambre</option>
+                                <?php
+                                foreach ($liste_chambre as $chambre) {
+                                    if ($chambre['est_actif'] == 1) {
 
-                                $value = $chambre['num_chambre'] . '&' . $chambre['lib_typ'];
-                                $option_text = 'Chambre N°' . $chambre['num_chambre'] . ' - Type : ' . $chambre['lib_typ'];
-                        ?>
-                            <option value="<?= $value ?>"><?= $option_text ?></option>
-                        <?php
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <!-- Le champ nom et contact accompagnateur -->
-                <div class="row">
-                    <!-- Le champ nom_acc -->
-                    <div class="col-md-6 mb-1">
-                        <label for="modification-nom_acc">Nom de l'accompagnateur:</label>
-                        <input type="text" name="chambre${incCh}[ACCS][acc1][nom_acc]" class="form-control">
-                    </div>
-
-                    <!-- Le champ contact_acc -->
-                    <div class="col-md-5 mb-1">
-                        <label for="modification-contact_acc">Contact de l'accompagnateur:</label>
-                        <input type="text" name="chambre${incCh}[ACCS][acc1][contact_acc]" class="form-control">
-                    </div>
-
-                    <!-- Bouton pour ajouter un accompagnateur -->
-                    <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
-                        <button type="button" class="btn btn-success ajouter-accompagnateur2-btn">+</button>
-                    </div>
-
-                    <!-- Conteneur pour les champs d'accompagnateur dynamiques -->
-                    <div class="champs-accompagnateur2-dynamiques-container">
-                        <!-- Les champs d'accompagnateur seront ajoutés ici en fonction des boutons "+" -->
-                    </div>
-                </div>
-
-                <!-- Le champ début et fin occupation -->
-                <div class="row">
-                    <!-- Le champ date de début occupation -->
-                    <div class="col-md-6 mb-1">
-                        <label for="inscription-deb_occ">Début de séjour:
-                            <span class="text-danger">(*)</span>
-                        </label>
-                        <div class="input-group mb-3">
-                            <input type="date" name="chambre${incCh}[deb_occ]" class="form-control" placeholder="Veuillez entrer votre date de début occupation" value="" required>
+                                        $value = $chambre['num_chambre'] . '&' . $chambre['lib_typ'];
+                                        $option_text = 'Chambre N°' . $chambre['num_chambre'] . ' - Type : ' . $chambre['lib_typ'];
+                                ?>
+                                    <option value="<?= $value ?>"><?= $option_text ?></option>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
-                    </div>
 
-                    <!-- Le champ date de fin occupation -->
-                    <div class="col-md-6 mb-1">
-                        <label for="inscription-fin_occ">Fin de séjour:
-                            <span class="text-danger">(*)</span>
-                        </label>
-                        <div class="input-group mb-3">
-                            <input type="date" name="chambre${incCh}[fin_occ]" class="form-control" placeholder="Veuillez entrer votre date de fin occupation" value="" required>
+                        <!-- Le champ nom et contact accompagnateur -->
+                        <div class="row">
+                            <!-- Le champ nom_acc -->
+                            <div class="col-md-6 mb-1">
+                                <label for="modification-nom_acc">Nom de l'accompagnateur:</label>
+                                <input type="text" name="chambre${incCh}[ACCS][acc1][nom_acc]" class="form-control">
+                            </div>
+
+                            <!-- Le champ contact_acc -->
+                            <div class="col-md-5 mb-1">
+                                <label for="modification-contact_acc">Contact de l'accompagnateur:</label>
+                                <input type="text" id="modification-contact_acc" name="chambre${incCh}[ACCS][acc1][contact_acc]" class="form-control">
+                            </div>
+
+                            <!-- Bouton pour ajouter un accompagnateur -->
+                            <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
+                                <button type="button" class="btn btn-success ajouter-accompagnateur2-btn">+</button>
+                            </div>
+
+                            <!-- Conteneur pour les champs d'accompagnateur dynamiques -->
+                            <div class="champs-accompagnateur2-dynamiques-container">
+                                <!-- Les champs d'accompagnateur seront ajoutés ici en fonction des boutons "+" -->
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-lg-12 mt-4">
-                        <!-- <h5 style="font-weight: bold">Nombre total de jours : <span id="nombre_jour">0</span></h5>-->
-                        <!-- <h5 style="font-weight: bold">Montant total : <span id="prix_total">0</span> </h5> -->
-                    </div>
+                        <!-- Le champ début et fin occupation -->
+                        <div class="row">
+                            <!-- Le champ date de début occupation -->
+                            <div class="col-md-6 mb-1">
+                                <label for="inscription-deb_occ">Début de séjour:
+                                    <span class="text-danger">(*)</span>
+                                </label>
+                                <div class="input-group mb-3">
+                                    <input type="date" id="inscription-deb_occ" name="chambre${incCh}[deb_occ]" class="form-control" placeholder="Veuillez entrer votre date de début occupation" value="" required>
+                                </div>
+                            </div>
 
-                    <!-- Bouton pour supprimer un conteneur -->
-                    <div class="col-md-12 mb-3" style="justify-content: center; display: flex;">
-                        <button type="button" class="btn btn-danger" onclick="retirerChambre(this)" style="--bs-btn-color: #fff; --bs-btn-bg: #b30617; --bs-btn-border-color: #b30617;">Retirer une chambre</button>
-                    </div>
-                </div>
-                `;
+                            <!-- Le champ date de fin occupation -->
+                            <div class="col-md-6 mb-1">
+                                <label for="inscription-fin_occ">Fin de séjour:
+                                    <span class="text-danger">(*)</span>
+                                </label>
+                                <div class="input-group mb-3">
+                                    <input type="date" id="inscription-fin_occ" name="chambre${incCh}[fin_occ]" class="form-control" placeholder="Veuillez entrer votre date de fin occupation" value="" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 mt-4">
+                                <!-- <h5 style="font-weight: bold">Nombre total de jours : <span id="nombre_jour">0</span></h5>-->
+                                <!-- <h5 style="font-weight: bold">Montant total : <span id="prix_total">0</span> </h5> -->
+                            </div>
+
+                            <!-- Bouton pour supprimer un conteneur -->
+                            <div class="col-md-12 mb-3" style="justify-content: center; display: flex;">
+                                <button type="button" class="btn btn-danger" onclick="retirerChambre(this)" style="--bs-btn-color: #fff; --bs-btn-bg: #b30617; --bs-btn-border-color: #b30617;">Retirer une chambre</button>
+                            </div>
+                        </div>
+                        `;
                 container.appendChild(nouvelleChambre);
             }
 
@@ -750,21 +840,21 @@ foreach ($liste_reservations as $reservation) {
                     var container = nouvelleChambre.querySelector('.champs-accompagnateur2-dynamiques-container');
                     var nouvelAccompagnateur2 = document.createElement('div');
                     nouvelAccompagnateur2.innerHTML = `
-                    <div class="row">
-                        <div class="col-md-6 mb-1">
-                            <label for="nouveau-nom_acc">Nom de l'accompagnateur:</label>
-                            <input type="text" name="chambre${incCh}[ACCS][acc${incAcc}][nom_acc]" class="form-control">
-                        </div>
-                        <div class="col-md-5 mb-1">
-                            <label for="nouveau-contact_acc">Contact de l'accompagnateur:</label>
-                            <input type="text" name="chambre${incCh}[ACCS][acc${incAcc}][contact_acc]" class="form-control">
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-1">
+                                    <label for="nouveau-nom_acc">Nom de l'accompagnateur:</label>
+                                    <input type="text" id="nouveau-nom_acc" name="chambre${incCh}[ACCS][acc${incAcc}][nom_acc]" class="form-control">
+                                </div>
+                                <div class="col-md-5 mb-1">
+                                    <label for="nouveau-contact_acc">Contact de l'accompagnateur:</label>
+                                    <input type="text" id="nouveau-contact_acc" name="chambre${incCh}[ACCS][acc${incAcc}][contact_acc]" class="form-control">
+                                </div>
 
-                        <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
-                            <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)">-</button>
-                        </div>
-                    </div>
-                    `;
+                                <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
+                                    <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)">-</button>
+                                </div>
+                            </div>
+                            `;
                     container.appendChild(nouvelAccompagnateur2);
                     incAcc++
                 }

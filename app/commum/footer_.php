@@ -246,7 +246,7 @@
 
 
     <!-- Page level plugins -->
-    <script src="<?= PATH_PROJECT ?>public/vendor/chart.js/Chart.min.js"></script>
+    <!-- <script src="<?= PATH_PROJECT ?>public/vendor/chart.js/Chart.min.js"></script> -->
     <script src="<?= PATH_PROJECT ?>public/vendor/datatables/jquery.dataTables.js"></script>
     <script src="<?= PATH_PROJECT ?>public/vendor/datatables/dataTables.bootstrap4.js"></script>
 

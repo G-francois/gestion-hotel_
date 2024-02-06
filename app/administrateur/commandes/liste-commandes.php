@@ -256,27 +256,22 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                             <form action="<?= PATH_PROJECT ?>administrateur/commandes/traitement-modifier-commande" method="post" enctype="multipart/form-data">
                                                                 <input type="hidden" name="commande_id" value="<?php echo $num_cmd ?>">
                                                                 <input type="hidden" name="reservation_id" value="<?php echo $commande['num_res']; ?>">
+                                                                <input type="hidden" name="num_chambre" value="<?php echo $commande['num_chambre']; ?>">
 
                                                                 <!-- Le champ email -->
-                                                                <div class="col-md-12 mb-3">
+                                                                <div class="col-md-12 mb-4" style="padding-left: 0px;">
                                                                     <label for="email"> Email du Client :
                                                                         <span class="text-danger">(*)</span>
                                                                     </label>
 
                                                                     <!-- Champ de sélection dynamique avec les adresses e-mail -->
                                                                     <select name="email" class="js-example-basic-single" style="width: 100%;">
-                                                                        <option value=""><?php echo $email_clt = !empty($info_client_reservant['email']) ? $info_client_reservant['email'] : null; ?></option>
+                                                                        <option value=""></option>
                                                                         <?php foreach ($liste_clients as $client) : ?>
-                                                                            <option><?= $client['email'] ?></option>
+                                                                            <option <?= $client['email'] == $info_client_reservant['email'] ? 'selected' : ''  ?> value="<?= $client['email'] ?>"><?= $client['email'] ?></option>
                                                                         <?php endforeach; ?>
                                                                     </select>
-                                                                    <?php if (isset($erreurs["email"]) && !empty($erreurs["email"])) { ?>
-                                                                        <span class="text-danger">
-                                                                            <?= $erreurs["email"]; ?>
-                                                                        </span>
-                                                                    <?php } ?>
                                                                 </div>
-
 
                                                                 <?php
                                                                 // foreach ($liste_commandes_client as $commande) {

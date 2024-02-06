@@ -12,7 +12,6 @@ if (isset($_POST['enregistrer'])) {
         $erreurs["email"] = "Le champ email est requis. Veuillez le renseigner.";
     }
 
-
     if (check_email_and_profile_admin_in_db($_POST["email"])) {
         $erreurs["email"] = "Cette adresse mail n'est pas autorisée pour faire une réservation car il est utiliser par un autre profil 'ADMINISTRATEUR'.";
     }
