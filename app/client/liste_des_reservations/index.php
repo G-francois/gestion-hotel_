@@ -319,18 +319,18 @@ $liste_chambre = recuperer_chambres();
                                                                             <div class="row">
                                                                                 <!-- Le champ nom_acc -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="modification-nom_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>">
+                                                                                    <label for="modification-nom_acc-<?= $reservation['num_res']?>">
                                                                                         Nom de l'accompagnateur:
                                                                                     </label>
-                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][nom_acc]" id="modification-nom_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>" class="form-control">
+                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][nom_acc]" id="modification-nom_acc-<?= $reservation['num_res'] ?>" class="form-control">
                                                                                 </div>
 
                                                                                 <!-- Le champ contact_acc -->
                                                                                 <div class="col-md-5 mb-1">
-                                                                                    <label for="modification-contact_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>">
+                                                                                    <label for="modification-contact_acc-<?= $reservation['num_res']?>">
                                                                                         Contact de l'accompagnateur:
                                                                                     </label>
-                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][contact_acc]" id="modification-contact_acc-<?= $reservation['num_res'] . '-' . $i . '-' . $j; ?>" class="form-control">
+                                                                                    <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $k + 1 ?>][contact_acc]" id="modification-contact_acc-<?= $reservation['num_res'] ?>" class="form-control">
                                                                                 </div>
 
                                                                                 <!-- Bouton pour ajouter un accompagnateur -->
