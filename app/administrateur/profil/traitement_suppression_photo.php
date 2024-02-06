@@ -29,4 +29,4 @@ if (isset($_POST['supprimer_photo'])) {
 }
 
 
-header('location:' . PATH_PROJECT . 'administrateur/dashboard/profil');
+header('location:' . PATH_PROJECT . 'administrateur/profil');

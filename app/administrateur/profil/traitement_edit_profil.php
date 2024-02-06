@@ -96,4 +96,4 @@ if (isset($_POST['sauvegarder'])) {
     $_SESSION['sauvegarder-erreurs-admin'] = "Veuiller appuyer sur le boutton sauvegarder.";
 }
 
-header('location:' . PATH_PROJECT . 'administrateur/dashboard/profil');
+header('location:' . PATH_PROJECT . 'administrateur/profil');

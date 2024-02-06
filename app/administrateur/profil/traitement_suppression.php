@@ -24,5 +24,5 @@ if (isset($_POST['suppression'])) {
 }
 
 $_SESSION['suppression-message-success-global'] = $message_success_global;
-header('location:' . PATH_PROJECT . 'administrateur/dashboard/profil');
+header('location:' . PATH_PROJECT . 'administrateur/profil');
 

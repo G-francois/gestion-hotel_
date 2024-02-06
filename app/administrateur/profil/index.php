@@ -169,7 +169,7 @@ include './app/commum/aside.php';
                         </div>
 
                         <!-- Formulaire de la mise à jour photo -->
-                        <form action="<?= PATH_PROJECT ?>administrateur/dashboard/traitement_photo" method="post" enctype="multipart/form-data">
+                        <form action="<?= PATH_PROJECT ?>administrateur/profil/traitement_photo" method="post" enctype="multipart/form-data">
                             <div class="row" style="text-align: center; display:flex;">
                                 <div class="col-sm-9 text-secondary">
                                     <label class="form-label" for="customFile" style="color: gray;">Changer ma photo de profil</label>
@@ -215,7 +215,7 @@ include './app/commum/aside.php';
                 </div>
 
                 <!-- Formulaire de la suppression photo -->
-                <form action="<?= PATH_PROJECT ?>administrateur/dashboard/traitement_suppression_photo" method="post" enctype="multipart/form-data" style="display: flex; justify-content: center; align-items: center;">
+                <form action="<?= PATH_PROJECT ?>administrateur//profil/traitement_suppression_photo" method="post" enctype="multipart/form-data" style="display: flex; justify-content: center; align-items: center;">
                     <div class="row">
                         <!-- Bouton du Modal supprimer -->
                         <button type="reset" class="btn btn-secondary mt-4" data-toggle="modal" data-target="#modal5"><i class="fa fa-trash"></i> Supprimer</button>
@@ -287,7 +287,7 @@ include './app/commum/aside.php';
 
                 <div>
                     <!-- suppression Form -->
-                    <form action="<?= PATH_PROJECT ?>administrateur/dashboard/traitement_suppression" method="post" enctype="multipart/form-data">
+                    <form action="<?= PATH_PROJECT ?>administrateur/profil/traitement_suppression" method="post" enctype="multipart/form-data">
                         <div class="row mb-3 text-center">
                             <div class="col-md-8 col-lg-12">
                                 <!-- Bouton du Modal supprimer compte -->
@@ -331,7 +331,7 @@ include './app/commum/aside.php';
                     </form>
 
                     <!-- desactivation Form -->
-                    <form action="<?= PATH_PROJECT ?>administrateur/dashboard/traitement_desactivation" method="post" enctype="multipart/form-data">
+                    <form action="<?= PATH_PROJECT ?>administrateur/profil/traitement_desactivation" method="post" enctype="multipart/form-data">
                         <div class="row mb-3 text-center">
                             <div class="col-md-8 col-lg-12">
                                 <!-- Bouton du Modal désactiver compte -->
@@ -403,7 +403,7 @@ include './app/commum/aside.php';
                 <h5 style="font-weight: 700;">Modification(s) des informations usuelles</h5>
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?= PATH_PROJECT ?>administrateur/dashboard/traitement_edit_profil" method="post" enctype="multipart/form-data"> <!-- Début du formulaire de modification du profil -->
+                        <form action="<?= PATH_PROJECT ?>administrateur/profil/traitement_edit_profil" method="post" enctype="multipart/form-data"> <!-- Début du formulaire de modification du profil -->
                             <!-- Message d'avertissement pour informer l'utilisateur -->
                             <h5 style="color: #8bb9c6; text-align:center; ">
                                 Les champs ci-dessous ne doivent pas être soumis vide. Au cas contraire elles affichent anciennes informations.
@@ -505,7 +505,7 @@ include './app/commum/aside.php';
                 <h5 style="font-weight: 700; ">Changement de mot de passe</h5>
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?= PATH_PROJECT ?>administrateur/dashboard/traitement_password" method="post" enctype="multipart/form-data">
+                        <form action="<?= PATH_PROJECT ?>administrateur/traitement_password" method="post" enctype="multipart/form-data">
                             <!-- Message d'avertissement pour informer l'utilisateur -->
                             <h5 style="color: #8bb9c6; text-align:center; "> Sachez qu'après le changement de votre mot de passe vous serez déconnecté(e).</h5>
                             <br>

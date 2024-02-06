@@ -68,7 +68,7 @@ if (isset($_POST['change_photo'])) {
 
                             $_SESSION['utilisateur_connecter_admin'] = $new_user_data;
 
-                            header('location: ' . PATH_PROJECT . 'administrateur/dashboard/profil');
+                            header('location: ' . PATH_PROJECT . 'administrateur/profil');
                         }
                     } else {
 
@@ -90,4 +90,4 @@ if (isset($_POST['change_photo'])) {
     }
 }
 
-header('location:' . PATH_PROJECT . 'administrateur/dashboard/profil');
+header('location:' . PATH_PROJECT . 'administrateur/profil');
