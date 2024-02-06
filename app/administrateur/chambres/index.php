@@ -174,12 +174,6 @@ include './app/commum/aside.php';
 </div>
 <!-- Fin du contenu de la page -->
 
-<?php
-// Supprimer les variables de session
-unset($_SESSION['message-success-global'], $_SESSION['message-erreur-global'], $_SESSION['erreurs-chambre'], $_SESSION['donnees-chambre']);
-
-include './app/commum/footer.php';
-?>
 
 <script>
     // Fonction pour mettre à jour le champ Code du type de chambre et Prix unitaire
@@ -230,4 +224,9 @@ include './app/commum/footer.php';
 
     // Appeler la fonction au chargement de la page
     updateFields();
-</script>
+</script><?php
+// Supprimer les variables de session
+unset($_SESSION['message-success-global'], $_SESSION['message-erreur-global'], $_SESSION['erreurs-chambre'], $_SESSION['donnees-chambre']);
+
+include './app/commum/footer.php';
+?>

@@ -108,8 +108,8 @@
     <!-- Custom scripts for all pages-->
     <script src="<?= PATH_PROJECT ?>public/js/sb-admin-2.js"></script>
 
-<!-- Inclure Select2 JS -->
-<script src="<?= PATH_PROJECT ?>public/vendor/select2/js/select2.min.js"></script>
+    <!-- Inclure Select2 JS -->
+    <script src="<?= PATH_PROJECT ?>public/vendor/select2/js/select2.min.js"></script>
 
 
     <script src="<?= PATH_PROJECT ?>public/vendor/datatables/jquery.dataTables.js"></script>
@@ -241,19 +241,8 @@
     <!-- Core plugin JavaScript-->
     <script src="<?= PATH_PROJECT ?>public/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <!-- <script src="<?= PATH_PROJECT ?>public/js/sb-admin-2.min.js"></script> -->
-
-
-    <!-- Page level plugins -->
-    <!-- <script src="<?= PATH_PROJECT ?>public/vendor/chart.js/Chart.min.js"></script> -->
     <script src="<?= PATH_PROJECT ?>public/vendor/datatables/jquery.dataTables.js"></script>
     <script src="<?= PATH_PROJECT ?>public/vendor/datatables/dataTables.bootstrap4.js"></script>
-
-    <!-- Page level custom scripts -->
-    <!-- <script src="<?= PATH_PROJECT ?>public/js/demo/chart-area-demo.js"></script>
-    <script src="<?= PATH_PROJECT ?>public/js/demo/chart-pie-demo.js"></script>
-    <script src="<?= PATH_PROJECT ?>public/js/demo/datatables-demo.js"></script> -->
 
 
 
@@ -316,26 +305,6 @@
     </script>
 
 
-    <!-- <script>
-        // Code JavaScript pour afficher la notification après le chargement de la page
-        document.addEventListener("DOMContentLoaded", function() {
-            var notificationContainer = document.getElementById("notification-container");
-            var notificationTimeout;
-
-            function showNotification() {
-                notificationContainer.style.display = "block";
-                setTimeout(hideNotification, 20000); // Disparaît après 20 secondes
-            }
-
-            function hideNotification() {
-                notificationContainer.style.display = "none";
-                clearTimeout(notificationTimeout);
-                notificationTimeout = setTimeout(showNotification, 90000); // Réapparaît après 90 secondes
-            }
-
-            showNotification();
-        });
-    </script> -->
     </body>
 
     </html>

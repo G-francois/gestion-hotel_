@@ -17,8 +17,6 @@ $liste_clients = recuperer_liste_clients_actifs();
 
 ?>
 
-
-
 <section>
     <div class="container-fluid" id="alertContainer">
         <!-- Titre de la page -->
@@ -393,15 +391,7 @@ $liste_clients = recuperer_liste_clients_actifs();
         row.remove();
     }
 
-    // Écouteur d'événement pour le bouton "Retirer chambre"
-    retirerChambreBtn.addEventListener('click', function() {
-        // Ajoutez ici le code pour retirer dynamiquement une chambre
-        var container = document.getElementById('champs-chambres-dynamiques-container');
-        var dernierChambre = container.lastElementChild;
-        if (dernierChambre) {
-            container.removeChild(dernierChambre);
-        }
-    });
+    
 
     // Fonction pour retirer une chambre
     function retirerChambre(element) {

@@ -339,10 +339,10 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                                                 <div class="row">
                                                                                     <!-- Le champ nom_acc -->
                                                                                     <div class="col-md-6 mb-1">
-                                                                                        <label for="modification-nom_acc">
+                                                                                        <label for="modification-nom_acc_<?= $reservation['num_res'] ?>">
                                                                                             Nom de l'accompagnateur:
                                                                                         </label>
-                                                                                        <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $j + 1 ?>][nom_acc]" id="modification-nom_acc" class="form-control" value="<?= $accompagnateur['nom_acc'] ?>">
+                                                                                        <input type="text" name="chambre<?= $i + 1 ?>[ACCS][acc<?= $j + 1 ?>][nom_acc]" id="modification-nom_acc_<?= $reservation['num_res'] ?>" class="form-control" value="<?= $accompagnateur['nom_acc'] ?>">
                                                                                     </div>
 
                                                                                     <!-- Le champ contact_acc -->
@@ -396,7 +396,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                                             <div class="row">
                                                                                 <!-- Le champ date de début occupation -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="inscription-deb_occ-<?php echo $reservation['num_res']; ?>-1">
+                                                                                    <label for="inscription-deb_occ-<?= $reservation['num_res'] ?>">
                                                                                         Début de séjour:
                                                                                         <span class="text-danger">(*)</span>
                                                                                     </label>

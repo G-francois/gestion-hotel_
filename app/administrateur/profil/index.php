@@ -194,10 +194,10 @@ include './app/commum/aside.php';
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="row mb-3">
-                                                                <label for="MP" class="col-12 col-form-label" style="color: #070b3a;">Veuiller entrer votre mot de passe pour modifier la photo. </label>
+                                                                <label for="password_0" class="col-12 col-form-label" style="color: #070b3a;">Veuiller entrer votre mot de passe pour modifier la photo. </label>
                                                                 <br>
                                                                 <div class="col-md-8 col-lg-12">
-                                                                    <input type="password" id="MP" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
+                                                                    <input type="password" id="password_0" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -234,10 +234,10 @@ include './app/commum/aside.php';
                                             </div>
                                             <div class="modal-body">
                                                 <div class="row mb-3">
-                                                    <label for="MP" class="col-12 col-form-label" style="color: #070b3a;">Veuiller entrer votre mot de passe pour supprimer la photo. </label>
+                                                    <label for="password_1" class="col-12 col-form-label" style="color: #070b3a;">Veuiller entrer votre mot de passe pour supprimer la photo. </label>
                                                     <br>
                                                     <div class="col-md-8 col-lg-12">
-                                                        <input type="password" id="MP" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
+                                                        <input type="password" id="password_1" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -309,11 +309,11 @@ include './app/commum/aside.php';
                                                         <div>
                                                             <i class="fas fa-exclamation-triangle me-1" style="font-size: xxx-large;color: #d70e0e;"></i>
                                                         </div>
-                                                        <label for="MP" class="col-12 col-form-label" style="color: #d11818;">Vous êtes sûre d'effectuer cette action ? Après cette action votre compte sera supprimer de façon définitive.
+                                                        <label for="password_2" class="col-12 col-form-label" style="color: #d11818;">Vous êtes sûre d'effectuer cette action ? Après cette action votre compte sera supprimer de façon définitive.
                                                             Si oui veuiller entrer votre mot de passe pour appliquer l'action. </label>
                                                         <br>
                                                         <div class="col-md-8 col-lg-12">
-                                                            <input type="password" id="MP" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
+                                                            <input type="password" id="password_2" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -353,11 +353,11 @@ include './app/commum/aside.php';
                                                         <div>
                                                             <i class="fas fa-exclamation-triangle me-1" style="font-size: xxx-large;color: #d70e0e;"></i>
                                                         </div>
-                                                        <label for="MP" class="col-12 col-form-label" style="color: #d11818;">Vous êtes sûre d'effectuer cette action ? Après cette action vous ne serez plus en mesure de vous connecter.
+                                                        <label for="password_3" class="col-12 col-form-label" style="color: #d11818;">Vous êtes sûre d'effectuer cette action ? Après cette action vous ne serez plus en mesure de vous connecter.
                                                             Si oui veuiller entrer votre mot de passe pour appliquer l'action. Pour réactiver votre compte veuiller nous écrire par mail.</label>
                                                         <br>
                                                         <div class="col-md-8 col-lg-12">
-                                                            <input type="password" id="MP" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
+                                                            <input type="password" id="password_3" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
                                                         </div>
                                                     </div>
                                                 </div>
