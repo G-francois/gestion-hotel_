@@ -37,13 +37,8 @@ if (isset($_FILES["image"]) && !empty($_FILES["image"]["name"])) {
     } else {
         $dossierImage = "public/images/";
 
-        if (!is_dir($dossierImage . "upload/")) {
-            // Création du dossier "upload" s'il n'existe pas
-            mkdir($dossierImage . "upload/");
-        }
-
         // Vérifier si le dossier repas existe, sinon le creer
-        $dossierRepas = $dossierImage . "upload/repas/";
+        $dossierRepas = $dossierImage . "repas/";
         if (!is_dir($dossierRepas)) {
             mkdir($dossierRepas);
         }

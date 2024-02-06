@@ -15,14 +15,9 @@ if (isset($_POST['change_photo'])) {
                 $erreurs["image"] = "La taille de l'image est supérieure à 3 Mo. Veuillez télécharger une image plus petite.";
             } else {
                 $dossierImage = "public/images/";
-
-                if (!is_dir($dossierImage . "upload/")) {
-                    // Création du dossier "upload" s'il n'existe pas
-                    mkdir($dossierImage . "upload/");
-                }
                 
                 // Vérifier si le dossier chambre existe, sinon le creer
-                $dossierChambre = $dossierImage . "upload/Chambres/";
+                $dossierChambre = $dossierImage . "Chambres/";
                 if (!is_dir($dossierChambre)) {
                     mkdir($dossierChambre);
                 }

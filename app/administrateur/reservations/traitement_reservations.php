@@ -2,7 +2,9 @@
 
 // Initialisation de la variable d'erreur
 $errors = '';
+$donnees = [];
 
+//die(var_dump($_POST['email']));
 
 if (isset($_POST["email"]) && !empty($_POST["email"])) {
     if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {

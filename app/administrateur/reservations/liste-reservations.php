@@ -283,9 +283,9 @@ $liste_clients = recuperer_liste_clients_actifs();
 
                                                                     <!-- Champ de sélection dynamique avec les adresses e-mail -->
                                                                     <select name="email"  class="js-example-basic-single" style="width: 100%;">
-                                                                        <option value=""><?= $info_client_reservant['email'] ?></option>
+                                                                        <option value=""></option>
                                                                         <?php foreach ($liste_clients as $client) : ?>
-                                                                            <option><?= $client['email'] ?></option>
+                                                                            <option <?= $client['email'] == $info_client_reservant['email'] ? 'selected' : ''  ?> value="<?= $client['email'] ?>"><?= $client['email'] ?></option>
                                                                         <?php endforeach; ?>
                                                                     </select>
                                                                 </div>

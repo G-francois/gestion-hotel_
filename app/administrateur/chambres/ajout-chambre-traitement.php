@@ -50,13 +50,8 @@ if (isset($_FILES["image"]) && !empty($_FILES["image"]["name"])) {
     } else {
         $dossierImage = "public/images/";
 
-        if (!is_dir($dossierImage . "upload/")) {
-            // Création du dossier "upload" s'il n'existe pas
-            mkdir($dossierImage . "upload/");
-        }
-        
         // Vérifier si le dossier chambre existe, sinon le creer
-        $dossierChambre = $dossierImage . "upload/Chambres/";
+        $dossierChambre = $dossierImage . "Chambres/";
         if (!is_dir($dossierChambre)) {
             mkdir($dossierChambre);
         }
