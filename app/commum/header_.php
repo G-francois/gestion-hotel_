@@ -41,51 +41,47 @@ if (isset($include_icm_header) && $include_icm_header) {
 
 ?>
 
-    <?php
+    <!-- <?php
 
-    // Récupérez les numéros de chambre expirés (vous pouvez utiliser la fonction précédente)
-    $reservations_expirees = recuperer_reservations_expirees();
+            try {
+                // Récupérez les numéros de chambre expirés (vous pouvez utiliser la fonction précédente)
+                $reservations_expirees = recuperer_reservations_expirees();
 
-    $numeros_chambre = array_column($reservations_expirees, 'num_chambre');
-    // Mettez à jour est_actif dans la table chambre
-    $resultat_mise_a_jour = mettre_a_jour_est_actif_chambre($numeros_chambre);
+                $numeros_chambre = array_column($reservations_expirees, 'num_chambre');
+                // Mettez à jour est_actif dans la table chambre
+                $resultat_mise_a_jour_chambre = mettre_a_jour_est_actif_chambre($numeros_chambre);
 
-    $numReservations = array_column($reservations_expirees, 'num_res');
-    // die(var_dump($numReservations));
+                $numReservations = array_column($reservations_expirees, 'num_res');
+                // Mettez à jour est_actif dans la table reservations
+                $resultat_mise_a_jour_reservations = mettre_a_jour_est_actif_reservations($numReservations);
 
-    // Mettez à jour est_actif dans la table reservations
-    $resultat_mise_a_jour = mettre_a_jour_est_actif_reservations($numReservations);
+                // Récupérez les ID des réservations à partir des numéros de réservation
+                $idReservations = recuperer_id_reservations_par_num_res($numReservations);
 
+                // Mettez à jour est_actif dans la table commande
+                $resultat_mise_a_jour_commandes = mettre_a_jour_est_actif_commandes($idReservations);
 
-    // Récupérez les ID des réservations à partir des numéros de réservation
-    $idReservations = recuperer_id_reservations_par_num_res($numReservations);
-    // die(var_dump($idReservations));
+                // Utilisez la fonction pour récupérer les numéros de commande
+                $numeros_commande_a_metre_a_jour = recuperer_tous_num_cmd_par_num_res($idReservations);
 
-    // Mettez à jour est_actif dans la table commande
-    $resultat_mise_a_jour = mettre_a_jour_est_actif_commandes($idReservations);
-    // die(var_dump($resultat_mise_a_jour));
+                // Vérifiez si $numeros_commande_a_metre_a_jour est un tableau avant d'appeler la fonction
+                if (is_array($numeros_commande_a_metre_a_jour) && !empty($numeros_commande_a_metre_a_jour)) {
+                    // Mettez à jour est_actif et est_supprimer dans la table commande_repas
+                    $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
+                } else {
+                    // Ajoutez un message de débogage en cas d'erreur
+                    // echo "Aucun numéro de commande à mettre à jour.";
+                }
 
-    // Utilisez la fonction pour récupérer les numéros de commande
-    $numeros_commande_a_metre_a_jour = recuperer_tous_num_cmd_par_num_res($idReservations);
-    // die(var_dump($numeros_commande_a_metre_a_jour));
+                // Affichez un message de succès si toutes les mises à jour sont terminées avec succès
+                echo "Toutes les mises à jour sont terminées avec succès.";
+            } catch (Exception $e) {
+                // En cas d'erreur, affichez un message d'erreur
+                echo "Une erreur s'est produite : " . $e->getMessage();
+            }
 
-    // Vérifiez si $numeros_commande_a_metre_a_jour est un tableau avant d'appeler la fonction
-    if (is_array($numeros_commande_a_metre_a_jour) && !empty($numeros_commande_a_metre_a_jour)) {
-        // Mettez à jour est_actif et est_supprimer dans la table commande_repas
-        $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
-        // die(var_dump($resultat_mise_a_jour_commande_repas));
-    } else {
-        // Ajoutez un message de débogage en cas d'erreur
-        // echo "Aucun numéro de commande à mettre à jour.";
-    }
+            ?> -->
 
-    /* if ($resultat_mise_a_jour) {
-        echo "La mise à jour est terminée avec succès.";
-    } else {
-        echo "Une erreur s'est produite lors de la mise à jour.";
-    } */
-
-    ?>
 
     <!DOCTYPE html>
     <html lang="fr">
@@ -285,51 +281,50 @@ if (isset($include_icm_header) && $include_icm_header) {
     //mettre_a_jour_etat_reservations_accompagnateurs();
 
     ?>
-        <?php
-
-        // Récupérez les numéros de chambre expirés (vous pouvez utiliser la fonction précédente)
-        $reservations_expirees = recuperer_reservations_expirees();
-
-        $numeros_chambre = array_column($reservations_expirees, 'num_chambre');
-        // Mettez à jour est_actif dans la table chambre
-        $resultat_mise_a_jour = mettre_a_jour_est_actif_chambre($numeros_chambre);
-
-        $numReservations = array_column($reservations_expirees, 'num_res');
-        // die(var_dump($numReservations));
-
-        // Mettez à jour est_actif dans la table reservations
-        $resultat_mise_a_jour = mettre_a_jour_est_actif_reservations($numReservations);
 
 
-        // Récupérez les ID des réservations à partir des numéros de réservation
-        $idReservations = recuperer_id_reservations_par_num_res($numReservations);
-        // die(var_dump($idReservations));
+        <!-- <?php
 
-        // Mettez à jour est_actif dans la table commande
-        $resultat_mise_a_jour = mettre_a_jour_est_actif_commandes($idReservations);
-        // die(var_dump($resultat_mise_a_jour));
+                try {
+                    // Récupérez les numéros de chambre expirés (vous pouvez utiliser la fonction précédente)
+                    $reservations_expirees = recuperer_reservations_expirees();
 
-        // Utilisez la fonction pour récupérer les numéros de commande
-        $numeros_commande_a_metre_a_jour = recuperer_tous_num_cmd_par_num_res($idReservations);
-        // die(var_dump($numeros_commande_a_metre_a_jour));
+                    $numeros_chambre = array_column($reservations_expirees, 'num_chambre');
+                    // Mettez à jour est_actif dans la table chambre
+                    $resultat_mise_a_jour_chambre = mettre_a_jour_est_actif_chambre($numeros_chambre);
 
-        // Vérifiez si $numeros_commande_a_metre_a_jour est un tableau avant d'appeler la fonction
-        if (is_array($numeros_commande_a_metre_a_jour) && !empty($numeros_commande_a_metre_a_jour)) {
-            // Mettez à jour est_actif et est_supprimer dans la table commande_repas
-            $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
-            // die(var_dump($resultat_mise_a_jour_commande_repas));
-        } else {
-            // Ajoutez un message de débogage en cas d'erreur
-            // echo "Aucun numéro de commande à mettre à jour.";
-        }
+                    $numReservations = array_column($reservations_expirees, 'num_res');
+                    // Mettez à jour est_actif dans la table reservations
+                    $resultat_mise_a_jour_reservations = mettre_a_jour_est_actif_reservations($numReservations);
 
-        /* if ($resultat_mise_a_jour) {
-            echo "La mise à jour est terminée avec succès.";
-        } else {
-            echo "Une erreur s'est produite lors de la mise à jour.";
-        } */
+                    // Récupérez les ID des réservations à partir des numéros de réservation
+                    $idReservations = recuperer_id_reservations_par_num_res($numReservations);
 
-        ?>
+                    // Mettez à jour est_actif dans la table commande
+                    $resultat_mise_a_jour_commandes = mettre_a_jour_est_actif_commandes($idReservations);
+
+                    // Utilisez la fonction pour récupérer les numéros de commande
+                    $numeros_commande_a_metre_a_jour = recuperer_tous_num_cmd_par_num_res($idReservations);
+
+                    // Vérifiez si $numeros_commande_a_metre_a_jour est un tableau avant d'appeler la fonction
+                    if (is_array($numeros_commande_a_metre_a_jour) && !empty($numeros_commande_a_metre_a_jour)) {
+                        // Mettez à jour est_actif et est_supprimer dans la table commande_repas
+                        $resultat_mise_a_jour_commande_repas = mettre_a_jour_est_actif_commande_repas($numeros_commande_a_metre_a_jour);
+                    } else {
+                        // Ajoutez un message de débogage en cas d'erreur
+                        // echo "Aucun numéro de commande à mettre à jour.";
+                    }
+
+                    // Affichez un message de succès si toutes les mises à jour sont terminées avec succès
+                    echo "Toutes les mises à jour sont terminées avec succès.";
+                } catch (Exception $e) {
+                    // En cas d'erreur, affichez un message d'erreur
+                    echo "Une erreur s'est produite : " . $e->getMessage();
+                }
+
+                ?> -->
+
+                
         <!DOCTYPE html>
         <html lang="fr">
 

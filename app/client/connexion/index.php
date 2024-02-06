@@ -33,6 +33,17 @@ include('./app/commum/header_.php');
                                 <?php
                                 }
                                 ?>
+
+                                <?php
+                                if (isset($_SESSION['validation-mot-passe-success']) && !empty($_SESSION['validation-mot-passe-success'])) {
+                                ?>
+                                    <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
+                                        <?= $_SESSION['validation-mot-passe-success'] ?>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Bienvenu(e)</h1>
                                 </div>

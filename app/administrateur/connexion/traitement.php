@@ -31,7 +31,7 @@ if (empty($erreurs)) {
 
         $_SESSION["utilisateur_connecter_admin"] = $user;
 
-        header('location:' . PATH_PROJECT . 'administrateur/dashboard/index');
+        header('location:' . PATH_PROJECT . 'administrateur/reservations/liste-reservations');
 
         exit;
     } else {

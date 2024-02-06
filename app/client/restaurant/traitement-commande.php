@@ -120,7 +120,7 @@ if (isset($_POST['enregistrer'])) {
                 }
 
                 // La commande a été effectuée avec succès
-                $message_success_global = "Votre commande a été effectuée avec succès.";
+                $message_success_global = "Votre commande a été effectuée avec succès. Vous pouvez consulter <strong><a href='" . PATH_PROJECT . "client/liste_des_commandes/'>vos commandes ici</a></strong>.";
             } else {
                 // La commande a échoué
                 $message_erreur_global = "Désolé, une erreur s'est produite lors de l'enregistrement de la commande.";

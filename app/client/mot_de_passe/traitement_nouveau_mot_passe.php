@@ -40,6 +40,7 @@ if (empty($erreurs)) {
     if (mise_a_jour_mot_passe($_SESSION['id_user'], $donnees["mot-passe"])) {
         // Détruit la session et redirige vers la page de connexion
         session_destroy();
+		$_SESSION['validation-mot-passe-success'] = "Votre mot de passe a été modifié avec succès. Vous pouvez vous connectez maintenant.";
         header('location:' . PATH_PROJECT . 'client/connexion');
     } else {
         $_SESSION['enregistrer-erreurs'] = $erreurs;

@@ -79,6 +79,7 @@ include('./app/commum/header_.php');
                             <tr>
                                 <th scope="col">Date & Heure</th>
                                 <th scope="col">Numéro de Commande</th>
+                                <th scope="col">Numéro de Chambre</th>
                                 <th scope="col">Numéro de Réservation</th>
                                 <th scope="col">Liste des Repas</th>
                                 <th scope="col">Prix Unitaire</th>
@@ -102,6 +103,7 @@ include('./app/commum/header_.php');
                                 <tr>
                                     <td><?php echo $commande['creer_le']; ?></td>
                                     <td><?php echo $commande['num_cmd']; ?></td>
+                                    <td><?php echo $commande['num_chambre']; ?></td>
                                     <td>
                                         <?php // Récupérer le numéro de reservation
                                         $donneesReservation = recuperer_donnee_reservation_par_son_id($commande['num_res']);

@@ -2,7 +2,7 @@
 // Vérifie si l'utilisateur est connecté en tant qu'administrateur
 if (check_if_user_connected_admin()) {
     // Redirige l'utilisateur vers la page dashboard de l'administrateur s'il est connecté en tant qu'administrateur
-	header('location: ' . PATH_PROJECT . 'administrateur/dashboard/index');
+        header('location:' . PATH_PROJECT . 'administrateur/reservations/liste-reservations');
 	exit;
 }
 include './app/commum/header.php'
