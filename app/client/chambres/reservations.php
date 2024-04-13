@@ -4,8 +4,8 @@ if (!check_if_user_connected_client()) {
     exit;
 }
 
-$include_client_header = true;
-include('./app/commum/header_.php');
+
+include('./app/commum/header_client.php');
 
 $liste_chambre = recuperer_infos_chambre();
 
@@ -584,6 +584,5 @@ $liste_chambre = recuperer_infos_chambre();
     }
 </script> -->
 <?php
-$include_icm_footer = true;
-include('./app/commum/footer_.php');
+include('./app/commum/footer_client_icm.php');
 ?>

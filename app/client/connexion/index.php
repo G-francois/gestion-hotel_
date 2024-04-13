@@ -1,6 +1,5 @@
 <?php
-$include_icm_header = true;
-include('./app/commum/header_.php');
+include('./app/commum/header_client_icm.php');
 ?>
 
 
@@ -114,7 +113,7 @@ include('./app/commum/header_.php');
 <?php
 session_destroy();
 ?>
+
 <?php
-$include_icm_footer = true;
-include('./app/commum/footer_.php');
+include('./app/commum/footer_client_icm.php');
 ?>

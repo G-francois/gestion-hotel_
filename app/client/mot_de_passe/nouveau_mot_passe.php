@@ -1,8 +1,6 @@
 <?php
-$include_icm_header = true;
-include('./app/commum/header_.php');
+include('./app/commum/header_client_icm.php');
 ?>
-
 
 <div class="container" style="margin-top: 135px; margin-bottom: 35px;">
     <div class="row justify-content-center;" style="color:black; justify-content:center;">
@@ -96,6 +94,5 @@ include('./app/commum/header_.php');
 
 
 <?php
-$include_icm_footer = true;
-include('./app/commum/footer_.php');
+include('./app/commum/footer_client_icm.php');
 ?>

@@ -3,8 +3,8 @@ if (!check_if_user_connected_client()) {
     header('location: ' . PATH_PROJECT . 'client/connexion/index');
     exit;
 }
-$include_client_header = true;
-include('./app/commum/header_.php');
+
+include('./app/commum/header_client.php');
 
 $liste_chambre = recuperer_chambres();
 
@@ -826,9 +826,8 @@ foreach ($liste_reservations as $reservation) {
 
 <?php
 
-$include_icm_footer = true;
 // Suppression des messages de succès et d'erreur global de la session
 unset($_SESSION['message-success-global'], $_SESSION['message-erreur-global']);
 
-include('./app/commum/footer_.php');
+include('./app/commum/footer_client_icm.php');
 ?>

@@ -3,8 +3,8 @@ if (!check_if_user_connected_client()) {
   header('location: ' . PATH_PROJECT . 'client/connexion/index');
   exit;
 }
-$include_client_header = true;
-include('./app/commum/header_.php');
+
+include('./app/commum/header_client.php');
 
 
 
@@ -557,6 +557,5 @@ include('./app/commum/header_.php');
 <?php
 unset($_SESSION['changement-erreurs'], $_SESSION['suppression-erreurs'],  $_SESSION['desactivation-erreurs'], $_SESSION['success'], $_SESSION['sauvegarder-erreurs'], $_SESSION['photo-erreurs'], $_SESSION['suppression-photo-erreurs'], $_SESSION['erreurs']);
 
-$include_icm_footer = true;
-include('./app/commum/footer_.php');
+include('./app/commum/footer_client_icm.php');
 ?>

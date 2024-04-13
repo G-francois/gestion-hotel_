@@ -1,7 +1,6 @@
 <?php
 
-$include_client_header = true;
-include('./app/commum/header_.php');
+include('./app/commum/header_client.php');
 
 $liste_chambres = recuperer_liste_chambres();
 
@@ -310,6 +309,6 @@ $liste_chambres = recuperer_liste_chambres();
 
 <?php
 
-include('./app/commum/footer_.php');
+include('./app/commum/footer_client.php');
 
 ?>

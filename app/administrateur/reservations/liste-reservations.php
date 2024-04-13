@@ -256,9 +256,6 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                 </div>
                                             </div>
 
-
-                                            <?php if ($reservation['statut'] === 'En cours de validation') {
-                                            ?>
                                                 <!-- Button Modifier modal -->
                                                 <i class="far fa-edit modifier-icon" style="margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal1-<?= $reservation['num_res']; ?>" title="Modifier la réservation">
                                                 </i>
@@ -457,6 +454,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                     </div>
                                                 </div>
 
+                                               
                                                 <!-- Button supprimer modal -->
                                                 <i class="far fa-trash-alt supprimer-icon" data-bs-toggle="modal" data-bs-target="#exampleModal2-<?= $reservation['num_res']; ?>" title="Supprimer la réservation">
                                                 </i>
@@ -470,7 +468,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="<?= PATH_PROJECT ?>client/liste_des_reservations/traitement_supprimer_reservation" method="post" enctype="multipart/form-data">
+                                                                <form action="<?= PATH_PROJECT ?>administrateur/reservations/liste-reservations/traitement_supprimer_reservation" method="post" enctype="multipart/form-data">
                                                                     <!-- Début du formulaire de supression du reservation -->
                                                                     <input type="hidden" name="reservation_id" value="<?php echo $reservation['num_res']; ?>">
                                                                     <div class="form-group">
@@ -487,45 +485,6 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                     </div>
                                                 </div>
 
-                                            <?php
-                                            }
-                                            ?>
-
-                                            <?php if ($reservation['statut'] === 'Rejeter') {
-                                            ?>
-                                                <!-- Button supprimer modal -->
-                                                <i class="far fa-trash-alt supprimer-icon" data-bs-toggle="modal" data-bs-target="#exampleModal2-<?= $reservation['num_res']; ?>" title="Supprimer la réservation">
-                                                </i>
-
-                                                <!-- Modal supprimer -->
-                                                <div class="modal fade" id="exampleModal2-<?= $reservation['num_res']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer la réservation <?php echo $reservation['num_res']; ?></h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form action="<?= PATH_PROJECT ?>client/liste_des_reservations/traitement_supprimer_reservation" method="post" enctype="multipart/form-data">
-                                                                    <!-- Début du formulaire de supression du reservation -->
-                                                                    <input type="hidden" name="reservation_id" value="<?php echo $reservation['num_res']; ?>">
-                                                                    <div class="form-group">
-                                                                        <label for="passwordImput2-<?php echo $reservation['num_res']; ?>" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe pour supprimer la réservation</label>
-                                                                        <input type="password" name="password" id="passwordImput2-<?php echo $reservation['num_res']; ?>" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="" required>
-                                                                    </div>
-
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" name="supprimer" class="btn btn-primary">Valider</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            <?php
-                                            }
-                                            ?>
                                         </div>
                                     </td>
                                 </tr>

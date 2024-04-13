@@ -3,8 +3,8 @@ if (!check_if_user_connected_client()) {
     header('location: ' . PATH_PROJECT . 'client/connexion/index');
     exit;
 }
-$include_client_header = true;
-include('./app/commum/header_.php');
+
+include('./app/commum/header_client.php');
 
 ?>
 
@@ -265,6 +265,6 @@ include('./app/commum/header_.php');
 // Supprimer les variables de session
 unset($_SESSION['message-success-global'], $_SESSION['message-erreur-global']);
 
-$include_icm_footer = true;
-include('./app/commum/footer_.php');
+
+include('./app/commum/footer_client_icm.php');
 ?>

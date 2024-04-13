@@ -1,6 +1,5 @@
 <?php
-$include_icm_header = true;
-include('./app/commum/header_.php');
+include('./app/commum/header_client_icm.php');
 ?>
 
 
@@ -179,6 +178,5 @@ unset($_SESSION['donnees-utilisateur'], $_SESSION['inscription-erreurs'], $_SESS
 ?>
 
 <?php
-$include_icm_footer = true;
-include('./app/commum/footer_.php');
+include('./app/commum/footer_client_icm.php');
 ?>

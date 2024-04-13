@@ -1,8 +1,5 @@
 <?php
-
-$include_client_header = true;
-include('./app/commum/header_.php');
-
+include('./app/commum/header_client.php');
 ?>
 
 
@@ -150,16 +147,16 @@ include('./app/commum/header_.php');
               ?>
 
                     <div class="col-md-4">
-                      
-                        <div class="card mb-4 shadow-sm">
-                          <div class="zoom-effect-container">
-                            <img class="bd-placeholder-img card-img-top zoom-effect" width="100%" height="225" src="<?= $chambre['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $chambre['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                          </div>
-                          <div class="card-body">
-                            <p class="card-text" style="color:black;"> Chambre <?php echo $chambre['num_chambre']; ?></p>
-                            <!-- <a href="<?= PATH_PROJECT . 'client/chambres/details_chambre/' . $chambre['num_chambre'] ?>">Détails</a> -->
-                          </div>
+
+                      <div class="card mb-4 shadow-sm">
+                        <div class="zoom-effect-container">
+                          <img class="bd-placeholder-img card-img-top zoom-effect" width="100%" height="225" src="<?= $chambre['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $chambre['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
                         </div>
+                        <div class="card-body">
+                          <p class="card-text" style="color:black;"> Chambre <?php echo $chambre['num_chambre']; ?></p>
+                          <!-- <a href="<?= PATH_PROJECT . 'client/chambres/details_chambre/' . $chambre['num_chambre'] ?>">Détails</a> -->
+                        </div>
+                      </div>
                     </div>
 
                     <!-- <div class="col-md-4">
@@ -321,7 +318,5 @@ include('./app/commum/header_.php');
 <!-- End Testimonials Section -->
 
 <?php
-
-include('./app/commum/footer_.php');
-
+include('./app/commum/footer_client.php');
 ?>

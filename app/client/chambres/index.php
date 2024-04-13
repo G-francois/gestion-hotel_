@@ -1,7 +1,5 @@
 <?php
-
-$include_client_header = true;
-include('./app/commum/header_.php');
+include('./app/commum/header_client.php');
 
 $data = [];
 
@@ -316,11 +314,8 @@ $types = liste_types();
   });
 </script>
 
-
 <?php
-$include_icm_footer = true;
-include('./app/commum/footer_.php');
+include('./app/commum/footer_client.php');
 
-//unset($_SESSION['data']);
-
+//unset($_SESSION['data'])
 ?>
