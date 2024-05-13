@@ -159,7 +159,7 @@ if (check_if_user_connected_client()) {
                         </li>
                     <?php endif; ?>
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle" style="margin-left: 80px;"></i>
+                <i class="bi bi-list mobile-nav-toggle" style="margin-left: 400px;"></i>
             </nav>
         </div>
     </header>

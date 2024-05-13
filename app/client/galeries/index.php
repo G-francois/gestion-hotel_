@@ -49,7 +49,7 @@ $liste_chambres = recuperer_liste_chambres();
           </div> -->
 
 
-          <div class="col-lg-3 col-md-2">
+          <div class="col-lg-3 col-md-4">
             <div class="member" data-aos="zoom-in" data-aos-delay="100">
               <img width="100%" height="225" src="<?= $chambre['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $chambre['photos'] ?>" alt="" />
               <div class="member-info">
@@ -94,7 +94,7 @@ $liste_chambres = recuperer_liste_chambres();
   </div>
   <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
     <div class="row g-0 d-flex">
-      <div class="col-lg-3 col-md-2">
+      <div class="col-lg-3 col-md-4">
         <div class="member" data-aos="zoom-in" data-aos-delay="200">
           <img src="<?= PATH_PROJECT ?>public/images/wellness/filles-au-spa.jpg" class="img-fluid" alt="" />
           <div class="member-info">
@@ -110,7 +110,7 @@ $liste_chambres = recuperer_liste_chambres();
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-2">
+      <div class="col-lg-3 col-md-4">
         <div class="member" data-aos="zoom-in" data-aos-delay="200">
           <img src="<?= PATH_PROJECT ?>public/images/wellness/salle_de_jeu (1).jpg" class="img-fluid" alt="" />
           <div class="member-info">
@@ -126,7 +126,7 @@ $liste_chambres = recuperer_liste_chambres();
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-2">
+      <div class="col-lg-3 col-md-4">
         <div class="member" data-aos="zoom-in" data-aos-delay="200">
           <img src="<?= PATH_PROJECT ?>public/images/wellness/salle_de_reunion 2.jpg" class="img-fluid" alt="" />
           <div class="member-info">
@@ -142,7 +142,7 @@ $liste_chambres = recuperer_liste_chambres();
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-2">
+      <div class="col-lg-3 col-md-4">
         <div class="member" data-aos="zoom-in" data-aos-delay="200">
           <img src="<?= PATH_PROJECT ?>public/images/wellness/belle-femme-africaine-au-repos-relaxante-dans-station-thermale-yeux-fermes.jpg" class="img-fluid" alt="" />
           <div class="member-info">
@@ -158,7 +158,7 @@ $liste_chambres = recuperer_liste_chambres();
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-2">
+      <div class="col-lg-3 col-md-4">
         <div class="member" data-aos="zoom-in" data-aos-delay="200">
           <img src="<?= PATH_PROJECT ?>public/images/wellness/salle_de_jeu (3).jpg" class="img-fluid" alt="" />
           <div class="member-info">
@@ -174,7 +174,7 @@ $liste_chambres = recuperer_liste_chambres();
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-2">
+      <div class="col-lg-3 col-md-4">
         <div class="member" data-aos="zoom-in" data-aos-delay="200">
           <img src="<?= PATH_PROJECT ?>public/images/wellness/piscine.jpg" class="img-fluid" alt="" />
           <div class="member-info">
@@ -190,7 +190,7 @@ $liste_chambres = recuperer_liste_chambres();
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-2">
+      <div class="col-lg-3 col-md-4">
         <div class="member" data-aos="zoom-in" data-aos-delay="300">
           <img src="<?= PATH_PROJECT ?>public/images/wellness/femme-relaxante-dans-station-balneaire-ayant-massage-sain-spa2.jpg" class="img-fluid" alt="" />
           <div class="member-info">
@@ -206,7 +206,7 @@ $liste_chambres = recuperer_liste_chambres();
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-2">
+      <div class="col-lg-3 col-md-4">
         <div class="member" data-aos="zoom-in" data-aos-delay="200">
           <img src="<?= PATH_PROJECT ?>public/images/wellness/salle_de_reunion.jpg" class="img-fluid" alt="" />
           <div class="member-info">
