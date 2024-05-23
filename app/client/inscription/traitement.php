@@ -80,8 +80,8 @@ if (!isset($_POST["termes-conditions"]) || empty($_POST["termes-conditions"])) {
 // }
 
 if (check_email_and_profile_in_db($_POST["email"])) {
-    $erreurs["email"] = "Cette adresse mail n'est pas autorisée car il est déjà utiliser par un autre profil 'client'.";
-} 
+	$erreurs["email"] = "Cette adresse mail n'est pas autorisée car il est déjà utiliser par un autre profil 'client'.";
+}
 
 // Vérification de l'existence du nom d'utilisateur dans la base de données
 $check_user_name_exist_in_db = check_user_name_exist_in_db($_POST["nom-utilisateur"]);

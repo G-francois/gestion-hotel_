@@ -9,19 +9,19 @@ $num_cmd = $_POST['commande_id']; // Récupère l'identifiant de la commande à 
 
 if (isset($_POST['supprimer'])) {
 
-    // Vérifie si le mot de passe est correct
-    if (check_password_exist($_POST['password'], $_SESSION['utilisateur_connecter_client']['id'])) {
-        // Appelle la fonction de suppression de commande
-        if (supprimer_commande($num_cmd)) {
-            $message_success_global = "La suppression de la commande a été effectuée avec succès.";
-        } else {
-            $message_erreur_global = "La suppression a échoué. Veuillez réessayer.";
-        }
-    } else {
-        $message_erreur_global = "La suppression a échoué. Vérifiez votre mot de passe et réessayez.";
-    }
+	// Vérifie si le mot de passe est correct
+	if (check_password_exist($_POST['password'], $_SESSION['utilisateur_connecter_client']['id'])) {
+		// Appelle la fonction de suppression de commande
+		if (supprimer_commande($num_cmd)) {
+			$message_success_global = "La suppression de la commande a été effectuée avec succès.";
+		} else {
+			$message_erreur_global = "La suppression a échoué. Veuillez réessayer.";
+		}
+	} else {
+		$message_erreur_global = "La suppression a échoué. Vérifiez votre mot de passe et réessayez.";
+	}
 } else {
-    $message_erreur_global = "La suppression a échoué. Veuillez réessayer.";
+	$message_erreur_global = "La suppression a échoué. Veuillez réessayer.";
 }
 
 // Stocke les messages de succès et d'erreur dans les variables de session

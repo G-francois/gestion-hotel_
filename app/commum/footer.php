@@ -1,7 +1,8 @@
 </div><!-- End of Main Content -->
 
 <!-- Footer -->
-<footer class="sticky-footer" style="background: var(--light); background-clip: border-box; border-top: 1px solid #e3e6f0;">
+<footer class="sticky-footer"
+        style="background: var(--light); background-clip: border-box; border-top: 1px solid #e3e6f0;">
     <div class="container my-auto" style="color: firebrick; font-weight: bold;">
         <div class="copyright text-center my-auto">
             <span>Copyright &copy; SOUS LES COCOTIERS 2023</span>
@@ -20,7 +21,8 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -66,10 +68,9 @@
 <script src="<?= PATH_PROJECT ?>public/select2/js/select2.min.js"></script>
 
 
-
 <script>
     // In your Javascript (external .js resource or <script> tag)
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.js-example-basic-single').select2();
     });
 </script>
