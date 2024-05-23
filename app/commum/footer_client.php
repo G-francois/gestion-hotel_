@@ -8,10 +8,10 @@
                     <div class="footer-info">
                         <h3>Sous les Cocotiers</h3>
                         <p>
-                            A108 Adam Street <br/>
-                            NY 535022, BENIN<br/><br/>
-                            <strong>Phone:</strong> +229 62929439<br/>
-                            <strong>Email:</strong> <a href="#">slescocotiers@gmail.com</a><br/>
+                            A108 Adam Street <br />
+                            NY 535022, BENIN<br /><br />
+                            <strong>Phone:</strong> +229 62929439<br />
+                            <strong>Email:</strong> <a href="#">slescocotiers@gmail.com</a><br />
                         </p>
                         <div class="social-links mt-3">
                             <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
@@ -46,9 +46,9 @@
                             <a href="<?= PATH_PROJECT ?>client/contact">Contact</a>
                         </li>
 
-						<?php
-						if (check_if_user_connected_client()) {
-							?>
+                        <?php
+                        if (check_if_user_connected_client()) {
+                        ?>
 
                             <li>
                                 <i class="bx bx-chevron-right"></i>
@@ -75,9 +75,9 @@
                                 <a href="<?= PATH_PROJECT ?>client/deconnexion">Déconnexion</a>
                             </li>
 
-							<?php
-						}
-						?>
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
@@ -96,8 +96,9 @@
 
 
 <div id="preloader"></div>
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
 
 <!-- Bootstrap core JavaScript-->
 <script src="<?= PATH_PROJECT ?>public/vendor/jquery/jquery.min.js"></script>
@@ -147,7 +148,7 @@
 <![endif]-->
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         "use strict";
 
         jQuery("#headerwrap").backstretch(
