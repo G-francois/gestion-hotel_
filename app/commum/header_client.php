@@ -4,58 +4,58 @@
 $erreurs = [];
 
 // LES SESSIONS UTILISEE LORS DE LA PAGE RESERVATION DU CLIENT & DE L'ADMINISTRATEUR 
-if (isset($_SESSION['donnees-reservation']) && !empty($_SESSION['donnees-reservation'])) {
+if (!empty($_SESSION['donnees-reservation'])) {
 	$donnees = $_SESSION['donnees-reservation'];
 }
 
-if (isset($_SESSION['erreurs-reservation']) && !empty($_SESSION['erreurs-reservation'])) {
+if (!empty($_SESSION['erreurs-reservation'])) {
 	$erreurs = $_SESSION['erreurs-reservation'];
 }
 
 // LES SESSIONS UTILISEE LORS DE LA PAGE COMMANDE DU CLIENT & DE L'ADMINISTRATEUR 
-if (isset($_SESSION['donnees-commande']) && !empty($_SESSION['donnees-commande'])) {
+if (!empty($_SESSION['donnees-commande'])) {
 	$donnees = $_SESSION['donnees-commande'];
 }
 
-if (isset($_SESSION['erreurs-commande']) && !empty($_SESSION['erreurs-commande'])) {
+if (!empty($_SESSION['erreurs-commande'])) {
 	$erreurs = $_SESSION['erreurs-commande'];
 }
 
 // LES SESSIONS UTILISEE LORS DE LA PAGE CONTACT DU CLIENT & DE L'ADMINISTRATEUR 
-if (isset($_SESSION['donnees-contact']) && !empty($_SESSION['donnees-contact'])) {
+if (!empty($_SESSION['donnees-contact'])) {
 	$donnees = $_SESSION['donnees-contact'];
 }
 
-if (isset($_SESSION['erreurs-contact']) && !empty($_SESSION['erreurs-contact'])) {
+if (!empty($_SESSION['erreurs-contact'])) {
 	$erreurs = $_SESSION['erreurs-contact'];
 }
 
-// LES SESSIONS UTILISEE LORS DE LA PAGE PROFIL DU CLIENT & DE L'ADMINISTRATEUR 
-if (isset($_SESSION['changement-erreurs']) && !empty($_SESSION['changement-erreurs'])) {
+// LES SESSIONS UTILISEE LORS DE LA PAGE PROFIL DU CLIENT & DE L'ADMINISTRATEUR
+if (!empty($_SESSION['changement-erreurs'])) {
 	$erreurs = $_SESSION['changement-erreurs'];
 }
 
-if (isset($_SESSION['sauvegarder-erreurs']) && !empty($_SESSION['sauvegarder-erreurs'])) {
+if (!empty($_SESSION['sauvegarder-erreurs'])) {
 	$erreurs = $_SESSION['sauvegarder-erreurs'];
 }
 
-if (isset($_SESSION['suppression-erreurs']) && !empty($_SESSION['suppression-erreurs'])) {
+if (!empty($_SESSION['suppression-erreurs'])) {
 	$erreurs = $_SESSION['suppression-erreurs'];
 }
 
-if (isset($_SESSION['suppression-photo-erreurs']) && !empty($_SESSION['suppression-photo-erreurs'])) {
+if (!empty($_SESSION['suppression-photo-erreurs'])) {
 	$erreurs = $_SESSION['suppression-photo-erreurs'];
 }
 
-if (isset($_SESSION['desactivation-erreurs']) && !empty($_SESSION['desactivation-erreurs'])) {
+if (!empty($_SESSION['desactivation-erreurs'])) {
 	$erreurs = $_SESSION['desactivation-erreurs'];
 }
 
-if (isset($_SESSION['photo-erreurs']) && !empty($_SESSION['photo-erreurs'])) {
+if (!empty($_SESSION['photo-erreurs'])) {
 	$erreurs = $_SESSION['photo-erreurs'];
 }
 
-if (isset($_SESSION['erreurs']) && !empty($_SESSION['erreurs'])) {
+if (!empty($_SESSION['erreurs'])) {
 	$erreurs = $_SESSION['erreurs'];
 }
 
@@ -99,7 +99,7 @@ if (isset($_SESSION['erreurs']) && !empty($_SESSION['erreurs'])) {
 
     <style>
         .hr {
-            margin: 0rem 0;
+            margin: 0 0;
             color: inherit;
             border: 0;
             border-top: 1px solid;
@@ -258,59 +258,74 @@ if (isset($_SESSION['erreurs']) && !empty($_SESSION['erreurs'])) {
 				if (check_if_user_connected_client()) {
 					?>
 
+                    <div class="col-md-5">
+                        <nav class="navbar navbar-expand-sm navbar-dark" aria-label="Third navbar example">
+                            <div class="container-fluid">
+                                <div class="collapse navbar-collapse" id="navbarsExample03">
+                                    <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <!-- Image de profil de l'utilisateur -->
+                                                <img src="<?= $_SESSION['utilisateur_connecter_client']['avatar'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_profil.jpg' : $_SESSION['utilisateur_connecter_client']['avatar'] ?>"
+                                                     style="margin-right: 12px; width: 2rem; height: 2rem;" alt="Profile"
+                                                     class="rounded-circle">
+
+                                                <!-- Nom de l'utilisateur -->
+                                                <h5 class="ml-2"><?= isset($_SESSION['utilisateur_connecter_client']) ? $_SESSION['utilisateur_connecter_client']['nom_utilisateur'] : 'Pseudo' ?></h5>
+
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                                                <li>
+                                                    <a class="dropdown-item" href="<?= PATH_PROJECT ?>client/profil" style="justify-content: unset;">
+                                                        <i class="bi bi-person" style="margin-right: 12px;"></i>
+                                                        Mon Profile
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item" href="<?= PATH_PROJECT ?>client/liste_des_reservations" style="justify-content: unset;">
+                                                        <i class="bi bi-card-checklist" style="margin-right: 12px;"></i>
+                                                        Liste des reservations
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item" href="<?= PATH_PROJECT ?>client/liste_des_commandes" style="justify-content: unset;">
+                                                        <i class="bi bi-card-checklist" style="margin-right: 12px;"></i>
+                                                        Liste des commandes
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item" href="<?= PATH_PROJECT ?>client/liste_des_messages" style="justify-content: unset;">
+                                                        <i class="bi bi-mailbox" style="margin-right: 12px;"></i>
+                                                        Liste des messages
+                                                    </a>
+                                                </li>
+
+                                                <hr>
+                                                <li>
+                                                    <a class="dropdown-item" href="<?= PATH_PROJECT ?>client/deconnexion" style="justify-content: unset;">
+                                                        <i class="bi bi-box-arrow-right" style="margin-right: 12px;"></i>
+                                                        Déconnexion
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+
+
+
+
                     <!-- Lien pour le profil de l'utilisateur connecté -->
-                    <li class="nav-item" style="width: auto;">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                            <!-- Image de profil de l'utilisateur -->
-                            <img src="<?= $_SESSION['utilisateur_connecter_client']['avatar'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_profil.jpg' : $_SESSION['utilisateur_connecter_client']['avatar'] ?>"
-                                 style="margin-right: 12px; width: 2rem; height: 2rem;" alt="Profile"
-                                 class="rounded-circle">
-
-                            <!-- Nom de l'utilisateur -->
-                            <h5 class="ml-2"><?= isset($_SESSION['utilisateur_connecter_client']) ? $_SESSION['utilisateur_connecter_client']['nom_utilisateur'] : 'Pseudo' ?></h5>
-                        </a>
-                        <!-- Contenu du dropdown pour l'utilisateur connecté -->
-                        <div class="dropdown-menu dropdown-menu-center shadow animated--grow-in text-center"
-                             style="min-width: 12rem; width: -webkit-fill-available;" aria-labelledby="userDropdown">
-
-                            <a class="dropdown-item d-flex align-items-center mb-3"
-                               href="<?= PATH_PROJECT ?>client/profil"
-                               style="justify-content: unset; color: black; padding: 0px 0 0px 20px;">
-                                <i class="bi bi-person" style="margin-right: 12px;"></i>
-                                <span>Mon Profile</span>
-                            </a>
-
-                            <a class="dropdown-item d-flex align-items-center mb-3"
-                               href="<?= PATH_PROJECT ?>client/liste_des_reservations"
-                               style="justify-content: unset; color: black; padding: 0px 0 0px 20px;">
-                                <i class="bi bi-card-checklist" style="margin-right: 12px;"></i>
-                                <span>Liste des reservations</span>
-                            </a>
-
-                            <a class="dropdown-item d-flex align-items-center mb-3"
-                               href="<?= PATH_PROJECT ?>client/liste_des_commandes"
-                               style="justify-content: unset; color: black; padding: 0px 0 0px 20px;">
-                                <i class="bi bi-card-list" style="margin-right: 12px;"></i>
-                                <span>Liste des commandes</span>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center mb-3"
-                               href="<?= PATH_PROJECT ?>client/liste_des_messages"
-                               style="justify-content: unset; color: black; padding: 0px 0 0px 20px;">
-                                <i class="bi bi-mailbox" style="margin-right: 12px;"></i>
-                                <span>Liste des messages</span>
-                            </a>
-
-                            <hr>
-                            <a class="dropdown-item d-flex align-items-center"
-                               style="justify-content: unset; color: black; padding: 0px 0 0px 20px;"
-                               href="<?= PATH_PROJECT ?>client/deconnexion">
-                                <i class="bi bi-box-arrow-right" style="margin-right: 12px;"></i>
-                                <span>Déconnexion</span>
-                            </a>
-                        </div>
-                    </li>
                     <!-- Fin du profil de l'utilisateur connecté -->
 
 					<?php

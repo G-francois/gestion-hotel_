@@ -14,7 +14,7 @@ if (isset($_POST['sauvegarder'])) {
 
     if (check_password_exist(($_POST['password']), $donnees['id'])) {
 
-        if (isset($_POST['nom']) && !empty($_POST['nom']) && $_POST['nom'] != $donnees['nom']) {
+        if (!empty($_POST['nom']) && $_POST['nom'] != $donnees['nom']) {
             $new_data['nom'] = strtoupper(htmlentities($_POST['nom']));
         } else {
             if (empty($_POST['nom'])) {
@@ -24,7 +24,7 @@ if (isset($_POST['sauvegarder'])) {
             }
         }
 
-        if (isset($_POST['prenom']) && !empty($_POST['prenom']) && $_POST['prenom'] != $donnees['prenom']) {
+        if (!empty($_POST['prenom']) && $_POST['prenom'] != $donnees['prenom']) {
             $new_data['prenom'] = ucfirst(htmlentities($_POST['prenom']));
         } else {
             if (empty($_POST['prenom'])) {
@@ -35,7 +35,7 @@ if (isset($_POST['sauvegarder'])) {
         }
 
 
-        if (isset($_POST['telephone']) && !empty($_POST['telephone'])) {
+        if (!empty($_POST['telephone'])) {
             $telephone = trim(htmlentities($_POST['telephone']));
             if (strlen($telephone) == 8 && ctype_digit($telephone)) {
                 if ($telephone != $donnees['telephone']) {
@@ -53,7 +53,7 @@ if (isset($_POST['sauvegarder'])) {
         }
 
         
-        if (isset($_POST['nom_utilisateur']) && !empty($_POST['nom_utilisateur']) && $_POST['nom_utilisateur'] != $donnees['nom_utilisateur']) {
+        if (!empty($_POST['nom_utilisateur']) && $_POST['nom_utilisateur'] != $donnees['nom_utilisateur']) {
             $new_data['nom_utilisateur'] = htmlentities($_POST['nom_utilisateur']);
         } else {
             if (empty($_POST['nom_utilisateur'])) {

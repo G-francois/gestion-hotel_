@@ -18,14 +18,14 @@ include('./app/commum/header_client.php');
                     <div class="info">
                         <div class="address">
                             <i class="bi bi-geo-alt"></i>
-                            <h4>Emplacement:</h4>
+                            <h4>Emplacement :</h4>
                             <p>A108 Adam Street, NY 535022, BENIN</p>
                         </div>
 
 
                         <div class="open-hours">
                             <i class="bi bi-clock"></i>
-                            <h4>Heures d'Ouverture:</h4>
+                            <h4>Heures d'Ouverture :</h4>
                             <p>
                                 Du lundi - dimanche:<br/>
                                 24H / 24H
@@ -49,7 +49,7 @@ include('./app/commum/header_client.php');
                 <div class="col-lg-8 mt-5 mt-lg-0">
 					<?php
 					// Vérifie s'il y a un message de succès global à afficher
-					if (isset($_SESSION['contact-message-success-global']) && !empty($_SESSION['contact-message-success-global'])) {
+					if (!empty($_SESSION['contact-message-success-global'])) {
 						?>
                         <div class="alert alert-primary"
                              style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
@@ -61,7 +61,7 @@ include('./app/commum/header_client.php');
 
 					<?php
 					// Vérifie s'il y a un message d'erreur global à afficher
-					if (isset($_SESSION['contact-message-erreur-global']) && !empty($_SESSION['contact-message-erreur-global'])) {
+					if (!empty($_SESSION['contact-message-erreur-global'])) {
 						?>
                         <div class="alert alert-primary"
                              style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
@@ -85,9 +85,9 @@ include('./app/commum/header_client.php');
                                     </label>
                                     <input type="text" name="nom" id="inscription-nom" class="form-control"
                                            placeholder="Veuillez entrer votre nom"
-                                           value="<?= (isset($donnees["nom"]) && !empty($donnees["nom"])) ? $donnees["nom"] : ''; ?>"
+                                           value="<?= (!empty($donnees["nom"])) ? $donnees["nom"] : ''; ?>"
                                            required>
-									<?php if (isset($erreurs["nom"]) && !empty($erreurs["nom"])) { ?>
+									<?php if (!empty($erreurs["nom"])) { ?>
                                         <span class="text-danger">
                     <?php echo $erreurs["nom"]; ?>
                   </span>
@@ -102,16 +102,16 @@ include('./app/commum/header_client.php');
                                     </label>
                                     <input type="text" name="prenom" id="inscription-prenom" class="form-control"
                                            placeholder="Veuillez entrer vos prénoms"
-                                           value="<?= (isset($donnees["prenom"]) && !empty($donnees["prenom"])) ? $donnees["prenom"] : ''; ?>"
+                                           value="<?= (!empty($donnees["prenom"])) ? $donnees["prenom"] : ''; ?>"
                                            required>
-									<?php if (isset($erreurs["prenom"]) && !empty($erreurs["prenom"])) { ?>
+									<?php if (!empty($erreurs["prenom"])) { ?>
                                         <span class="text-danger">
                     <?php echo $erreurs["prenom"]; ?>
                   </span>
 									<?php } ?>
                                 </div>
 
-                                <!-- Le champs email -->
+                                <!-- Le champ email -->
                                 <div class="col-md-4 mb-3">
                                     <label for="inscription-email">
                                         Adresse mail :
@@ -119,9 +119,9 @@ include('./app/commum/header_client.php');
                                     </label>
                                     <input type="email" name="email" id="inscription-email" class="form-control"
                                            placeholder="Veuillez entrer votre adresse mail"
-                                           value="<?= (isset($donnees["email"]) && !empty($donnees["email"])) ? $donnees["email"] : ''; ?>"
+                                           value="<?= (!empty($donnees["email"])) ? $donnees["email"] : ''; ?>"
                                            required>
-									<?php if (isset($erreurs["email"]) && !empty($erreurs["email"])) { ?>
+									<?php if (!empty($erreurs["email"])) { ?>
                                         <span class="text-danger">
                     <?php echo $erreurs["email"]; ?>
                   </span>
@@ -133,7 +133,7 @@ include('./app/commum/header_client.php');
 						}
 						?>
 
-                        <!-- Le champs sujet du message-->
+                        <!-- Le champ sujet du message-->
                         <div class="form-group mt-3">
                             <label for="inscription-subject">
                                 Sujet du message :
@@ -141,26 +141,23 @@ include('./app/commum/header_client.php');
                             </label>
                             <input type="text" class="form-control" name="subject" id="inscription-subject"
                                    placeholder="Veuillez entrer le sujet du message"
-                                   value="<?= (isset($donnees["subject"]) && !empty($donnees["subject"])) ? $donnees["subject"] : ''; ?>"
+                                   value="<?= (!empty($donnees["subject"])) ? $donnees["subject"] : ''; ?>"
                                    required/>
-							<?php if (isset($erreurs["subject"]) && !empty($erreurs["subject"])) { ?>
+							<?php if (!empty($erreurs["subject"])) { ?>
                                 <span class="text-danger">
                 <?php echo $erreurs["subject"]; ?>
               </span>
 							<?php } ?>
                         </div>
 
-                        <!-- Le champs message-->
+                        <!-- Le champ message-->
                         <div class="form-group mt-3">
                             <label for="inscription-corps">
                                 Corps du message :
                                 <span class="text-danger">(*)</span>
                             </label>
-                            <textarea class="form-control" id="inscription-corps" name="message" rows="8"
-                                      placeholder="Veuillez entrer votre message"
-                                      value="<?= (isset($donnees["message"]) && !empty($donnees["message"])) ? $donnees["message"] : ''; ?>"
-                                      required></textarea>
-							<?php if (isset($erreurs["message"]) && !empty($erreurs["message"])) { ?>
+                            <textarea class="form-control" id="inscription-corps" name="message" rows="8" placeholder="Veuillez entrer votre message" value="<?= (!empty($donnees["message"])) ? $donnees["message"] : ''; ?>" required></textarea>
+							<?php if (!empty($erreurs["message"])) { ?>
                                 <span class="text-danger">
                 <?php echo $erreurs["message"]; ?>
               </span>

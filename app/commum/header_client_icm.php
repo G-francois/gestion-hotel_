@@ -9,33 +9,28 @@ if (check_if_user_connected_client()) {
 $erreurs = [];
 $donnees = [];
 
-if (isset($_SESSION['inscription-erreurs']) && !empty($_SESSION['inscription-erreurs'])) {
+if (!empty($_SESSION['inscription-erreurs'])) {
 	$erreurs = $_SESSION['inscription-erreurs'];
 }
 
-if (isset($_SESSION['connexion-erreurs']) && !empty($_SESSION['connexion-erreurs'])) {
+if (!empty($_SESSION['connexion-erreurs'])) {
 	$erreurs = $_SESSION['connexion-erreurs'];
 }
 
-if (isset($_SESSION['donnees-utilisateur']) && !empty($_SESSION['donnees-utilisateur'])) {
+if (!empty($_SESSION['donnees-utilisateur'])) {
 	$donnees = $_SESSION['donnees-utilisateur'];
 }
 
-if (isset($_SESSION['verification-erreurs']) && !empty($_SESSION['verification-erreurs'])) {
+if (!empty($_SESSION['verification-erreurs'])) {
 	$erreurs = $_SESSION['verification-erreurs'];
 }
 
-if (isset($_COOKIE["donnees-utilisateur"]) && !empty($_COOKIE["donnees-utilisateur"])) {
+if (!empty($_COOKIE["donnees-utilisateur"])) {
 	$data = json_decode($_COOKIE["donnees-utilisateur"]);
 }
 
-if (isset($_SESSION['enregistrer-erreurs']) && !empty($_SESSION['enregistrer-erreurs'])) {
+if (!empty($_SESSION['enregistrer-erreurs'])) {
 	$erreurs = $_SESSION['enregistrer-erreurs'];
-}
-
-if (check_if_user_connected_client()) {
-	header('location: ' . PATH_PROJECT . 'client/dashboard/index');
-	exit;
 }
 
 ?>

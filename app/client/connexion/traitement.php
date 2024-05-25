@@ -8,14 +8,14 @@ $erreurs = []; // Tableau pour stocker les erreurs de formulaire
 $_SESSION['donnees-utilisateur'] = []; // Initialisation des données utilisateur en session
 
 // Vérification et stockage du champ "email-nom-utilisateur"
-if (isset($_POST["email-nom-utilisateur"]) && !empty($_POST["email-nom-utilisateur"])) {
+if (!empty($_POST["email-nom-utilisateur"])) {
 	$donnees["email-nom-utilisateur"] = trim(htmlentities($_POST["email-nom-utilisateur"]));
 } else {
 	$erreurs["email-nom-utilisateur"] = "Le champ email ou nom d'utilisateur est requis. Veuillez le renseigner.";
 }
 
 // Vérification et stockage du champ "mot-passe"
-if (isset($_POST["mot-passe"]) && !empty($_POST["mot-passe"])) {
+if (!empty($_POST["mot-passe"])) {
 	$donnees["mot-passe"] = trim(htmlentities($_POST['mot-passe']));
 } else {
 	$erreurs["mot-passe"] = "Le champ mot de passe est requis. Veuillez le renseigner.";

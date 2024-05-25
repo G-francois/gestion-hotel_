@@ -1,9 +1,7 @@
 <?php
 
 $url = $_SERVER["REQUEST_SCHEME"] . '://' . $_SERVER["HTTP_HOST"] . PATH_PROJECT . 'client/validation_de_compte/index/{id_utilisateur}/{token}';
-
 $url = str_replace('{id_utilisateur}', $id_utilisateur, $url);
-
 $url = str_replace('{token}', $token, $url);
 
 ?>
@@ -90,10 +88,9 @@ $url = str_replace('{token}', $token, $url);
 <div class="container" style="text-align: center; align-items: center; flex-direction: column;">
     <p>Bienvenue cher client,</p>
     <p>
-        Nous avons bien reçu votre demande d'inscription à notre plateforme et nous vous remercions de votre intérêt
-        pour
-        nos services. Afin de pouvoir accéder à votre compte,
-        veuillez cliquer sur le bouton ci-dessous pour valider votre compte:
+        Nous avons bien reçu votre demande d'inscription à notre plateforme et nous vous remercions pour votre intérêt
+        pour nos services. Afin de pouvoir accéder à votre compte, veuillez cliquer sur le bouton ci-dessous pour
+        valider votre compte :
     </p>
 
     <a href="<?= $url ?>" target="_blank" class="d-flex flex-wrap"
@@ -111,7 +108,9 @@ $url = str_replace('{token}', $token, $url);
         écrire.
     </p>
 
-    <p>Cordialement, l'équipe de l'hotel "SOUS LES COCOTIERS"</p>
+    <p>
+        Cordialement, l'équipe de l'hôtel "SOUS LES COCOTIERS"
+    </p>
 </div>
 </body>
 

@@ -2,7 +2,6 @@
 include('./app/commum/header_client_icm.php');
 ?>
 
-
     <div class="container" style="margin-top: 70px; margin-bottom: 70px;">
         <div class="row justify-content-center;" style="color:black; justify-content:center;">
 
@@ -16,16 +15,16 @@ include('./app/commum/header_client_icm.php');
                             <div class="col-lg-6">
                                 <div class="p-5">
 									<?php
-									if (isset($_SESSION['validation-compte-message-success']) && !empty($_SESSION['validation-compte-message-success'])) {
+									if (!empty($_SESSION['validation-compte-message-success'])) {
 										?>
                                         <div class="alert alert-primary"
-                                             style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
+                                             style="color: white; background-color: #5cb85c; text-align:center; border-color: snow;">
 											<?= $_SESSION['validation-compte-message-success'] ?>
                                         </div>
 										<?php
 									}
 
-									if (isset($_SESSION['validation-compte-message-erreur']) && !empty($_SESSION['validation-compte-message-erreur'])) {
+									if (!empty($_SESSION['validation-compte-message-erreur'])) {
 										?>
                                         <div class="alert alert-primary"
                                              style="color: white; text-align:center; background-color: red; border-color: snow;">
@@ -35,11 +34,23 @@ include('./app/commum/header_client_icm.php');
 									}
 									?>
 
+                                    <?php
+                                    if (!empty($_SESSION['success'])) {
+                                        ?>
+                                        <div class="alert alert-primary"
+                                             style="color: white; background-color: #5cb85c; text-align:center; border-color: snow;">
+                                            <?= $_SESSION['success'] ?>
+                                        </div>
+                                        <?php
+                                    }
+
+                                    ?>
+
 									<?php
-									if (isset($_SESSION['validation-mot-passe-success']) && !empty($_SESSION['validation-mot-passe-success'])) {
+									if (!empty($_SESSION['validation-mot-passe-success'])) {
 										?>
                                         <div class="alert alert-primary"
-                                             style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
+                                             style="color: white; background-color: #5cb85c; text-align:center; border-color: snow;">
 											<?= $_SESSION['validation-mot-passe-success'] ?>
                                         </div>
 										<?php
@@ -52,7 +63,7 @@ include('./app/commum/header_client_icm.php');
 
 
 									<?php
-									if (isset($_SESSION['connexion-message-erreur-global']) && !empty($_SESSION['connexion-message-erreur-global'])) {
+									if (!empty($_SESSION['connexion-message-erreur-global'])) {
 										?>
                                         <div class="alert alert-primary"
                                              style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
@@ -64,18 +75,18 @@ include('./app/commum/header_client_icm.php');
 
                                     <form action="<?= PATH_PROJECT ?>client/connexion/traitement" method="post"
                                           class="user">
-                                        <!-- Le champs email ou nom utilisateur-->
+                                        <!-- Le champ email ou nom utilisateur-->
                                         <div class="form-group">
                                             <label for="inscription-email">
-                                                Email ou Nom d'utilisateur:
+                                                Email ou Nom d'utilisateur :
                                                 <span class="text-danger">(*)</span>
                                             </label>
                                             <input type="text" name="email-nom-utilisateur" id="inscription-email"
                                                    class="form-control"
                                                    placeholder="Entrer votre adresse mail ou nom d'utilisateur"
-                                                   value="<?= (isset($donnees["email-nom-utilisateur"]) && !empty($donnees["email-nom-utilisateur"])) ? $donnees["email-nom-utilisateur"] : ''; ?>"
+                                                   value="<?= (!empty($donnees["email-nom-utilisateur"])) ? $donnees["email-nom-utilisateur"] : ''; ?>"
                                                    required>
-											<?php if (isset($erreurs["email-nom-utilisateur"]) && !empty($erreurs["email-nom-utilisateur"])) { ?>
+											<?php if (!empty($erreurs["email-nom-utilisateur"])) { ?>
                                                 <span class="text-danger">
                                                 <?php echo $erreurs["email-nom-utilisateur"]; ?>
                                             </span>
@@ -90,9 +101,9 @@ include('./app/commum/header_client_icm.php');
                                             </label>
                                             <input type="password" name="mot-passe" id="inscription-mot-passe"
                                                    class="form-control" placeholder="Veuillez entrer votre mot de passe"
-                                                   value="<?= (isset($donnees["mot-passe"]) && !empty($donnees["mot-passe"])) ? $donnees["mot-passe"] : ''; ?>"
+                                                   value="<?= (!empty($donnees["mot-passe"])) ? $donnees["mot-passe"] : ''; ?>"
                                                    required>
-											<?php if (isset($erreurs["mot-passe"]) && !empty($erreurs["mot-passe"])) { ?>
+											<?php if (!empty($erreurs["mot-passe"])) { ?>
                                                 <span class="text-danger">
                                                 <?php echo $erreurs["mot-passe"]; ?>
                                             </span>

@@ -67,7 +67,7 @@ $liste_chambre = recuperer_chambres();
 
 			<?php
 			// Affiche un message de succès s'il existe et n'est pas vide
-			if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+			if (!empty($_SESSION['message-success-global'])) {
 				?>
                 <div class="alert alert-primary"
                      style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
@@ -79,7 +79,7 @@ $liste_chambre = recuperer_chambres();
 
 			<?php
 			// Affiche un message d'erreur s'il existe et n'est pas vide
-			if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+			if (!empty($_SESSION['message-erreur-global'])) {
 				?>
                 <div class="alert alert-danger"
                      style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
@@ -127,7 +127,6 @@ $liste_chambre = recuperer_chambres();
 									$liste_accompagnateurs_chambres_reservations[$chambre['num_chambre']] = recuperer_accompagnateurs_par_chambre_sur_une_reservation($reservation['num_res'], $chambre['num_chambre']);
 								}
 								//die(var_dump($liste_chambres_reservations))
-
 								//die(var_dump($liste_accompagnateurs_chambres_reservations));
 
 								?>
@@ -368,7 +367,7 @@ $liste_chambre = recuperer_chambres();
 																			}
 																			?>
 
-                                                                            <!-- Le champ nom et contact nouveau accompagnateur -->
+                                                                            <!-- Le champ nom et contact du nouvel accompagnateur -->
                                                                             <div class="row">
                                                                                 <!-- Le champ nom_acc -->
                                                                                 <div class="col-md-6 mb-1">
@@ -413,14 +412,12 @@ $liste_chambre = recuperer_chambres();
                                                                                 <!-- Le champ date de début occupation -->
                                                                                 <div class="col-md-6 mb-1">
                                                                                     <label for="inscription-deb_occ-<?php echo $reservation['num_res']; ?>-1">
-                                                                                        Début de séjour:
+                                                                                        Début de séjour :
                                                                                         <span class="text-danger">(*)</span>
                                                                                     </label>
                                                                                     <div class="input-group mb-3">
-                                                                                        <input type="date"
-                                                                                               id="inscription-deb_occ-<?php echo $reservation['num_res']; ?>"
-                                                                                               name="chambre<?= $i + 1 ?>[deb_occ]"
-                                                                                               id="inscription-deb_occ"
+                                                                                        <input type="date" id="inscription-deb_occ-<?php echo $reservation['num_res']; ?>"
+                                                                                               name="chambre<?= $i + 1 ?>[deb_occ]" id="inscription-deb_occ"
                                                                                                class="form-control"
                                                                                                placeholder="Veuillez entrer votre date de début occupation"
                                                                                                value="<?= date('Y-m-d', strtotime($chambre_['deb_occ'])) ?>"
@@ -428,7 +425,7 @@ $liste_chambre = recuperer_chambres();
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <!-- Le champ date de fin occupation -->
+                                                                                <!-- Le champ date de fins occupations -->
                                                                                 <div class="col-md-6 mb-1">
                                                                                     <label for="inscription-fin_occ-<?php echo $reservation['num_res']; ?>-2">
                                                                                         Fin de séjour:
@@ -625,7 +622,7 @@ $liste_chambre = recuperer_chambres();
 					} else {
 						// Aucune réservation n'a été trouvée, affichez le message en couleur noire
 						?>
-                        <p style="color: black;">Aucune réservation n'a été trouvée!</p>
+                        <p style="color: black;">Aucune réservation n'a été trouvée !</p>
 						<?php
 					}
 					?>

@@ -4,7 +4,6 @@ if (!check_if_user_connected_client()) {
 	exit;
 }
 
-
 include('./app/commum/header_client.php');
 
 $liste_chambre = recuperer_infos_chambre();
@@ -98,7 +97,7 @@ $liste_chambre = recuperer_infos_chambre();
                                         </ul>
                                     </li>
                                     <li>
-                                        <strong>Une même chambre ne peut être ajouter plusieurs fois sur une même
+                                        <strong>Une même chambre ne peut être ajoutée plusieurs fois sur une même
                                             réservation.</strong>
                                     </li>
                                     <li>
@@ -243,7 +242,7 @@ $liste_chambre = recuperer_infos_chambre();
                                         <!-- Le champ date de début occupation -->
                                         <div class="col-md-6 mb-1">
                                             <label for="inscription-deb_occ">
-                                                Début de séjour:
+                                                Début de séjour :
                                                 <span class="text-danger">(*)</span>
                                             </label>
                                             <div class="input-group mb-3">
@@ -259,7 +258,7 @@ $liste_chambre = recuperer_infos_chambre();
 											<?php } ?>
                                         </div>
 
-                                        <!-- Le champ date de fin occupation -->
+                                        <!-- Le champ date de fins occupations -->
                                         <div class="col-md-6 mb-1">
                                             <label for="inscription-fin_occ">
                                                 Fin de séjour:
@@ -302,7 +301,7 @@ $liste_chambre = recuperer_infos_chambre();
 
                                     <!-- Bouton pour supprimer un conteneur (initialisé comme caché) -->
                                     <div class="col-md-12 mb-3"
-                                         style="justify-content: center; display: flex; display: none;"
+                                         style="justify-content: center; display: none;"
                                          id="retirer-chambre-container">
                                         <button type="button" class="btn btn-danger" id="retirer-chambre"
                                                 style="--bs-btn-color: #fff; --bs-btn-bg: #b30617; --bs-btn-border-color: #b30617;">
@@ -504,15 +503,7 @@ $liste_chambre = recuperer_infos_chambre();
             row.remove();
         }
 
-        // // Écouteur d'événement pour le bouton "Retirer chambre"
-        // retirerChambreBtn.addEventListener('click', function() {
-        //     // Ajoutez ici le code pour retirer dynamiquement une chambre
-        //     var container = document.getElementById('champs-chambres-dynamiques-container');
-        //     var dernierChambre = container.lastElementChild;
-        //     if (dernierChambre) {
-        //         container.removeChild(dernierChambre);
-        //     }
-        // });
+
 
         // Fonction pour retirer une chambre
         function retirerChambre(element) {
@@ -524,89 +515,7 @@ $liste_chambre = recuperer_infos_chambre();
         }
     </script>
 
-    <!-- <script>
-		// Fonction pour calculer le nombre de jours entre deux dates
-		function calculerDifferenceJours(debut, fin) {
-			const diffTime = Math.abs(fin - debut);
-			const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1; // Ajouter 1 jour
-			return diffDays;
-		}
 
-		function mettreAJourPrix() {
-			const select = document.getElementById('num_chambre');
-			const selectedOption = select.options[select.selectedIndex];
-			const prixParJour = parseFloat(selectedOption.getAttribute('data-prix')); // Assurez-vous que le prix est un nombre
-
-			// Ajout de la sortie console pour vérifier le prix
-			console.log('Prix récupéré:', prixParJour);
-
-			const dateDebut = new Date(document.getElementById('inscription-deb_occ').value);
-			const dateFin = new Date(document.getElementById('inscription-fin_occ').value);
-
-			if (dateFin <= dateDebut) {
-				alert("La date de fin doit être après la date de début.");
-				document.getElementById('nombre_jour').innerText = '0';
-				document.getElementById('prix_total').innerText = '0 F';
-				return;
-			}
-
-			const jours = calculerDifferenceJours(dateDebut, dateFin);
-			const montantTotal = prixParJour * jours;
-
-			document.getElementById('nombre_jour').innerText = jours.toString();
-			document.getElementById('prix_total').innerText = montantTotal.toFixed(2) + ' F'; // Utiliser toFixed pour formater en deux décimales
-		}
-
-		// Écouteurs d'événements pour mettre à jour les calculs lorsqu'une date est changée
-		document.getElementById('inscription-deb_occ').addEventListener('change', mettreAJourPrix);
-		document.getElementById('inscription-fin_occ').addEventListener('change', mettreAJourPrix);
-
-		// Appeler la fonction initiale pour afficher le montant total au chargement de la page
-		mettreAJourPrix();
-	</script> -->
-
-
-    <!-- <script>
-		// Fonction pour afficher/cacher les ensembles de champs d'accompagnateurs en fonction du nombre sélectionné
-		function toggleAccompagnateursFields() {
-			var nombreAccompagnateurs = parseInt(document.getElementById("nombre-accompagnateurs").value);
-
-			for (var i = 1; i <= 4; i++) {
-				var accompagnateurFields = document.getElementById("accompagnateur-" + i);
-
-				if (accompagnateurFields) {
-					// Vérifier si l'élément existe avant d'accéder à sa propriété style
-					if (i <= nombreAccompagnateurs) {
-						accompagnateurFields.style.display = "flex";
-					} else {
-						accompagnateurFields.style.display = "none";
-					}
-				} else {
-					console.error("Element not found: accompagnateur-" + i);
-				}
-			}
-		}
-
-
-		function toggleAccompagnateursFields() {
-			var nombreAccompagnateurs = parseInt(document.getElementById("nombre-accompagnateurs").value);
-
-			for (var i = 1; i < 3; i++) {
-				var accompagnateurFields = document.getElementById("accompagnateur-" + i);
-
-				if (accompagnateurFields) {
-					// Vérifier si l'élément existe avant d'accéder à sa propriété style
-					if (i <= nombreAccompagnateurs) {
-						accompagnateurFields.style.display = "flex";
-					} else {
-						accompagnateurFields.style.display = "none";
-					}
-				} else {
-					console.error("Element not found: accompagnateur-" + i);
-				}
-			}
-		}
-	</script> -->
 <?php
 include('./app/commum/footer_client_icm.php');
 ?>

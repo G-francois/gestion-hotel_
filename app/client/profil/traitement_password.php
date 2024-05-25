@@ -1,4 +1,7 @@
 <?php
+// Initialise les variables de session pour les erreurs de sauvegarde et les données utilisateur
+$_SESSION['sauvegarder-erreurs'] = "";
+$_SESSION['donnees-utilisateur'] = [];
 
 $donnees = [];
 $erreurs = [];
@@ -7,24 +10,24 @@ $erreurs = [];
 if (isset($_POST['change_password'])) {
 
 	// Vérifie si le champ du nouveau mot de passe est renseigné
-	if (isset($_POST["newpassword"]) && !empty($_POST["newpassword"])) {
+	if (!empty($_POST["newpassword"])) {
 		$donnees["newpassword"] = $_POST["newpassword"];
 	} else {
 		$erreurs["newpassword"] = "Le champ du nouveau mot de passe est requis. Veuillez le renseigner.";
 	}
 
 	// Vérifie si le champ du nouveau mot de passe est renseigné et si le champ du mot de passe retapé est vide
-	if (isset($_POST["newpassword"]) && !empty($_POST["newpassword"]) && strlen($_POST["newpassword"]) >= 8 && empty($_POST["renewpassword"])) {
+	if (!empty($_POST["newpassword"]) && strlen($_POST["newpassword"]) >= 8 && empty($_POST["renewpassword"])) {
 		$erreurs["renewpassword"] = "Entrez votre mot de passe à nouveau.";
 	}
 
 	// Vérifie si le mot de passe retapé est différent du nouveau mot de passe saisi
-	if ((isset($_POST["renewpassword"]) && !empty($_POST["renewpassword"]) && strlen($_POST["newpassword"]) >= 8 && $_POST["renewpassword"] != $_POST["newpassword"])) {
+	if ((!empty($_POST["renewpassword"]) && strlen($_POST["newpassword"]) >= 8 && $_POST["renewpassword"] != $_POST["newpassword"])) {
 		$erreurs["renewpassword"] = "Mot de passe erroné. Entrez le mot de passe du champ précédent.";
 	}
 
 	// Vérifie si le nouveau mot de passe est renseigné et si le mot de passe retapé correspond au nouveau mot de passe
-	if ((isset($_POST["newpassword"]) && !empty($_POST["newpassword"]) && strlen($_POST["newpassword"]) >= 8 && $_POST["renewpassword"] == $_POST["newpassword"])) {
+	if ((!empty($_POST["newpassword"]) && strlen($_POST["newpassword"]) >= 8 && $_POST["renewpassword"] == $_POST["newpassword"])) {
 		$donnees["newpassword"] = $_POST['newpassword'];
 	}
 
@@ -41,6 +44,7 @@ if (empty($erreurs)) {
 		// Détruit la session après la mise à jour du mot de passe
 		session_destroy();
 		// Redirige vers la page de connexion après la mise à jour du mot de passe
+        $_SESSION['success'] = "Modification(s) effectuée(s) avec succès";
 		header('location:' . PATH_PROJECT . 'client/connexion');
 	} else {
 		// Stocke les erreurs s'il y a eu un problème lors de la mise à jour du mot de passe

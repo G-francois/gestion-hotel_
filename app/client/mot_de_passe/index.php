@@ -18,10 +18,10 @@ include('./app/commum/header_client_icm.php');
                             <div class="col-lg-6">
                                 <div class="p-5">
 									<?php
-									if (isset($_SESSION['inscription-message-success-global']) && !empty($_SESSION['inscription-message-success-global'])) {
+									if (!empty($_SESSION['inscription-message-success-global'])) {
 										?>
                                         <div class="alert alert-primary"
-                                             style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
+                                             style="color: white; background-color: #5cb85c; text-align:center; border-color: snow;">
 											<?= $_SESSION['inscription-message-success-global'] ?>
                                         </div>
 										<?php
@@ -29,7 +29,7 @@ include('./app/commum/header_client_icm.php');
 									?>
 
 									<?php
-									if (isset($_SESSION['inscription-message-erreur-global']) && !empty($_SESSION['inscription-message-erreur-global'])) {
+									if (!empty($_SESSION['inscription-message-erreur-global'])) {
 										?>
                                         <div class="alert alert-primary"
                                              style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
@@ -43,12 +43,11 @@ include('./app/commum/header_client_icm.php');
                                         <p class="mb-4" style="color: black;">
                                             Nous comprenons, des choses arrivent. Entrez simplement votre adresse e-mail
                                             ci-dessous et nous vous enverrons un lien pour réinitialiser votre mot de
-                                            passe!</p>
+                                            passe !</p>
                                     </div>
 
 
-                                    <form action="<?= PATH_PROJECT ?>client/mot_de_passe/traitement" method="post"
-                                          class="user">
+                                    <form action="<?= PATH_PROJECT ?>client/mot_de_passe/traitement" method="post" class="user">
                                         <!-- Le champ email -->
                                         <div class="form-group">
                                             <label for="inscription-email" style="color:black;">
@@ -57,9 +56,9 @@ include('./app/commum/header_client_icm.php');
                                             </label>
                                             <input type="email" name="email" id="inscription-email" class="form-control"
                                                    placeholder="Veuillez entrer votre adresse mail"
-                                                   value="<?= (isset($donnees["email"]) && !empty($donnees["email"])) ? $donnees["email"] : ''; ?>"
+                                                   value="<?= (!empty($donnees["email"])) ? $donnees["email"] : ''; ?>"
                                                    required>
-											<?php if (isset($erreurs["email"]) && !empty($erreurs["email"])) { ?>
+											<?php if (!empty($erreurs["email"])) { ?>
                                                 <span class="text-danger">
                                                 <?php echo $erreurs["email"]; ?>
                                             </span>
@@ -71,7 +70,6 @@ include('./app/commum/header_client_icm.php');
                                             passe
                                         </button>
 
-                                        </a>
                                     </form>
                                     <hr>
                                     <div class="text-center">

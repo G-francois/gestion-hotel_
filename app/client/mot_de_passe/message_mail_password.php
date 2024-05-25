@@ -91,7 +91,7 @@ $url = str_replace('{token}', $token, $url);
 <div class="container" style="text-align: center; align-items: center; flex-direction: column;">
     <p>Nous avons reçu votre demande de réinitialisation de mot de passe. Afin de pouvoir modifier le mot de passe de
         votre compte,
-        veuillez cliquer sur le bouton ci-dessous pour modifier votre mot de passe:</p>
+        veuillez cliquer sur le bouton ci-dessous pour modifier votre mot de passe :</p>
 
     <a href="<?= $url ?>" target="_blank" class="d-flex flex-wrap"
        style="display: list-item; justify-content: center; background-color: #1a73e8; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px;">Modifier
@@ -101,7 +101,7 @@ $url = str_replace('{token}', $token, $url);
         à votre compte.</p>
     <p>Si vous rencontrez des difficultés pour modifier votre mot de passe ou si vous avez des questions, n'hésitez pas
         à nous écrire.</p>
-    <p>Cordialement, l'équipe de l'hotel "SOUS LES COCOTIERS"</p>
+    <p>Cordialement, l'équipe de l'hôtel "SOUS LES COCOTIERS"</p>
 </div>
 </body>
 

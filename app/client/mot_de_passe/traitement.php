@@ -9,7 +9,7 @@ $erreurs = [];
 
 
 // Vérifie la présence et la validité de l'adresse e-mail
-if (isset($_POST["email"]) && !empty($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+if (!empty($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 	$donnees["email"] = $_POST["email"];
 } else {
 	$erreurs["email"] = "Le champs email est requis. Veuillez le renseigner.";
@@ -74,4 +74,3 @@ if (empty($erreurs)) {
 $_SESSION['inscription-message-erreur-global'] = $message_erreur_global;
 $_SESSION['inscription-message-success-global'] = $message_success_global;
 header('location: ' . PATH_PROJECT . 'client/mot_de_passe/index');
-?>

@@ -47,4 +47,3 @@ if (empty($erreurs)) {
 	$_SESSION['enregistrer-erreurs'] = $erreurs;
 	header('location: ' . PATH_PROJECT . 'client/mot_de_passe/nouveau_mot_passe');
 }
-?>
