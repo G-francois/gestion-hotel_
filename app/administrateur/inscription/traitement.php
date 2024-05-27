@@ -4,7 +4,7 @@ $message_erreur_global = "";
 $message_success_global = "";
 $erreurs = [];
 
-if (isset($_POST["nom"]) && !empty($_POST["nom"])) {
+if (!empty($_POST["nom"])) {
 	$nom = htmlentities($_POST["nom"]);
 	$pattern = '/^[A-Z]+$/';
 	/*Dans ce code, j'ai ajouté une nouvelle validation pour le champ "nom". J'ai défini le pattern /^[A-Z]+$/
@@ -21,19 +21,19 @@ if (isset($_POST["nom"]) && !empty($_POST["nom"])) {
 	$erreurs["nom"] = "Le champ nom est requis. Veuillez le renseigner.";
 }
 
-if (isset($_POST["prenom"]) && !empty($_POST["prenom"])) {
+if (!empty($_POST["prenom"])) {
 	$donnees["prenom"] = $_POST["prenom"];
 } else {
 	$erreurs["prenom"] = "Le champs prénom est requis. Veuillez le renseigné.";
 }
 
-if (isset($_POST["sexe"]) && !empty($_POST["sexe"])) {
+if (!empty($_POST["sexe"])) {
 	$donnees["sexe"] = $_POST["sexe"];
 } else {
 	$erreurs["sexe"] = "Le champs sexe est requis. Veuillez le renseigné.";
 }
 
-if (isset($_POST["telephone"]) && !empty($_POST["telephone"])) {
+if (!empty($_POST["telephone"])) {
 	$telephone = trim(htmlentities($_POST["telephone"]));
 	$pattern = '/^\d{1,8}$/';
 	/*Dans ce code, j'ai ajouté la variable $pattern qui contient l'expression régulière /^\d{1,8}$/ pour 
@@ -51,7 +51,7 @@ if (isset($_POST["telephone"]) && !empty($_POST["telephone"])) {
 	$erreurs["telephone"] = "Le champ numéro de téléphone est requis. Veuillez le renseigner.";
 }
 
-if (isset($_POST["email"]) && !empty($_POST["email"])) {
+if (!empty($_POST["email"])) {
 	if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 		$donnees["email"] = trim(htmlentities($_POST["email"]));
 	} else {
@@ -61,13 +61,13 @@ if (isset($_POST["email"]) && !empty($_POST["email"])) {
 	$erreurs["email"] = "Le champs email est vide. Veuillez le renseigné.";
 }
 
-if (isset($_POST["nom-utilisateur"]) && !empty($_POST["nom-utilisateur"])) {
+if (!empty($_POST["nom-utilisateur"])) {
 	$donnees["nom-utilisateur"] = $_POST["nom-utilisateur"];
 } else {
 	$erreurs["nom-utilisateur"] = "Le champs nom-utilisateur est requis. Veuillez le renseigné.";
 }
 
-if (isset($_POST["mot-passe"]) && !empty($_POST["mot-passe"])) {
+if (!empty($_POST["mot-passe"])) {
 	$password = $_POST["mot-passe"];
 	$pattern = '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
 	/* Dans ce code, j'ai ajouté une nouvelle validation pour le champ "mot de passe". J'ai défini le
@@ -91,15 +91,15 @@ if (isset($_POST["mot-passe"]) && !empty($_POST["mot-passe"])) {
 	$erreurs["mot-passe"] = "Le champ mot de passe est requis. Veuillez le renseigner.";
 }
 
-if ((isset($_POST["retapez-mot-passe"]) && !empty($_POST["retapez-mot-passe"]) && $_POST["retapez-mot-passe"] != $_POST["mot-passe"])) {
+if ((!empty($_POST["retapez-mot-passe"]) && $_POST["retapez-mot-passe"] != $_POST["mot-passe"])) {
 	$erreurs["retapez-mot-passe"] = "Mot de passe erroné. Entrez le mot de passe du précédent champs";
 }
 
-if ((isset($_POST["mot-passe"]) && !empty($_POST["mot-passe"]) && $_POST["retapez-mot-passe"] == $_POST["mot-passe"])) {
+if ((!empty($_POST["mot-passe"]) && $_POST["retapez-mot-passe"] == $_POST["mot-passe"])) {
 	$donnees["mot-passe"] = trim(htmlentities($_POST['mot-passe']));
 }
 
-if (!isset($_POST["termes-conditions"]) || empty($_POST["termes-conditions"])) {
+if (empty($_POST["termes-conditions"])) {
 	$erreurs["termes-conditions"] = "Veuillez termes-conditions cette case svp";
 }
 
@@ -129,6 +129,7 @@ if (empty($erreurs)) {
 
 	$resultat = enregistrer_utilisateur_admin($donnees["nom"], $donnees["prenom"], $donnees["sexe"], $donnees["telephone"], $donnees["email"], $donnees["nom-utilisateur"], $donnees["mot-passe"], $donnees["profil"]);
 
+    $genre = "";
 	if ($resultat) {
 		if ($donnees["sexe"] == "Masculin") {
 			$genre = "Mr";

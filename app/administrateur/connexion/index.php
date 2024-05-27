@@ -29,7 +29,7 @@ include './app/commum/header.php'
                                     </div>
                                     <?php
                                     // Vérifier s'il y a un message de succès d'inscription et s'il n'est pas vide
-                                    if (isset($_SESSION['inscription-message-success-global']) && !empty($_SESSION['inscription-message-success-global'])) {
+                                    if (!empty($_SESSION['inscription-message-success-global'])) {
                                     ?>
                                         <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
                                             <?= $_SESSION['inscription-message-success-global'] ?>
@@ -40,7 +40,7 @@ include './app/commum/header.php'
 
                                     <?php
                                     // Vérifier s'il y a un message d'erreur de connexion et s'il n'est pas vide
-                                    if (isset($_SESSION['connexion-message-erreur-global']) && !empty($_SESSION['connexion-message-erreur-global'])) {
+                                    if (!empty($_SESSION['connexion-message-erreur-global'])) {
                                     ?>
                                         <div class="alert alert-primary" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
                                             <?= $_SESSION['connexion-message-erreur-global'] ?>
@@ -53,11 +53,11 @@ include './app/commum/header.php'
                                         <!-- Champ pour l'email ou le nom d'utilisateur -->
                                         <div class="form-group">
                                             <label for="inscription-email">
-                                                Email ou Nom d'utilisateur:
+                                                Email ou Nom d'utilisateur :
                                                 <span class="text-danger">(*)</span>
                                             </label>
-                                            <input type="text" name="email-nom-utilisateur" id="inscription-email" class="form-control" placeholder="Entrer votre adresse mail ou nom d'utilisateur" value="<?= (isset($donnees["email-nom-utilisateur"]) && !empty($donnees["email-nom-utilisateur"])) ? $donnees["email-nom-utilisateur"] : ''; ?>" required>
-                                            <?php if (isset($erreurs["email-nom-utilisateur"]) && !empty($erreurs["email-nom-utilisateur"])) { ?>
+                                            <input type="text" name="email-nom-utilisateur" id="inscription-email" class="form-control" placeholder="Entrer votre adresse mail ou nom d'utilisateur" value="<?= (!empty($donnees["email-nom-utilisateur"])) ? $donnees["email-nom-utilisateur"] : ''; ?>" required>
+                                            <?php if (!empty($erreurs["email-nom-utilisateur"])) { ?>
                                                 <span class="text-danger">
                                                     <?php echo $erreurs["email-nom-utilisateur"]; ?>
                                                 </span>
@@ -70,8 +70,8 @@ include './app/commum/header.php'
                                                 Mot de passe:
                                                 <span class="text-danger">(*)</span>
                                             </label>
-                                            <input type="password" name="mot-passe" id="inscription-mot-passe" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="<?= (isset($donnees["mot-passe"]) && !empty($donnees["mot-passe"])) ? $donnees["mot-passe"] : ''; ?>" required>
-                                            <?php if (isset($erreurs["mot-passe"]) && !empty($erreurs["mot-passe"])) { ?>
+                                            <input type="password" name="mot-passe" id="inscription-mot-passe" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="<?= (!empty($donnees["mot-passe"])) ? $donnees["mot-passe"] : ''; ?>" required>
+                                            <?php if (!empty($erreurs["mot-passe"])) { ?>
                                                 <span class="text-danger">
                                                     <?php echo $erreurs["mot-passe"]; ?>
                                                 </span>
@@ -103,5 +103,5 @@ include './app/commum/header.php'
     // Supprimer les variables de session inutiles
     unset($_SESSION['inscription-message-success-global'], $_SESSION['connexion-message-erreur-global'],  $_SESSION['connexion-erreurs-admin']);
 
-    include './app/commum/footer_client_icm.php';
+    include './app/commum/footer_admin _icm.php';
     ?>

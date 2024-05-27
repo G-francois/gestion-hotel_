@@ -25,7 +25,7 @@ include './app/commum/header.php'
                             <div class="p-5">
 
                                 <?php
-                                if (isset($_SESSION['inscription-message-erreur-global']) && !empty($_SESSION['inscription-message-erreur-global'])) {
+                                if (!empty($_SESSION['inscription-message-erreur-global'])) {
                                 ?>
                                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
                                         <?= $_SESSION['inscription-message-erreur-global'] ?>
@@ -48,8 +48,8 @@ include './app/commum/header.php'
                                             Adresse mail:
                                             <span class="text-danger">(*)</span>
                                         </label>
-                                        <input type="email" name="email" id="inscription-email" class="form-control" placeholder="Veuillez entrer votre adresse mail" value="<?= (isset($donnees["email"]) && !empty($donnees["email"])) ? $donnees["email"] : ''; ?>" required>
-                                        <?php if (isset($erreurs["email"]) && !empty($erreurs["email"])) { ?>
+                                        <input type="email" name="email" id="inscription-email" class="form-control" placeholder="Veuillez entrer votre adresse mail" value="<?= (!empty($donnees["email"])) ? $donnees["email"] : ''; ?>" required>
+                                        <?php if (!empty($erreurs["email"])) { ?>
                                             <span class="text-danger">
                                                 <?php echo $erreurs["email"]; ?>
                                             </span>
@@ -85,5 +85,5 @@ session_destroy();
 ?>
 
 <?php
-include './app/commum/footer_client_icm.php'
+include './app/commum/footer_admin _icm.php'
 ?>
