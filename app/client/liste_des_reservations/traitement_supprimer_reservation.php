@@ -2,6 +2,9 @@
 $_SESSION['suppression-erreurs'] = "";
 $_SESSION['donnees-utilisateur'] = [];
 
+$message_erreur_global = "";
+$message_success_global = "";
+
 $donnees = [];
 $erreurs = [];
 

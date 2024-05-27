@@ -432,14 +432,9 @@ $liste_chambre = recuperer_chambres();
                                                                                         <span class="text-danger">(*)</span>
                                                                                     </label>
                                                                                     <div class="input-group mb-3">
-                                                                                        <input type="date"
-                                                                                               id="inscription-fin_occ-<?php echo $reservation['num_res']; ?>"
-                                                                                               name="chambre<?= $i + 1 ?>[fin_occ]"
-                                                                                               id="inscription-fin_occ"
-                                                                                               class="form-control"
-                                                                                               placeholder="Veuillez entrer votre date de fin occupation"
-                                                                                               value="<?= date('Y-m-d', strtotime($chambre_['fin_occ'])) ?>"
-                                                                                               required>
+                                                                                        <input type="date" id="inscription-fin_occ-<?php echo $reservation['num_res']; ?>" name="chambre<?= $i + 1 ?>[fin_occ]" id="inscription-fin_occ"
+                                                                                               class="form-control" placeholder="Veuillez entrer votre date de fin occupation"
+                                                                                               value="<?= date('Y-m-d', strtotime($chambre_['fin_occ'])) ?>" required>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

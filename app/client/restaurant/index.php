@@ -11,7 +11,7 @@ $menuItems = recuperer_liste_repas();
             <div class="row">
                 <div class="col-lg-8">
                     <h1>Bienvenue dans notre<span> Espace Restaurant</span></h1>
-                    <h2>Doté d'une expérience de plus de 18 ans notre cuisine repond à tous les goûts.</h2>
+                    <h2>Doté d'une expérience de plus de 18 ans notre cuisine répond à tous les goûts.</h2>
 
                     <div class="btns">
                         <a href="#menu" class="btn-menu animated fadeInUp scrollto">Notre Carte</a>
@@ -40,7 +40,7 @@ $menuItems = recuperer_liste_repas();
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
                         <h3>
-                            Nous vous procuront les plaisirs les plus dignes, comme si les
+                            Nous vous procurons les plaisirs les plus dignes, comme si les
                             plaisirs du corps devaient être assumés.
                         </h3>
                         <p class="fst-italic">
@@ -106,9 +106,9 @@ $menuItems = recuperer_liste_repas();
                     <div class="col-lg-4 mt-4 mt-lg-0">
                         <div class="box" data-aos="zoom-in" data-aos-delay="300">
                             <span>03</span>
-                            <h4>Un décors qui vous donne de l'appetit</h4>
+                            <h4>Un décor qui vous donne de l'appétit</h4>
                             <p>
-                                Notre cuisine se dit simple mais avec du goût et des dessert qui vous facilitent la
+                                Notre cuisine se dit simple, mais avec du goût et des desserts qui vous facilitent la
                                 digestion.
                             </p>
                         </div>
@@ -117,131 +117,6 @@ $menuItems = recuperer_liste_repas();
             </div>
         </section>
         <!-- End Why Us Section -->
-
-        <!-- ======= Menu Section ======= -->
-        <!-- <section id="menu" class="menu section-bg">
-    <div class="container" data-aos="fade-up">
-      <div class="section-title">
-        <h2>Menu</h2>
-        <p>Consultez notre menu savoureux</p>
-      </div>
-
-      <div class="row" data-aos="fade-up" data-aos-delay="100">
-        <div class="col-lg-12 d-flex justify-content-center">
-          <ul id="menu-flters">
-            <li data-filter="*" class="filter-active">Tout</li>
-            <li data-filter=".filter-starters">Entrées</li>
-            <li data-filter=".filter-salads">Salades</li>
-            <li data-filter=".filter-specialty">Spécialité</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
-        <div class="col-lg-6 menu-item filter-starters">
-          <img src="<?= PATH_PROJECT ?>public/images/menu/L'attiéké.jpg" class="menu-img" alt="" />
-          <div class="menu-content">
-            <a href="#">Attiéké</a><span>3.500 FCFA</span>
-          </div>
-          <div class="menu-ingredients">
-            L'attiéké est un couscous traditionnel ivoirien composé de
-            tubercule de manioc fermentées et moulues. Il est généralement
-            accompagné d'oignons émincés, de tomates, de poulet grillé ou de
-            poisson frit.
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-specialty">
-          <img src="<?= PATH_PROJECT ?>public/images/menu/bread-barrel.jpg" class="menu-img" alt="" />
-          <div class="menu-content">
-            <a href="#">Baril de pain</a><span>4.250 FCFA</span>
-          </div>
-          <div class="menu-ingredients">
-            Le pain maison est un acte de simplicité volontaire.
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-starters">
-          <img src="<?= PATH_PROJECT ?>public/images/menu/cake.jpg" class="menu-img" alt="" />
-          <div class="menu-content">
-            <a href="#">Gâtaeu au Crabe</a><span>5.000 FCFA</span>
-          </div>
-          <div class="menu-ingredients">
-            Un gâteau de crabe délicat servi sur un petit pain grillé avec
-            de la laitue et de la sauce tartare.
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-salads">
-          <img src="<?= PATH_PROJECT ?>public/images/menu/caesar.jpg" class="menu-img" alt="" />
-          <div class="menu-content">
-            <a href="#">Selection de caesar</a><span>5.500 FCFA</span>
-          </div>
-          <div class="menu-ingredients">
-            Un ensemble de plat collectionné composé de viandes et de
-            légumes verts dans une sauce à base de tomates.
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-specialty">
-          <img src="<?= PATH_PROJECT ?>public/images/menu/tuscan-grilled.jpg" class="menu-img" alt="" />
-          <div class="menu-content">
-            <a href="#"> Grillarde Toscanes</a><span>6.200 FCFA</span>
-          </div>
-          <div class="menu-ingredients">
-            Poulet grillé avec provolone, cœurs d'artichauts et pesto rouge
-            rôti.
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-starters">
-          <img src="<?= PATH_PROJECT ?>public/images/menu/mozzarella.jpg" class="menu-img" alt="" />
-          <div class="menu-content">
-            <a href="#">Baton de Mozzarella</a><span>3.000 FCFA</span>
-          </div>
-          <div class="menu-ingredients">
-            Les bâtonnets de mozzarella sont une collation frite populaire
-            composée de longues tranches de fromage mozzarella garni de
-            chapelure assaisonnée et frite jusqu’à ce qu’elle soit dorée et
-            fondue à l’intérieur.
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-salads">
-          <img src="<?= PATH_PROJECT ?>public/images/menu/greek-salad.jpg" class="menu-img" alt="" />
-          <div class="menu-content">
-            <a href="#">Salade Grecque</a><span>4.200 FCFA</span>
-          </div>
-          <div class="menu-ingredients">
-            Épinards frais, romaine croustillante, tomates et olives
-            grecques.
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-salads">
-          <img src="<?= PATH_PROJECT ?>public/images/menu/spinach-salad.jpg" class="menu-img" alt="" />
-          <div class="menu-content">
-            <a href="#">Salade d'épinards</a><span>3.000 FCFA</span>
-          </div>
-          <div class="menu-ingredients">
-            Épinards frais aux champignons, œuf dur et vinaigrette chaude au
-            bacon.
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-specialty">
-          <img src="<?= PATH_PROJECT ?>public/images/menu/lobster-roll.jpg" class="menu-img" alt="" />
-          <div class="menu-content">
-            <a href="#">Rouleau de homard</a><span>8.000 FCFA</span>
-          </div>
-          <div class="menu-ingredients">
-            Chair de homard dodue, mayonnaise et laitue croustillante sur un
-            gros pain grillé.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
         <section id="menu" class="menu section-bg">
             <div class="container" data-aos="fade-up">
@@ -252,7 +127,7 @@ $menuItems = recuperer_liste_repas();
 
 				<?php
 				// Vérifie si la liste des repas existe et n'est pas vide
-				if (isset($menuItems) && !empty($menuItems)) {
+				if (!empty($menuItems)) {
 					?>
                     <div class="row" data-aos="fade-up" data-aos-delay="100">
                         <div class="col-lg-12 d-flex justify-content-center">
@@ -350,7 +225,7 @@ $menuItems = recuperer_liste_repas();
                                         <p class="fst-italic">
                                             Pâtes alimentaires de longueur moyenne, plates ou
                                             rondes, et coupées en lanières minces. Il y eut des
-                                            plats à ravir à la pensée!... des nouilles d'une
+                                            plats à ravir à la pensée !... des nouilles d'une
                                             délicatesse inédite, des éperlans d'une friture
                                             incomparable.
                                         </p>
@@ -368,7 +243,7 @@ $menuItems = recuperer_liste_repas();
                                         <p class="fst-italic">
                                             Le dîner de Noël traditionnel comprend de la dinde
                                             farcie, de la purée de pommes de terre, de la sauce, de
-                                            la sauce aux canneberges et des légumes . D'autres types
+                                            la sauce aux canneberges et des légumes. D'autres types
                                             de volaille, rosbif ou jambon, sont également utilisés.
                                             La tarte à la citrouille ou aux pommes, le pudding aux
                                             raisins secs, le pudding de Noël ou le gâteau aux fruits
@@ -389,7 +264,7 @@ $menuItems = recuperer_liste_repas();
                                             Bien sélectionnés et consommés aux bons moments, les
                                             fruits contribuent au maintien de l'énergie, de la
                                             vigilance et de l'efficacité au travail Gorgés d'eau, de
-                                            vitamines, d'oligo-éléments ou encore de fibres ils
+                                            vitamines, d'oligo-éléments ou encore de fibres, ils
                                             apportent à l'organisme des éléments indispensable à son
                                             bon fonctionnement.
                                         </p>
@@ -431,7 +306,7 @@ $menuItems = recuperer_liste_repas();
                                     <p class="fst-italic">
                                         Offrez-vous un escape game avec des copains. <br/>
                                         C’est l’anniversaire de vos enfants, ou proches et vous
-                                        souhaitez leurs offrires un moment inoubliable avec ses
+                                        souhaitez leur offrirent un moment inoubliable avec ses
                                         copains ? Amenez-les chez nous, on s’occupe de tout !
                                         <br/>
                                         Partie endiablée dans l’escape room, goûter
@@ -485,7 +360,7 @@ $menuItems = recuperer_liste_repas();
                                     <p class="fst-italic">
                                         Offrez-vous un escape game. <br/>
                                         Que qu'en soit pour un anniversaire, une pendaison de
-                                        crémaillère, une pool party, la fête de la musique… Il y a
+                                        crémaillère, un pool party, la fête de la musique… Il y a
                                         toujours une bonne raison de faire la fête et de partager
                                         des moments entre amis ou entre proches ! Pour danser,
                                         rire, partager un bon moment et un bon repas… Et pour
@@ -508,7 +383,7 @@ $menuItems = recuperer_liste_repas();
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
                     <h2>Chefs</h2>
-                    <p>Nos Chefs Proffesionnels</p>
+                    <p>Nos Chefs Professionnels</p>
                 </div>
 
                 <div class="row">
@@ -535,8 +410,8 @@ $menuItems = recuperer_liste_repas();
                             <img src="<?= PATH_PROJECT ?>public/images/chefs/chefs-2.jpg" class="img-fluid" alt=""/>
                             <div class="member-info">
                                 <div class="member-info-content">
-                                    <h4>Sarah Jhonson</h4>
-                                    <span>Patissière</span>
+                                    <h4>Sarah Johnson</h4>
+                                    <span>Pâtissière</span>
                                 </div>
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter"></i></a>

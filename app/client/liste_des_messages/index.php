@@ -31,7 +31,7 @@ include('./app/commum/header_client.php');
 
 			<?php
 			// Affiche un message de succès s'il existe et n'est pas vide
-			if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+			if (!empty($_SESSION['message-success-global'])) {
 				?>
                 <div class="alert alert-primary"
                      style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
@@ -43,7 +43,7 @@ include('./app/commum/header_client.php');
 
 			<?php
 			// Affiche un message d'erreur s'il existe et n'est pas vide
-			if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+			if (!empty($_SESSION['message-erreur-global'])) {
 				?>
                 <div class="alert alert-danger"
                      style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
@@ -116,7 +116,7 @@ include('./app/commum/header_client.php');
                                                                 <input type="hidden" name="message_id"
                                                                        value="<?php echo $messages['id'] ?>">
 
-                                                                <!-- Le champs sujet du message-->
+                                                                <!-- Le champ sujet du message-->
                                                                 <div class="form-group mt-3">
                                                                     <label for="inscription-subject">
                                                                         Sujet du message :
@@ -127,7 +127,7 @@ include('./app/commum/header_client.php');
                                                                            placeholder="Veuillez entrer le sujet du message"
                                                                            value="<?= !empty($messages['type_sujet']) ? $messages['type_sujet'] : '' ?>"
                                                                            required/>
-																	<?php if (isset($erreurs["subject"]) && !empty($erreurs["subject"])) { ?>
+																	<?php if (!empty($erreurs["subject"])) { ?>
                                                                         <span class="text-danger">
                                                                             <?php echo $erreurs["subject"]; ?>
                                                                         </span>
@@ -139,7 +139,7 @@ include('./app/commum/header_client.php');
                                                                     <textarea class="form-control" name="message"
                                                                               rows="8" required
                                                                               style="background-color: white;"> <?= !empty($messages['messages']) ? $messages['messages'] : '' ?> </textarea>
-																	<?php if (isset($erreurs["message"]) && !empty($erreurs["message"])) { ?>
+																	<?php if (!empty($erreurs["message"])) { ?>
                                                                         <span class="text-danger">
                                                                             <?php echo $erreurs["message"]; ?>
                                                                         </span>
@@ -192,7 +192,7 @@ include('./app/commum/header_client.php');
                                                         <div class="modal-body">
                                                             <form action="<?= PATH_PROJECT ?>client/liste_des_messages/traitement_supprimer_messages"
                                                                   method="post" enctype="multipart/form-data">
-                                                                <!-- Début du formulaire de supprimé commande -->
+                                                                <!-- Début du formulaire de supprimer commande -->
                                                                 <input type="hidden" name="message_id"
                                                                        value="<?php echo $messages['id'] ?>">
 

@@ -9,13 +9,13 @@ $erreurs = [];
 if (check_password_exist($_POST['password'], $_SESSION['utilisateur_connecter_client']['id'])) {
 
 	// Vérification et récupération des champs du formulaire
-	if (isset($_POST["subject"]) && !empty($_POST["subject"])) {
+	if (!empty($_POST["subject"])) {
 		$donnees["subject"] = $_POST["subject"];
 	} else {
 		$erreurs["subject"] = "Le champ sujet du message est requis. Veuillez le renseigner.";
 	}
 
-	if (isset($_POST["message"]) && !empty($_POST["message"])) {
+	if (!empty($_POST["message"])) {
 		$donnees["message"] = $_POST["message"];
 	} else {
 		$erreurs["message"] = "Le champ message est requis. Veuillez le renseigner.";
@@ -39,7 +39,7 @@ if (check_password_exist($_POST['password'], $_SESSION['utilisateur_connecter_cl
 			// Le message a été effectué avec succès
 			$message_success_global = "Le message a été modifié avec succès.";
 		} else {
-			// La mise à jour du message a échoué
+			// La mise à jour du message a échoué.
 			$message_erreur_global = "Désolé, une erreur s'est produite lors de la modification du message.";
 		}
 	}

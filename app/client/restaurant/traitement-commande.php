@@ -11,7 +11,7 @@ if (isset($_POST['enregistrer'])) {
 
 
 	// Vérifier si le numéro de réservation est fourni
-	if (isset($_POST["num_chambre"]) && !empty($_POST["num_chambre"])) {
+	if (!empty($_POST["num_chambre"])) {
 		$donnees["num_chambre"] = $_POST["num_chambre"];
 		$numChambre = $donnees["num_chambre"];
 
@@ -21,7 +21,7 @@ if (isset($_POST['enregistrer'])) {
 		//  die(var_dump($chambreExiste));
 
 		if (!$chambreExiste) {
-			$erreurs["num_chambre"] = "Le numéro de la chambre n'existe pas. Veuiller réesayer!";
+			$erreurs["num_chambre"] = "Le numéro de la chambre n'existe pas. Veuillez réessayer!";
 		} else {
 			// Récupérer le numéro de reservation
 			$donneesReservations = recuperer_donnee_reservation_par_num_chambre($donnees["num_chambre"]);
@@ -57,7 +57,7 @@ if (isset($_POST['enregistrer'])) {
 	}
 
 	// Vérifier si le prix du repas est fourni
-	if (isset($_POST["pu_repas"]) && !empty($_POST["pu_repas"])) {
+	if (!empty($_POST["pu_repas"])) {
 		$donnees["pu_repas"] = $_POST["pu_repas"];
 	} else {
 		$erreurs["pu_repas"] = "Le champ prix du repas est requis. Veuillez le renseigner.";
@@ -111,7 +111,7 @@ if (isset($_POST['enregistrer'])) {
 
 					// die(var_dump($insertionCommandeQuantite));
 
-					// Vérifiez si l'insertion a échoué et gérez les erreurs si nécessaire
+					// Vérifiez si l'insertion à échouer et gérez les erreurs si nécessaire
 					if (!$insertionCommandeQuantite) {
 						$message_erreur_global = "Erreur lors de l'enregistrement de(s) repas.";
 						break; // Sortez de la boucle si une erreur se produit pour un repas
@@ -121,7 +121,7 @@ if (isset($_POST['enregistrer'])) {
 				// La commande a été effectuée avec succès
 				$message_success_global = "Votre commande a été effectuée avec succès. Vous pouvez consulter <strong><a href='" . PATH_PROJECT . "client/liste_des_commandes/'>vos commandes ici</a></strong>.";
 			} else {
-				// La commande a échoué
+				// La commande à échouer
 				$message_erreur_global = "Désolé, une erreur s'est produite lors de l'enregistrement de la commande.";
 			}
 		}

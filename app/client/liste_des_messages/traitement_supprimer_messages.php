@@ -2,6 +2,8 @@
 
 $donnees = []; // Initialise un tableau pour stocker les données
 $erreurs = []; // Initialise un tableau pour stocker les erreurs
+$message_erreur_global = "";
+$message_success_global = "";
 $messages = $_POST['message_id']; // Récupère l'identifiant du message à supprimer depuis la requête POST
 
 if (isset($_POST['supprimer'])) { // Vérifie si le formulaire de suppression a été soumis
