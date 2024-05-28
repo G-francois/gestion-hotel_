@@ -1,5 +1,4 @@
 public/images/upload/
-vendor/
 composer.lock
 .env
 .vscode
