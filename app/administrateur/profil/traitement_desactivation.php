@@ -16,13 +16,13 @@ if (isset($_POST['desactivation'])) {
             session_destroy();
             header('location:' . PATH_PROJECT . 'administrateur/connexion/index');
         } else {
-            $_SESSION['desactivation-erreurs'] = "La desactivation à echouer. Veuiller réessayez.";
+            $_SESSION['desactivation-erreurs'] = "La désactivation à échouer. Veuillez réessayez.";
         }
     } else {
-        $_SESSION['desactivation-erreurs'] = "La desactivation à echouer. Vérifier votre mot de passe et réessayez.";
+        $_SESSION['desactivation-erreurs'] = "La désactivation à échouer. Vérifier votre mot de passe et réessayez.";
     }
 } else {
-    $_SESSION['desactivation-erreurs'] = "La desactivation à echouer. Veuiller réessayez.";
+    $_SESSION['desactivation-erreurs'] = "La désactivation à échouer. Veuillez réessayez.";
 }
 
 header('location:' . PATH_PROJECT . 'administrateur/dashboard/profil');

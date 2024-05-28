@@ -7,7 +7,7 @@ $erreurs = [];
 
 if (isset($_POST['change_password'])) {
 
-    if (isset($_POST["newpassword"]) && !empty($_POST["newpassword"])) {
+    if (!empty($_POST["newpassword"])) {
         $password = $_POST["newpassword"];
         $pattern = '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
     
@@ -21,7 +21,7 @@ if (isset($_POST['change_password'])) {
         $erreurs["newpassword"] = "Le champ du nouveau mot de passe est requis. Veuillez le renseigner.";
     }
     /* Dans ce code, j'ai ajouté une nouvelle validation pour le champ "mot de passe". J'ai défini le 
-    pattern /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ qui vérifie que la chaîne $password respecte les 
+    modèle /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ qui vérifie que la chaîne $password respecte les
     critères suivants :
     
     Au moins 8 caractères
@@ -29,18 +29,18 @@ if (isset($_POST['change_password'])) {
     Au moins une lettre minuscule
     Au moins un chiffre
     Au moins un caractère spécial parmi (@$!%*?&)
-    Ensuite, j'ai utilisé la fonction preg_match() pour valider si le mot de passe correspond au pattern. Si c'est le cas, le mot de passe est ajouté aux données ($donnees["password"]). Sinon, un message d'erreur approprié est stocké dans le tableau $erreurs["password"].
+    Ensuite, j'ai utilisé la fonction preg_match() pour valider si le mot de passe correspond au modèle. Si c'est le cas, le mot de passe est ajouté aux données ($donnees["password"]). Sinon, un message d'erreur approprié est stocké dans le tableau $erreurs["password"].
     */
     
-    if (isset($_POST["newpassword"]) && !empty($_POST["newpassword"]) && strlen(($_POST["newpassword"])) >= 8 && empty($_POST["renewpassword"])) {
+    if (!empty($_POST["newpassword"]) && strlen(($_POST["newpassword"])) >= 8 && empty($_POST["renewpassword"])) {
         $erreurs["renewpassword"] = "Entrez votre mot de passe à nouveau.";
     }
 
-    if ((isset($_POST["renewpassword"]) && !empty($_POST["renewpassword"]) && strlen(($_POST["newpassword"])) >= 8 && $_POST["renewpassword"] != $_POST["newpassword"])) {
+    if ((!empty($_POST["renewpassword"]) && strlen(($_POST["newpassword"])) >= 8 && $_POST["renewpassword"] != $_POST["newpassword"])) {
         $erreurs["renewpassword"] = "Mot de passe erroné. Entrez le mot de passe du précédent champs";
     }
 
-    if ((isset($_POST["newpassword"]) && !empty($_POST["newpassword"]) && strlen(($_POST["newpassword"])) >= 8 && $_POST["renewpassword"] == $_POST["newpassword"])) {
+    if ((!empty($_POST["newpassword"]) && strlen(($_POST["newpassword"])) >= 8 && $_POST["renewpassword"] == $_POST["newpassword"])) {
         $donnees["newpassword"] = $_POST['newpassword'];
     }
 

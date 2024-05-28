@@ -1,6 +1,8 @@
 <?php
 $repasId = $params[3];
 
+$message_erreur_global = "";
+$message_success_global = "";
 // Appeler la fonction de suppression de repas
 if (supprimer_repas($repasId)) {
     $message_success_global = "Le repas a été supprimé avec succès !";

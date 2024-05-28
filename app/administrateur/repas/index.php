@@ -25,7 +25,7 @@ include './app/commum/aside.php';
 
     <?php
     // Vérifier s'il y a un message de succès et s'il n'est pas vide
-    if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+    if (!empty($_SESSION['message-success-global'])) {
     ?>
         <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
             <?= $_SESSION['message-success-global'] ?>
@@ -36,7 +36,7 @@ include './app/commum/aside.php';
 
     <?php
     // Vérifier s'il y a un message d'erreur et s'il n'est pas vide
-    if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+    if (!empty($_SESSION['message-erreur-global'])) {
     ?>
         <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
             <?= $_SESSION['message-erreur-global'] ?>
@@ -58,7 +58,7 @@ include './app/commum/aside.php';
                 </label>
                 <input type="file" class="form-control" id="image" name="image" />
 
-                <?php if (isset($erreurs["image"]) && !empty($erreurs["image"])) { ?>
+                <?php if (!empty($erreurs["image"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["image"]; ?>
                     </span>
@@ -72,10 +72,10 @@ include './app/commum/aside.php';
                     <span class="text-danger">(*)</span>
                 </label>
 
-                <input type="text" name="nom_repas" id="inscription-nom" class="form-control" placeholder="Veuillez entrer le nom du repas" value="<?= (isset($donnees["nom_repas"]) && !empty($donnees["nom_repas"])) ? $donnees["nom_repas"] : ''; ?>" required>
+                <input type="text" name="nom_repas" id="inscription-nom" class="form-control" placeholder="Veuillez entrer le nom du repas" value="<?= (!empty($donnees["nom_repas"])) ? $donnees["nom_repas"] : ''; ?>" required>
 
                 <?php
-                if (isset($erreurs["nom_repas"]) && !empty($erreurs["nom_repas"])) {
+                if (!empty($erreurs["nom_repas"])) {
                 ?>
                     <span class="text-danger">
                         <?php echo $erreurs["nom_repas"]; ?>
@@ -90,9 +90,9 @@ include './app/commum/aside.php';
                     <span class="text-danger">(*)</span>
                 </label>
 
-                <input type="text" name="descriptions" id="inscription-descriptions" class="form-control" placeholder="Veuillez entrer la description" value="<?= (isset($donnees["descriptions"]) && !empty($donnees["descriptions"])) ? $donnees["descriptions"] : ''; ?>" required>
+                <input type="text" name="descriptions" id="inscription-descriptions" class="form-control" placeholder="Veuillez entrer la description" value="<?= (!empty($donnees["descriptions"])) ? $donnees["descriptions"] : ''; ?>" required>
 
-                <?php if (isset($erreurs["descriptions"]) && !empty($erreurs["descriptions"])) { ?>
+                <?php if (!empty($erreurs["descriptions"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["descriptions"]; ?>
                     </span>
@@ -106,9 +106,9 @@ include './app/commum/aside.php';
                     <span class="text-danger">(*)</span>
                 </label>
 
-                <input type="number" name="pu_repas" id="inscription-prix" class="form-control" placeholder="Veuillez entrer le prix du repas" value="<?= (isset($donnees["pu_repas"]) && !empty($donnees["pu_repas"])) ? $donnees["pu_repas"] : ''; ?>" required>
+                <input type="number" name="pu_repas" id="inscription-prix" class="form-control" placeholder="Veuillez entrer le prix du repas" value="<?= (!empty($donnees["pu_repas"])) ? $donnees["pu_repas"] : ''; ?>" required>
 
-                <?php if (isset($erreurs["pu_repas"]) && !empty($erreurs["pu_repas"])) { ?>
+                <?php if (!empty($erreurs["pu_repas"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["pu_repas"]; ?>
                     </span>
@@ -121,14 +121,14 @@ include './app/commum/aside.php';
                     Catégories :
                     <span class="text-danger">(*)</span>
                 </label>
-                <div style="padding-left: 0px; padding-right: 0px;">
+                <div style="padding-left: 0; padding-right: 0;">
                     <select class="categorie form-control" id="categorie" name="categorie">
                         <option value="" disabled selected>Sélectionnez la catégorie</option>
                         <option value="Entrees">Entrées</option>
                         <option value="Salades">Salades</option>
                         <option value="Specialites">Spécialités</option>
                     </select>
-                    <?php if (isset($erreurs["categorie"]) && !empty($erreurs["categorie"])) { ?>
+                    <?php if (!empty($erreurs["categorie"])) { ?>
                         <span class="text-danger">
                             <?php echo $erreurs["categorie"]; ?>
                         </span>

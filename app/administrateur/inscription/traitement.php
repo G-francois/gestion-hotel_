@@ -7,9 +7,9 @@ $erreurs = [];
 if (!empty($_POST["nom"])) {
 	$nom = htmlentities($_POST["nom"]);
 	$pattern = '/^[A-Z]+$/';
-	/*Dans ce code, j'ai ajouté une nouvelle validation pour le champ "nom". J'ai défini le pattern /^[A-Z]+$/
+	/*Dans ce code, j'ai ajouté une nouvelle validation pour le champ "nom". J'ai défini le modèle /^[A-Z]+$/
 	 qui vérifie que la chaîne $nom contient uniquement des lettres majuscules. Ensuite, j'ai utilisé la fonction
-	 preg_match() pour valider si le nom correspond au pattern. Si c'est le cas, le nom est ajouté aux données
+	 preg_match() pour valider si le nom correspond au modèle. Si c'est le cas, le nom est ajouté aux données
 	 ($donnees["nom"]). Sinon, un message d'erreur approprié est stocké dans le tableau $erreurs["nom"].
 	*/
 	if (preg_match($pattern, $nom)) {
@@ -38,7 +38,7 @@ if (!empty($_POST["telephone"])) {
 	$pattern = '/^\d{1,8}$/';
 	/*Dans ce code, j'ai ajouté la variable $pattern qui contient l'expression régulière /^\d{1,8}$/ pour 
 	vérifier si le numéro de téléphone contient uniquement des chiffres et a une longueur de 8 chiffres ou moins. Ensuite,
-	j'ai utilisé la fonction preg_match() pour valider si la variable $telephone correspond au pattern. Si c'est le cas, 
+	j'ai utilisé la fonction preg_match() pour valider si la variable $telephone correspond au modèle. Si c'est le cas,
 	le numéro de téléphone est ajouté aux données ($donnees["telephone"]). Sinon, un message d'erreur approprié est stocké
 	dans le tableau $erreurs["telephone"].
 	*/
@@ -71,7 +71,7 @@ if (!empty($_POST["mot-passe"])) {
 	$password = $_POST["mot-passe"];
 	$pattern = '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
 	/* Dans ce code, j'ai ajouté une nouvelle validation pour le champ "mot de passe". J'ai défini le
-	pattern /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ qui vérifie que la chaîne $password respecte les
+	modèle /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ qui vérifie que la chaîne $password respecte les
 	critères suivants :
 
 	Au moins 8 caractères
@@ -79,7 +79,7 @@ if (!empty($_POST["mot-passe"])) {
 	Au moins une lettre minuscule
 	Au moins un chiffre
 	Au moins un caractère spécial parmi (@$!%*?&)
-	Ensuite, j'ai utilisé la fonction preg_match() pour valider si le mot de passe correspond au pattern. Si c'est le cas, le mot de passe 
+	Ensuite, j'ai utilisé la fonction preg_match() pour valider si le mot de passe correspond au modèle. Si c'est le cas, le mot de passe
 	est ajouté aux données ($donnees["password"]). Sinon, un message d'erreur approprié est stocké dans le tableau $erreurs["password"].
 	*/
 	if (preg_match($pattern, $password)) {
@@ -105,7 +105,7 @@ if (empty($_POST["termes-conditions"])) {
 
 
 // if (check_email_exist_in_db($_POST["email"])) {
-// 	$erreurs["email"] = "Cette adresse mail est déjà utilisée. Veuillez le changez.";
+// 	$erreurs["email"] = "Cette adresse mail est déjà utilisée. Veuillez-le changez. ";
 // }
 
 
@@ -139,7 +139,7 @@ if (empty($erreurs)) {
 
 		$_SESSION['nom-utilisateur-inscrit'] = [$donnees["nom-utilisateur"], $genre];
 
-		$message_success_global = "Votre inscription s'est éffectuée avec succès. Pour pouvoir vous connectez, veuiller contacter un administrateur pour activer votre compte.";
+		$message_success_global = "Votre inscription s'est effectuée avec succès. Pour pouvoir vous connectez, veuillez contacter un administrateur pour activer votre compte.";
 
 		header('location: ' . PATH_PROJECT . 'administrateur/connexion/index');
 	} else {

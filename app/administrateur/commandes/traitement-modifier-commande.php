@@ -6,7 +6,7 @@ $message_success_global = "";
 $erreurs = [];
 
 
-if (isset($_POST["email"]) && !empty($_POST["email"])) {
+if (!empty($_POST["email"])) {
     if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
         $donnees["email"] = trim(htmlentities($_POST["email"]));
     } else {
@@ -78,7 +78,7 @@ if (check_password_exist($_POST['password'], $_SESSION['utilisateur_connecter_ad
 
                     // die(var_dump($insertionCommandeQuantite));
 
-                    // Vérifiez si l'insertion a échoué et gérez les erreurs si nécessaire
+                    // Vérifiez si l'insertion à échouer et gérez les erreurs si nécessaire
                     if (!$insertionCommandeQuantite) {
                         $message_erreur_global = "Erreur lors de l'enregistrement de(s) repas.";
                         break; // Sortez de la boucle si une erreur se produit pour un repas
@@ -91,7 +91,7 @@ if (check_password_exist($_POST['password'], $_SESSION['utilisateur_connecter_ad
                 $message_erreur_global = "Désolé, une erreur s'est produite lors de la mise à jour de la commande.";
             }
         } else {
-            // La chambre est inactive
+            // La chambre est inactive.
             $message_erreur_global = "Désolé, la chambre est inactive.";
         }
     }

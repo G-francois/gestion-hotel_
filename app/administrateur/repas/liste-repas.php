@@ -1,7 +1,7 @@
 <?php
-// Vérifie si l'repas est connecté en tant qu'administrateur
+// Vérifie si le repas est connecté en tant qu'administrateur
 if (!check_if_user_connected_admin()) {
-    // Redirige l'repas vers la page de connexion de l'administrateur s'il n'est pas connecté en tant qu'administrateur
+    // Redirige le repas vers la page de connexion de l'administrateur s'il n'est pas connecté en tant qu'administrateur
     header('location: ' . PATH_PROJECT . 'administrateur/connexion/index');
     exit;
 }
@@ -29,7 +29,7 @@ $liste_repas = recuperer_liste_repas();
 
         <?php
         // Affiche un message de succès s'il existe et n'est pas vide
-        if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+        if (!empty($_SESSION['message-success-global'])) {
         ?>
             <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
                 <?= $_SESSION['message-success-global'] ?>
@@ -40,7 +40,7 @@ $liste_repas = recuperer_liste_repas();
 
         <?php
         // Affiche un message d'erreur s'il existe et n'est pas vide
-        if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+        if (!empty($_SESSION['message-erreur-global'])) {
         ?>
             <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
                 <?= $_SESSION['message-erreur-global'] ?>
@@ -53,7 +53,7 @@ $liste_repas = recuperer_liste_repas();
             <div class="table-responsive">
                 <?php
                 // Vérifie si la liste des repas existe et n'est pas vide
-                if (isset($liste_repas) && !empty($liste_repas)) {
+                if (!empty($liste_repas)) {
                 ?>
                     <table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
                         <thead>
@@ -129,7 +129,7 @@ $liste_repas = recuperer_liste_repas();
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Etes-vous sûr de vouloir supprimer le repas <?= $repas["nom_repas"]; ?> ?</p>
+                                                    <p>Êtes-vous sûr de vouloir supprimer le repas <?= $repas["nom_repas"]; ?> ?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <a href="<?= PATH_PROJECT ?>administrateur/repas/traitement-supprimer-repas/<?= $repas['cod_repas'] ?>" class="btn btn-danger">Oui</a>

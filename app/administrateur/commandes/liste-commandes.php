@@ -30,7 +30,7 @@ $liste_clients = recuperer_liste_clients_actifs();
     <div class="card shadow mb-4">
         <?php
         // Affiche un message de succès s'il existe et n'est pas vide
-        if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+        if (!empty($_SESSION['message-success-global'])) {
         ?>
             <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
                 <?= $_SESSION['message-success-global'] ?>
@@ -41,7 +41,7 @@ $liste_clients = recuperer_liste_clients_actifs();
 
         <?php
         // Affiche un message d'erreur s'il existe et n'est pas vide
-        if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+        if (!empty($_SESSION['message-erreur-global'])) {
         ?>
             <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
                 <?= $_SESSION['message-erreur-global'] ?>
@@ -208,7 +208,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                                             <td>
                                                                                 <?php echo $deb_occ_chambre = !empty($donneesReservation['deb_occ']) ? $donneesReservation['deb_occ'] : null; ?>
                                                                             </td>
-                                                                            <!-- Le fin d'occupation de la chambre qui a fait la commande-->
+                                                                            <!-- La fin d'occupation de la chambre qui a fait la commande-->
                                                                             <td>
                                                                                 <?php echo $fin_occ_chambre = !empty($donneesReservation['fin_occ']) ? $donneesReservation['fin_occ'] : null; ?>
                                                                             </td>
@@ -259,7 +259,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                                 <input type="hidden" name="num_chambre" value="<?php echo $commande['num_chambre']; ?>">
 
                                                                 <!-- Le champ email -->
-                                                                <div class="col-md-12 mb-4" style="padding-left: 0px;">
+                                                                <div class="col-md-12 mb-4" style="padding-left: 0;">
                                                                     <label for="email"> Email du Client :
                                                                         <span class="text-danger">(*)</span>
                                                                     </label>
@@ -377,7 +377,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p>Etes-vous sûr de vouloir supprimer la commande <?php echo $num_cmd ?> ?</p>
+                                                            <p>Êtes-vous sûr de vouloir supprimer la commande <?php echo $num_cmd ?> ?</p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <a href="<?= PATH_PROJECT ?>administrateur/commandes/traitement-supprimer-commande/<?php echo $num_cmd ?>" class="btn btn-danger">Oui</a>
@@ -402,7 +402,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                 } else {
                     // Aucune réservation n'a été trouvée, affichez le message en couleur noire
                 ?>
-                    <p style="color: black;">Aucun repas n'a été trouvé!</p>
+                    <p style="color: black;">Aucun repas n'a été trouvé !</p>
                 <?php
                 }
                 ?>

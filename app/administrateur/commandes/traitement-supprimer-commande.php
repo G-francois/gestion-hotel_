@@ -1,5 +1,7 @@
 <?php
 $commandeId = $params[3];
+$message_erreur_global = "";
+$message_success_global = "";
 
 // Appeler la fonction de suppression de repas
 if (supprimer_commande_administrateur($commandeId)) {

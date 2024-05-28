@@ -5,7 +5,7 @@ $donnees =  recuperer_repas_par_son_code_repas($params[3]);
 $new_donnees = [];
 $erreurs = [];
 
-if (isset($_POST['nom_repas']) && !empty($_POST['nom_repas']) && $_POST['nom_repas'] != $donnees['nom_repas']) {
+if (!empty($_POST['nom_repas']) && $_POST['nom_repas'] != $donnees['nom_repas']) {
     $new_data['nom_repas'] = $_POST['nom_repas'];
 } else {
     if (empty($_POST['nom_repas'])) {
@@ -15,17 +15,17 @@ if (isset($_POST['nom_repas']) && !empty($_POST['nom_repas']) && $_POST['nom_rep
     }
 }
 
-if (isset($_POST['descriptions']) && !empty($_POST['descriptions']) && $_POST['descriptions'] != $donnees['descriptions']) {
+if (!empty($_POST['descriptions']) && $_POST['descriptions'] != $donnees['descriptions']) {
     $new_data['descriptions'] = $_POST['descriptions'];
 } else {
     if (empty($_POST['descriptions'])) {
-        $erreurs["descriptions"] = "Le champ ndescription ne doit pas être vide.";
+        $erreurs["descriptions"] = "Le champ description ne doit pas être vide.";
     } else {
         $new_data['descriptions'] = $donnees['descriptions'];
     }
 }
 
-if (isset($_POST['pu_repas']) && !empty($_POST['pu_repas']) && $_POST['pu_repas'] != $donnees['pu_repas']) {
+if (!empty($_POST['pu_repas']) && $_POST['pu_repas'] != $donnees['pu_repas']) {
     $new_data['pu_repas'] = $_POST['pu_repas'];
 } else {
     if (empty($_POST['pu_repas'])) {
@@ -35,7 +35,7 @@ if (isset($_POST['pu_repas']) && !empty($_POST['pu_repas']) && $_POST['pu_repas'
     }
 }
 
-if (isset($_POST['categorie']) && !empty($_POST['categorie']) && $_POST['categorie'] != $donnees['categorie']) {
+if (!empty($_POST['categorie']) && $_POST['categorie'] != $donnees['categorie']) {
     $new_data['categorie'] = $_POST['categorie'];
 } else {
     if (empty($_POST['categorie'])) {
@@ -60,8 +60,8 @@ if (empty($erreurs)) {
         if ($miseajour) {
             $message_success_global = "Le repas a été modifié avec succès !";
         } else {
-            // La  mise à jour du statut a échoué
-            $message_erreur_global =  "Oups ! Une erreur s'est produite lors de la modification du repas. Veuiller réessayez.";
+            // La mise à jour du statut a échoué.
+            $message_erreur_global =  "Oups ! Une erreur s'est produite lors de la modification du repas. Veuillez réessayez.";
         }
     } else {
         // Aucune chambre disponible de type "Doubles"

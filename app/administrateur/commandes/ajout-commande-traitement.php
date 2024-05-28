@@ -31,7 +31,7 @@ if (isset($_POST['enregistrer'])) {
     }
 
     // Vérifier si le numéro de réservation est fourni
-    if (isset($_POST["num_chambre"]) && !empty($_POST["num_chambre"])) {
+    if (!empty($_POST["num_chambre"])) {
         $donnees["num_chambre"] = $_POST["num_chambre"];
         $numChambre = $donnees["num_chambre"];
 
@@ -41,7 +41,7 @@ if (isset($_POST['enregistrer'])) {
         //  die(var_dump($chambreExiste));
 
         if (!$chambreExiste) {
-            $erreurs["num_chambre"] = "Le numéro de la chambre n'existe pas. Veuiller réesayer!";
+            $erreurs["num_chambre"] = "Le numéro de la chambre n'existe pas. Veuillez réessayer!";
         } else {
             // Récupérer le numéro de reservation
             $donneesReservations = recuperer_donnee_reservation_par_num_chambre($donnees["num_chambre"]);
@@ -78,7 +78,7 @@ if (isset($_POST['enregistrer'])) {
     }
 
     // Vérifier si le prix du repas est fourni
-    if (isset($_POST["pu_repas"]) && !empty($_POST["pu_repas"])) {
+    if (!empty($_POST["pu_repas"])) {
         $donnees["pu_repas"] = $_POST["pu_repas"];
     } else {
         $erreurs["pu_repas"] = "Le champ prix du repas est requis. Veuillez le renseigner.";

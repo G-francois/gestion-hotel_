@@ -1,7 +1,8 @@
 <?php
 
 $utilisateurId = $_POST['utilisateur_id'];
-
+$message_erreur_global = "";
+$message_success_global = "";
 // Appeler la fonction d'activation de l'utilisateur
  if (activer_utilisateur($utilisateurId)){
     $message_success_global = "Le compte de l'utilisateur est activer avec succès !";

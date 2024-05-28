@@ -8,7 +8,7 @@ $message_success_global = "";
 $erreurs = [];
 
 
-if (isset($_POST["email"]) && !empty($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+if (!empty($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     $donnees["email"] = $_POST["email"];
 } else {
     $erreurs["email"] = "Le champs email est requis. Veuillez le renseigné.";

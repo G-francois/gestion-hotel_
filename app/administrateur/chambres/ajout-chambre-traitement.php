@@ -6,37 +6,37 @@ $message_erreur_global = "";
 $message_success_global = "";
 $erreurs = [];
 
-if (isset($_POST["cod_typ"]) && !empty($_POST["cod_typ"])) {
+if (!empty($_POST["cod_typ"])) {
     $donnees["cod_typ"] = $_POST["cod_typ"];
 } else {
     $erreurs["cod_typ"] = "Le champ code type est requis. Veuillez le renseigner.";
 }
 
-if (isset($_POST["lib_typ"]) && !empty($_POST["lib_typ"])) {
+if (!empty($_POST["lib_typ"])) {
     $donnees["lib_typ"] = $_POST["lib_typ"];
 } else {
     $erreurs["lib_typ"] = "Le champ libellé type de chambre est requis. Veuillez le renseigner.";
 }
 
-if (isset($_POST["details_chambre"]) && !empty($_POST["details_chambre"])) {
+if (!empty($_POST["details_chambre"])) {
     $donnees["details_chambre"] = $_POST["details_chambre"];
 } else {
     $erreurs["details_chambre"] = "Le champ informations est requis. Veuillez le renseigner.";
 }
 
-if (isset($_POST["details_personne_chambre"]) && !empty($_POST["details_personne_chambre"])) {
+if (!empty($_POST["details_personne_chambre"])) {
     $donnees["details_personne_chambre"] = $_POST["details_personne_chambre"];
 } else {
     $erreurs["details_personne_chambre"] = "Le champ nombre de personne est requis. Veuillez le renseigner.";
 }
 
-if (isset($_POST["details_superficie_chambre"]) && !empty($_POST["details_superficie_chambre"])) {
+if (!empty($_POST["details_superficie_chambre"])) {
     $donnees["details_superficie_chambre"] = $_POST["details_superficie_chambre"];
 } else {
     $erreurs["details_superficie_chambre"] = "Le champ superficie est requis. Veuillez le renseigner.";
 }
 
-if (isset($_POST["pu"]) && !empty($_POST["pu"])) {
+if (!empty($_POST["pu"])) {
     $donnees["pu"] = $_POST["pu"];
 } else {
     $erreurs["pu"] = "Le champ prix unitaire est requis. Veuillez le renseigner.";

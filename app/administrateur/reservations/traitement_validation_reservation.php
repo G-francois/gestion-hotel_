@@ -7,7 +7,7 @@ $message_success_global = "";
 
 
 // Vérifier si le numéro de réservation est fourni
-if (isset($_POST["num_res"]) && !empty($_POST["num_res"])) {
+if (!empty($_POST["num_res"])) {
     $donnees["num_res"] = $_POST["num_res"];
     $numRes = $donnees["num_res"];
     // die(var_dump($numRes));

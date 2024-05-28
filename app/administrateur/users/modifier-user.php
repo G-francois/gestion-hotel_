@@ -36,7 +36,7 @@ if (!empty($params[3])) {
 
     <?php
     // Vérifie s'il y a un message de succès global à afficher
-    if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+    if (!empty($_SESSION['message-success-global'])) {
     ?>
         <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
             <?= $_SESSION['message-success-global'] ?>
@@ -47,7 +47,7 @@ if (!empty($params[3])) {
 
     <?php
     // Vérifie s'il y a un message d'erreur global à afficher
-    if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+    if (!empty($_SESSION['message-erreur-global'])) {
     ?>
         <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
             <?= $_SESSION['message-erreur-global'] ?>
@@ -58,7 +58,7 @@ if (!empty($params[3])) {
 
     <section class="content">
         <?php if (empty($utilisateurs)) { ?>
-            <!-- Affiche un message d'erreur si la utilisateur n'existe pas -->
+            <!-- Affiche un message d'erreur si l'utilisateur n'existe pas -->
             <div class="alert alert-danger" role="alert">
                 L'utilisateur que vous souhaitez modifier n'existe pas.
                 <a class="btn btn-default" href="<?= PATH_PROJECT ?>administrateur/users/liste-users">Retour vers la liste des utilisateur</a>
@@ -66,10 +66,10 @@ if (!empty($params[3])) {
 
         <?php } else { ?>
 
-            <!-- Affiche le formulaire de modification de la utilisateur -->
+            <!-- Affiche le formulaire de modification de l'utilisateur -->
             <div>
                 <?php
-                if (isset($_SESSION['modification-photo-success']) && !empty($_SESSION['modification-photo-success'])) {
+                if (!empty($_SESSION['modification-photo-success'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #0d6efd; border-color: snow; text-align:center">
                         <?= $_SESSION['modification-photo-success'] ?>
@@ -78,7 +78,7 @@ if (!empty($params[3])) {
                 }
                 ?>
                 <?php
-                if (isset($_SESSION['modification-photo-erreur']) && !empty($_SESSION['modification-photo-erreur'])) {
+                if (!empty($_SESSION['modification-photo-erreur'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                         <?= $_SESSION['modification-photo-erreur'] ?>
@@ -89,7 +89,7 @@ if (!empty($params[3])) {
 
 
                 <?php
-                if (isset($_SESSION['suppression-photo-success']) && !empty($_SESSION['suppression-photo-success'])) {
+                if (!empty($_SESSION['suppression-photo-success'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #0d6efd; border-color: snow; text-align:center">
                         <?= $_SESSION['suppression-photo-success'] ?>
@@ -98,7 +98,7 @@ if (!empty($params[3])) {
                 }
                 ?>
                 <?php
-                if (isset($_SESSION['suppression-photo-erreurs']) && !empty($_SESSION['suppression-photo-erreurs'])) {
+                if (!empty($_SESSION['suppression-photo-erreurs'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                         <?= $_SESSION['suppression-photo-erreurs'] ?>
@@ -110,7 +110,7 @@ if (!empty($params[3])) {
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm zoom-effect-container">
-                            <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="auto" src="<?= $utilisateurs['avatar'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_profil.jpg' : $utilisateurs['avatar'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                            <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="auto" src="<?= $utilisateurs['avatar'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_profil.jpg' : $utilisateurs['avatar'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail" alt="">
                         </div>
 
                         <!-- Formulaire de la mise à jour photo -->
@@ -139,7 +139,7 @@ if (!empty($params[3])) {
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="row mb-3">
-                                                                <label for="MP" class="col-12 col-form-label" style="color: #070b3a;">Veuiller entrer votre mot de passe pour modifier la photo. </label>
+                                                                <label for="MP" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe pour modifier la photo. </label>
                                                                 <br>
                                                                 <div class="col-md-8 col-lg-12">
                                                                     <input type="password" id="MP" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
@@ -179,7 +179,7 @@ if (!empty($params[3])) {
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="row mb-3">
-                                                            <label for="MP1" class="col-12 col-form-label" style="color: #070b3a;">Veuiller entrer votre mot de passe pour supprimer la photo. </label>
+                                                            <label for="MP1" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe pour supprimer la photo. </label>
                                                             <br>
                                                             <div class="col-md-8 col-lg-12">
                                                                 <input type="password" id="MP1" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
@@ -203,7 +203,7 @@ if (!empty($params[3])) {
                     <div class="col-md-8">
 
                         <h5 style="color: #cda45e; text-align:center; ">
-                            <i class="bi bi-exclamation-triangle me-1"></i> Les champs ci-dessous ne doivent pas être soumis vide. Au cas contraire elles affichent les anciennes informations.
+                            <i class="bi bi-exclamation-triangle me-1"></i> Les champs ci-dessous ne doivent pas être soumis vide. Au cas contraire, elles affichent les anciennes informations.
                         </h5>
 
                         <form action="<?= PATH_PROJECT . "administrateur/users/modifier-user-traitement" ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" novalidate method="post" class="user">
@@ -216,7 +216,7 @@ if (!empty($params[3])) {
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" class="form-control" name="nom" id="inscription-nom" placeholder="Veuillez entrer le nom" value="<?= (!empty($donnees_utilisateur_modifier["nom"])) ? $donnees_utilisateur_modifier["nom"] : $utilisateurs["nom"]; ?>" required>
-                                    <?php if (isset($erreurs["nom"]) && !empty($erreurs["nom"])) { ?>
+                                    <?php if (!empty($erreurs["nom"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["nom"]; ?>
                                         </span>
@@ -230,7 +230,7 @@ if (!empty($params[3])) {
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" class="form-control" name="prenom" id="inscription-prenom" placeholder="Veuillez entrer le prénom" value="<?= (!empty($donnees_utilisateur_modifier["prenom"])) ? $donnees_utilisateur_modifier["prenom"] : $utilisateurs["prenom"]; ?>" required>
-                                    <?php if (isset($erreurs["prenom"]) && !empty($erreurs["prenom"])) { ?>
+                                    <?php if (!empty($erreurs["prenom"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["prenom"]; ?>
                                         </span>
@@ -259,7 +259,7 @@ if (!empty($params[3])) {
                                         }
                                         ?>
                                     </select>
-                                    <?php if (isset($erreurs["sexe"]) && !empty($erreurs["sexe"])) { ?>
+                                    <?php if (!empty($erreurs["sexe"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["sexe"]; ?>
                                         </span>
@@ -273,7 +273,7 @@ if (!empty($params[3])) {
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="number" class="form-control" name="telephone" id="inscription-contact" placeholder="Veuillez entrer le contact" value="<?= (!empty($donnees_utilisateur_modifier["telephone"])) ? $donnees_utilisateur_modifier["telephone"] : $utilisateurs["telephone"]; ?>" required>
-                                    <?php if (isset($erreurs["telephone"]) && !empty($erreurs["telephone"])) { ?>
+                                    <?php if (!empty($erreurs["telephone"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["telephone"]; ?>
                                         </span>
@@ -290,21 +290,21 @@ if (!empty($params[3])) {
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" class="form-control" name="email" id="inscription-email" placeholder="Veuillez entrer l'email" value="<?= (!empty($donnees_utilisateur_modifier["email"])) ? $donnees_utilisateur_modifier["email"] : $utilisateurs["email"]; ?>" required>
-                                    <?php if (isset($erreurs["email"]) && !empty($erreurs["email"])) { ?>
+                                    <?php if (!empty($erreurs["email"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["email"]; ?>
                                         </span>
                                     <?php } ?>
                                 </div>
 
-                                <!-- Le champ nom utilsateur -->
+                                <!-- Le champ nom utilisateur -->
                                 <div class="col-sm-6">
                                     <label for="inscription-nom_utilisateur" class="col-sm-6 col-form-label">
-                                        Nom Utilsateur:
+                                        Nom Utilisateur:
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" class="form-control" name="nom_utilisateur" id="inscription-nom_utilisateur" placeholder="Veuillez entrer le nom utilisateur" value="<?= (!empty($donnees_utilisateur_modifier["nom_utilisateur"])) ? $donnees_utilisateur_modifier["nom_utilisateur"] : $utilisateurs["nom_utilisateur"]; ?>" required>
-                                    <?php if (isset($erreurs["nom_utilisateur"]) && !empty($erreurs["nom_utilisateur"])) { ?>
+                                    <?php if (!empty($erreurs["nom_utilisateur"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["nom_utilisateur"]; ?>
                                         </span>
@@ -332,14 +332,14 @@ if (!empty($params[3])) {
                                         }
                                         ?>
                                     </select>
-                                    <?php if (isset($erreurs["profil"]) && !empty($erreurs["profil"])) { ?>
+                                    <?php if (!empty($erreurs["profil"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["profil"]; ?>
                                         </span>
                                     <?php } ?>
                                 </div>
 
-                                <!-- Le bouton modifier -->
+                                <!-- Le bouton modifié -->
                                 <div class="col-md-6 mb-3" style="margin-top: 35px;">
                                     <input type="submit" value="Modifier" class="btn btn-primary btn-block">
                                 </div>

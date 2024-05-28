@@ -34,7 +34,7 @@ if (!empty($params[3])) {
 
     <?php
     // Vérifie s'il y a un message de succès global à afficher
-    if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+    if (!empty($_SESSION['message-success-global'])) {
     ?>
         <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
             <?= $_SESSION['message-success-global'] ?>
@@ -45,7 +45,7 @@ if (!empty($params[3])) {
 
     <?php
     // Vérifie s'il y a un message d'erreur global à afficher
-    if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+    if (!empty($_SESSION['message-erreur-global'])) {
     ?>
         <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
             <?= $_SESSION['message-erreur-global'] ?>
@@ -68,7 +68,7 @@ if (!empty($params[3])) {
             <!-- Affiche le formulaire de modification de la chambre -->
             <div>
                 <?php
-                if (isset($_SESSION['modification-photo-erreur']) && !empty($_SESSION['modification-photo-erreur'])) {
+                if (!empty($_SESSION['modification-photo-erreur'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                         <?= $_SESSION['modification-photo-erreur'] ?>
@@ -78,7 +78,7 @@ if (!empty($params[3])) {
                 ?>
 
                 <?php
-                if (isset($_SESSION['suppression-photo-erreurs']) && !empty($_SESSION['suppression-photo-erreurs'])) {
+                if (!empty($_SESSION['suppression-photo-erreurs'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                         <?= $_SESSION['suppression-photo-erreurs'] ?>
@@ -90,7 +90,7 @@ if (!empty($params[3])) {
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm zoom-effect-container">
-                            <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="auto" src="<?= $chambre['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $chambre['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                            <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="auto" src="<?= $chambre['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $chambre['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail" alt="">
                         </div>
 
                         <!-- Formulaire de la mise à jour photo -->
@@ -183,7 +183,7 @@ if (!empty($params[3])) {
                     <div class="col-md-8">
 
                         <h5 style="color: #cda45e; text-align:center; ">
-                            <i class="bi bi-exclamation-triangle me-1"></i> Les champs ci-dessous ne doivent pas être soumis vide. Au cas contraire elles affichent les anciennes informations.
+                            <i class="bi bi-exclamation-triangle me-1"></i> Les champs ci-dessous ne doivent pas être soumis vide. Au cas contraire, elles affichent les anciennes informations.
                         </h5>
                         
                         <form action="<?= PATH_PROJECT . "administrateur/chambres/modifier-chambre-traitement" ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" novalidate method="post" class="user">
@@ -207,7 +207,7 @@ if (!empty($params[3])) {
                                         }
                                         ?>
                                     </select>
-                                    <?php if (isset($erreurs["lib_typ"]) && !empty($erreurs["lib_typ"])) { ?>
+                                    <?php if (!empty($erreurs["lib_typ"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["lib_typ"]; ?>
                                         </span>
@@ -221,7 +221,7 @@ if (!empty($params[3])) {
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="number" class="form-control" name="cod_typ" id="inscription-code" placeholder="Veuillez entrer le code type de chambre" value="<?= (!empty($donnees["cod_typ"])) ? $donnees["cod_typ"] : $chambre["cod_typ"]; ?>" required>
-                                    <?php if (isset($erreurs["cod_typ"]) && !empty($erreurs["cod_typ"])) { ?>
+                                    <?php if (!empty($erreurs["cod_typ"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["cod_typ"]; ?>
                                         </span>
@@ -237,7 +237,7 @@ if (!empty($params[3])) {
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <textarea class="form-control" name="details" id="inscription-details" placeholder="Veuillez entrer le(s) detail(s)" required><?= (!empty($donnees_chambre_modifier["details"])) ? $donnees_chambre_modifier["details"] : $chambre["details"]; ?></textarea>
-                                    <?php if (isset($erreurs["details"]) && !empty($erreurs["details"])) { ?>
+                                    <?php if (!empty($erreurs["details"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["details"]; ?>
                                         </span>
@@ -251,7 +251,7 @@ if (!empty($params[3])) {
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="number" class="form-control" name="personnes" id="inscription-personnes" placeholder="Veuillez entrer le nombre de personne(s)" value="<?= (!empty($donnees["personnes"])) ? $donnees["personnes"] : $chambre["personnes"]; ?>" required>
-                                    <?php if (isset($erreurs["personnes"]) && !empty($erreurs["personnes"])) { ?>
+                                    <?php if (!empty($erreurs["personnes"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["personnes"]; ?>
                                         </span>
@@ -267,7 +267,7 @@ if (!empty($params[3])) {
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="text" class="form-control" name="superficies" id="inscription-superficies" placeholder="Veuillez entrer la superficies" value="<?= (!empty($donnees_chambre_modifier["superficies"])) ? $donnees_chambre_modifier["superficies"] : $chambre["superficies"]; ?>" required>
-                                    <?php if (isset($erreurs["superficies"]) && !empty($erreurs["superficies"])) { ?>
+                                    <?php if (!empty($erreurs["superficies"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["superficies"]; ?>
                                         </span>
@@ -281,7 +281,7 @@ if (!empty($params[3])) {
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input type="number" class="form-control" name="pu" id="inscription-prix" placeholder="Veuillez entrer le prix unitaire de chambre" value="<?= (!empty($donnees_chambre_modifier["pu"])) ? $donnees_chambre_modifier["pu"] : $chambre["pu"]; ?>" required>
-                                    <?php if (isset($erreurs["pu"]) && !empty($erreurs["pu"])) { ?>
+                                    <?php if (!empty($erreurs["pu"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["pu"]; ?>
                                         </span>

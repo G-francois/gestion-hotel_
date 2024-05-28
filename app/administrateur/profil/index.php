@@ -107,7 +107,7 @@ include './app/commum/aside.php';
 
                 <!-- Affichage des messages d'erreur de suppression -->
                 <?php
-                if (isset($_SESSION['suppression-erreurs']) && !empty($_SESSION['suppression-erreurs'])) {
+                if (!empty($_SESSION['suppression-erreurs'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                         <?= $_SESSION['suppression-erreurs'] ?>
@@ -118,7 +118,7 @@ include './app/commum/aside.php';
 
                 <!-- Affichage des messages d'erreur de désactivation -->
                 <?php
-                if (isset($_SESSION['desactivation-erreurs']) && !empty($_SESSION['desactivation-erreurs'])) {
+                if (!empty($_SESSION['desactivation-erreurs'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                         <?= $_SESSION['desactivation-erreurs'] ?>
@@ -129,7 +129,7 @@ include './app/commum/aside.php';
 
                 <!-- Affichage des messages d'erreur de photo -->
                 <?php
-                if (isset($_SESSION['photo-erreurs-admin']) && !empty($_SESSION['photo-erreurs-admin'])) {
+                if (!empty($_SESSION['photo-erreurs-admin'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                         <?= $_SESSION['photo-erreurs-admin'] ?>
@@ -140,7 +140,7 @@ include './app/commum/aside.php';
 
                 <!-- Affichage des messages d'erreur de suppression de photo -->
                 <?php
-                if (isset($_SESSION['suppression-photo-erreurs']) && !empty($_SESSION['suppression-photo-erreurs'])) {
+                if (!empty($_SESSION['suppression-photo-erreurs'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                         <?= $_SESSION['suppression-photo-erreurs'] ?>
@@ -194,7 +194,7 @@ include './app/commum/aside.php';
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="row mb-3">
-                                                                <label for="password_0" class="col-12 col-form-label" style="color: #070b3a;">Veuiller entrer votre mot de passe pour modifier la photo. </label>
+                                                                <label for="password_0" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe pour modifier la photo. </label>
                                                                 <br>
                                                                 <div class="col-md-8 col-lg-12">
                                                                     <input type="password" id="password_0" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
@@ -234,7 +234,7 @@ include './app/commum/aside.php';
                                             </div>
                                             <div class="modal-body">
                                                 <div class="row mb-3">
-                                                    <label for="password_1" class="col-12 col-form-label" style="color: #070b3a;">Veuiller entrer votre mot de passe pour supprimer la photo. </label>
+                                                    <label for="password_1" class="col-12 col-form-label" style="color: #070b3a;">Veuillez entrer votre mot de passe pour supprimer la photo. </label>
                                                     <br>
                                                     <div class="col-md-8 col-lg-12">
                                                         <input type="password" id="password_1" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
@@ -310,7 +310,7 @@ include './app/commum/aside.php';
                                                             <i class="fas fa-exclamation-triangle me-1" style="font-size: xxx-large;color: #d70e0e;"></i>
                                                         </div>
                                                         <label for="password_2" class="col-12 col-form-label" style="color: #d11818;">Vous êtes sûre d'effectuer cette action ? Après cette action votre compte sera supprimer de façon définitive.
-                                                            Si oui veuiller entrer votre mot de passe pour appliquer l'action. </label>
+                                                            Si oui veuillez entrer votre mot de passe pour appliquer l'action. </label>
                                                         <br>
                                                         <div class="col-md-8 col-lg-12">
                                                             <input type="password" id="password_2" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
@@ -353,8 +353,8 @@ include './app/commum/aside.php';
                                                         <div>
                                                             <i class="fas fa-exclamation-triangle me-1" style="font-size: xxx-large;color: #d70e0e;"></i>
                                                         </div>
-                                                        <label for="password_3" class="col-12 col-form-label" style="color: #d11818;">Vous êtes sûre d'effectuer cette action ? Après cette action vous ne serez plus en mesure de vous connecter.
-                                                            Si oui veuiller entrer votre mot de passe pour appliquer l'action. Pour réactiver votre compte veuiller nous écrire par mail.</label>
+                                                        <label for="password_3" class="col-12 col-form-label" style="color: #d11818;">Vous êtes sûre d'effectuer cette action ? Après cette action, vous ne serez plus en mesure de vous connecter.
+                                                            Si, oui veuillez entrer votre mot de passe pour appliquer l'action. Pour réactiver votre compte, veuillez nous écrire par mail.</label>
                                                         <br>
                                                         <div class="col-md-8 col-lg-12">
                                                             <input type="password" id="password_3" name="password" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="">
@@ -381,7 +381,7 @@ include './app/commum/aside.php';
         <div class="col-xl-7">
             <div class="col-lg-12">
                 <?php
-                if (isset($_SESSION['sauvegarder-success-admin']) && !empty($_SESSION['sauvegarder-success-admin'])) {
+                if (!empty($_SESSION['sauvegarder-success-admin'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
                         <?= $_SESSION['sauvegarder-success-admin'] ?>
@@ -391,7 +391,7 @@ include './app/commum/aside.php';
                 ?>
 
                 <?php
-                if (isset($_SESSION['sauvegarder-erreurs-admin']) && !empty($_SESSION['sauvegarder-erreurs-admin'])) {
+                if (!empty($_SESSION['sauvegarder-erreurs-admin'])) {
                 ?>
                     <div class="alert alert-primary" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
                         <?= $_SESSION['sauvegarder-erreurs-admin'] ?>
@@ -406,7 +406,7 @@ include './app/commum/aside.php';
                         <form action="<?= PATH_PROJECT ?>administrateur/profil/traitement_edit_profil" method="post" enctype="multipart/form-data"> <!-- Début du formulaire de modification du profil -->
                             <!-- Message d'avertissement pour informer l'utilisateur -->
                             <h5 style="color: #8bb9c6; text-align:center; ">
-                                Les champs ci-dessous ne doivent pas être soumis vide. Au cas contraire elles affichent anciennes informations.
+                                Les champs ci-dessous ne doivent pas être soumis vide. Au cas contraire, elles affichent anciennes informations.
                             </h5>
 
                             <div>
@@ -415,7 +415,7 @@ include './app/commum/aside.php';
                                     <label for="Name" class="col-md-4 col-lg-3 col-form-label">Nom :</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="nom" type="text" class="form-control <?= isset($_SESSION['erreurs']['nom']) ? 'is-invalid' : '' ?>" id="Name" value="<?= isset($_SESSION['utilisateur_connecter_admin']) ?  $_SESSION['utilisateur_connecter_admin']['nom'] : 'Nom' ?>" required>
-                                        <?php if (isset($erreurs["nom"]) && !empty($erreurs["nom"])) { ?>
+                                        <?php if (!empty($erreurs["nom"])) { ?>
                                             <span class="text-danger">
                                                 <?php echo $erreurs["nom"]; ?>
                                             </span>
@@ -428,7 +428,7 @@ include './app/commum/aside.php';
                                     <label for="Name1" class="col-md-4 col-lg-3 col-form-label">Prénom(s) :</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="prenom" type="text" class="form-control <?= isset($_SESSION['erreurs']['prenom']) ? 'is-invalid' : '' ?>" id="Name1" value="<?= isset($_SESSION['utilisateur_connecter_admin']) ?  $_SESSION['utilisateur_connecter_admin']['prenom'] : 'Prenom' ?>" required>
-                                        <?php if (isset($erreurs["prenom"]) && !empty($erreurs["prenom"])) { ?>
+                                        <?php if (!empty($erreurs["prenom"])) { ?>
                                             <span class="text-danger">
                                                 <?php echo $erreurs["prenom"]; ?>
                                             </span>
@@ -442,7 +442,7 @@ include './app/commum/aside.php';
                                 <label for="user" class="col-md-4 col-lg-3 col-form-label">Nom utilisateur :</label>
                                 <div class="col-md-8 col-lg-9">
                                     <input name="nom_utilisateur" type="text" class="form-control <?= isset($_SESSION['erreurs']['nom_utilisateur']) ? 'is-invalid' : '' ?>" id="user" value="<?= isset($_SESSION['utilisateur_connecter_admin']) ?  $_SESSION['utilisateur_connecter_admin']['nom_utilisateur'] : 'Nom utilisateur' ?>" required>
-                                    <?php if (isset($erreurs["nom_utilisateur"]) && !empty($erreurs["nom_utilisateur"])) { ?>
+                                    <?php if (!empty($erreurs["nom_utilisateur"])) { ?>
                                         <span class="text-danger">
                                             <?php echo $erreurs["nom_utilisateur"]; ?>
                                         </span>
@@ -455,7 +455,7 @@ include './app/commum/aside.php';
                                 <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Contact : </label>
                                 <div class="col-md-8 col-lg-9">
                                     <input name="telephone" type="text" class="form-control <?= isset($_SESSION['erreurs']['telephone']) ? 'is-invalid' : '' ?>" id="Phone" value="<?= isset($_SESSION['utilisateur_connecter_admin']) ?  $_SESSION['utilisateur_connecter_admin']['telephone'] : 'Téléphone' ?>" required>
-                                    <?php if (isset($erreurs["telephone"]) && !empty($erreurs["telephone"])) { ?>
+                                    <?php if (!empty($erreurs["telephone"])) { ?>
                                         <span class="text-danger">
                                             <?php echo $erreurs["telephone"]; ?>
                                         </span>
@@ -507,7 +507,7 @@ include './app/commum/aside.php';
                     <div class="card-body">
                         <form action="<?= PATH_PROJECT ?>administrateur/traitement_password" method="post" enctype="multipart/form-data">
                             <!-- Message d'avertissement pour informer l'utilisateur -->
-                            <h5 style="color: #8bb9c6; text-align:center; "> Sachez qu'après le changement de votre mot de passe vous serez déconnecté(e).</h5>
+                            <h5 style="color: #8bb9c6; text-align:center; "> Sachez qu'après le changement de votre mot de passe, vous serez déconnecté(e).</h5>
                             <br>
 
                             <!-- Champ pour le mot de passe actuel -->
@@ -517,7 +517,7 @@ include './app/commum/aside.php';
                                     <input name="password" type="password" class="form-control" placeholder="Veuillez entrer votre mot de passe actuel" id="currentPassword">
                                     <span class="text-danger">
                                         <?php
-                                        if (isset($erreurs["password"]) && !empty($erreurs["password"])) {
+                                        if (!empty($erreurs["password"])) {
                                             echo $erreurs["password"];
                                         }
                                         ?>
@@ -532,7 +532,7 @@ include './app/commum/aside.php';
                                     <input name="newpassword" type="password" class="form-control" placeholder="Veuillez entrer votre nouveau mot de passe" id="newPassword" required>
                                     <span class="text-danger">
                                         <?php
-                                        if (isset($erreurs["newpassword"]) && !empty($erreurs["newpassword"])) {
+                                        if (!empty($erreurs["newpassword"])) {
                                             echo $erreurs["newpassword"];
                                         }
                                         ?>
@@ -540,14 +540,14 @@ include './app/commum/aside.php';
                                 </div>
                             </div>
 
-                            <!-- Champ pour retapez le nouveau mot de passe-->
+                            <!-- Champ pour retaper le nouveau mot de passe-->
                             <div class="row mb-3">
                                 <label for="renewPassword" class="col-md-5 col-lg-4 col-form-label">Retaper Nouveau Mot de passe</label>
                                 <div class="col-md-7 col-lg-8">
                                     <input name="renewpassword" type="password" class="form-control" placeholder="Veuillez retaper votre nouveau mot de passe" id="renewPassword" required>
                                     <span class="text-danger">
                                         <?php
-                                        if (isset($erreurs["renewpassword"]) && !empty($erreurs["renewpassword"])) {
+                                        if (!empty($erreurs["renewpassword"])) {
                                             echo $erreurs["renewpassword"];
                                         }
                                         ?>

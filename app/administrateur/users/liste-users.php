@@ -27,7 +27,7 @@ $liste_utilisateur = recuperer_liste_utilisateurs();
     <!-- Tableau de données liste utilisateurs -->
     <?php
     // Affichage du message de succès global s'il existe
-    if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+    if (!empty($_SESSION['message-success-global'])) {
     ?>
         <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
             <?= $_SESSION['message-success-global'] ?>
@@ -38,7 +38,7 @@ $liste_utilisateur = recuperer_liste_utilisateurs();
 
     <?php
     // Affichage du message d'erreur global s'il existe
-    if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+    if (!empty($_SESSION['message-erreur-global'])) {
     ?>
         <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
             <?= $_SESSION['message-erreur-global'] ?>
@@ -59,7 +59,7 @@ $liste_utilisateur = recuperer_liste_utilisateurs();
             <div class="table-responsive">
                 <?php
                 // Vérifie si la liste des utilisateurs existe et n'est pas vide
-                if (isset($liste_utilisateur) && !empty($liste_utilisateur)) {
+                if (!empty($liste_utilisateur)) {
                 ?>
                     <table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="text-align:center;">
                         <thead>
@@ -157,7 +157,7 @@ $liste_utilisateur = recuperer_liste_utilisateurs();
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Etes-vous sûr de vouloir supprimer l'utilisateur <?php echo $utilisateur['nom_utilisateur']; ?> ?</p>
+                                                    <p>Êtes-vous sûr de vouloir supprimer l'utilisateur <?php echo $utilisateur['nom_utilisateur']; ?> ?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form action="<?= PATH_PROJECT ?>administrateur/dashboard/traitement_suppression_compte_users" method="POST">

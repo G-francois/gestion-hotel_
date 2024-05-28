@@ -35,7 +35,7 @@ if (!empty($params[3])) {
 
     <?php
     // Vérifie s'il y a un message de succès global à afficher
-    if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+    if (!empty($_SESSION['message-success-global'])) {
     ?>
         <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
             <?= $_SESSION['message-success-global'] ?>
@@ -46,7 +46,7 @@ if (!empty($params[3])) {
 
     <?php
     // Vérifie s'il y a un message d'erreur global à afficher
-    if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+    if (!empty($_SESSION['message-erreur-global'])) {
     ?>
         <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
             <?= $_SESSION['message-erreur-global'] ?>
@@ -67,7 +67,7 @@ if (!empty($params[3])) {
         <?php } else { ?>
 
             <?php
-            if (isset($_SESSION['modification-photo-erreur']) && !empty($_SESSION['modification-photo-erreur'])) {
+            if (!empty($_SESSION['modification-photo-erreur'])) {
             ?>
                 <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                     <?= $_SESSION['modification-photo-erreur'] ?>
@@ -77,7 +77,7 @@ if (!empty($params[3])) {
             ?>
 
             <?php
-            if (isset($_SESSION['suppression-photo-erreurs']) && !empty($_SESSION['suppression-photo-erreurs'])) {
+            if (!empty($_SESSION['suppression-photo-erreurs'])) {
             ?>
                 <div class="alert alert-primary" style="color: white; background-color: #9f0808; border-color: snow; text-align:center">
                     <?= $_SESSION['suppression-photo-erreurs'] ?>
@@ -89,7 +89,7 @@ if (!empty($params[3])) {
             <div class="row">
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm zoom-effect-container">
-                        <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="auto" src="<?= $repas['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $repas['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                        <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="auto" src="<?= $repas['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $repas['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail" alt="">
                     </div>
 
                     <!-- Formulaire de la mise à jour photo -->
@@ -191,17 +191,17 @@ if (!empty($params[3])) {
                                     <span class="text-danger">(*)</span>
                                 </label>
 
-                                <input type="text" class="form-control" name="nom_repas" id="inscription-nom" placeholder="Veuillez entrer le nom du repas" value="<?= (isset($_POST["nom_repas"]) && !empty($_POST["nom_repas"])) ? $_POST["nom_repas"] : $repas["nom_repas"]; ?>" required>
+                                <input type="text" class="form-control" name="nom_repas" id="inscription-nom" placeholder="Veuillez entrer le nom du repas" value="<?= (!empty($_POST["nom_repas"])) ? $_POST["nom_repas"] : $repas["nom_repas"]; ?>" required>
 
                                 <?php
-                                if (isset($erreurs["nom_repas"]) && !empty($erreurs["nom_repas"])) { ?>
+                                if (!empty($erreurs["nom_repas"])) { ?>
                                     <span class="text-danger">
                                         <?php echo $erreurs["nom_repas"]; ?>
                                     </span>
                                 <?php } ?>
                             </div>
 
-                            <!-- Champ pour la descriptions -->
+                            <!-- Champ pour la description -->
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label for="inscription-descriptions" class="col-sm-12 col-form-label">
                                     Descriptions :
@@ -209,14 +209,14 @@ if (!empty($params[3])) {
                                 </label>
 
                                 <textarea class="form-control" name="descriptions" id="inscription-descriptions" placeholder="Veuillez entrer la description" required><?= (!empty($donnees_repas_modifier["descriptions"])) ? $donnees_repas_modifier["descriptions"] : $repas["descriptions"]; ?></textarea>
-                                    <?php if (isset($erreurs["descriptions"]) && !empty($erreurs["descriptions"])) { ?>
+                                    <?php if (!empty($erreurs["descriptions"])) { ?>
                                         <span class="text-danger">
                                             <?= $erreurs["descriptions"]; ?>
                                         </span>
                                     <?php } ?>
 
                                 <?php
-                                if (isset($erreurs["descriptions"]) && !empty($erreurs["descriptions"])) { ?>
+                                if (!empty($erreurs["descriptions"])) { ?>
                                     <span class="text-danger">
                                         <?php echo $erreurs["descriptions"]; ?>
                                     </span>
@@ -229,9 +229,9 @@ if (!empty($params[3])) {
                                     Prix unitaire :
                                     <span class="text-danger">(*)</span>
                                 </label>
-                                <input type="number" class="form-control" name="pu_repas" id="inscription-prix" placeholder="Veuillez entrer le prix du repas" value="<?= (isset($_POST["pu_repas"]) && !empty($_POST["pu_repas"])) ? $_POST["pu_repas"] : $repas["pu_repas"]; ?>" required>
+                                <input type="number" class="form-control" name="pu_repas" id="inscription-prix" placeholder="Veuillez entrer le prix du repas" value="<?= (!empty($_POST["pu_repas"])) ? $_POST["pu_repas"] : $repas["pu_repas"]; ?>" required>
 
-                                <?php if (isset($erreurs["pu_repas"]) && !empty($erreurs["pu_repas"])) { ?>
+                                <?php if (!empty($erreurs["pu_repas"])) { ?>
                                     <span class="text-danger">
                                         <?php echo $erreurs["pu_repas"]; ?>
                                     </span>
@@ -257,13 +257,13 @@ if (!empty($params[3])) {
                                     }
                                     ?>
                                 </select>
-                                <?php if (isset($erreurs["categorie"]) && !empty($erreurs["categorie"])) { ?>
+                                <?php if (!empty($erreurs["categorie"])) { ?>
                                     <span class="text-danger">
                                         <?= $erreurs["categorie"]; ?>
                                     </span>
                                 <?php } ?>
                             </div>
-                            <!-- Le bouton modifier -->
+                            <!-- Le bouton modifié -->
                             <div class="col-sm-12 mb-3" style="margin-top: 35px;">
                                 <input type="submit" value="Modifier" class="btn btn-primary btn-block">
                             </div>

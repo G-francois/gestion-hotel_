@@ -61,7 +61,7 @@ include './app/commum/header.php';
                                 <?php } ?>
                             </div>
 
-                            <!-- Le champs sexe -->
+                            <!-- Le champ sexe -->
                             <div>
                                 <div class="form-group" style="margin-bottom: -10px;">
                                     <label for="inscription-sexe">Sexe:

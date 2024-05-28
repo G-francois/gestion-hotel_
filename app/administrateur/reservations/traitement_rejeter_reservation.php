@@ -5,7 +5,7 @@ $message_erreur_global = "";
 $message_success_global = "";
 
 // Vérifier si le numéro de réservation est fourni
-if (isset($_POST["num_res"]) && !empty($_POST["num_res"])) {
+if (!empty($_POST["num_res"])) {
     $donnees["num_res"] = $_POST["num_res"];
     $numRes = $donnees["num_res"];
     // Appeler la fonction pour vérifier l'existence de num_res dans la table "reservation"
@@ -39,7 +39,7 @@ foreach ($liste_chambres_reservations as $_chambre) {
 if (rejeter_reservation($numRes)) {
     $message_success_global = "La réservation a été rejeter avec succès !";
 } else {
-    $message_erreur_global = "Oups ! Une erreur s'est produite lors de l'activation de la reservatio n.";
+    $message_erreur_global = "Oups ! Une erreur s'est produite lors de l'activation de la reservation.";
 }
 
 $_SESSION['message-erreur-global'] = $message_erreur_global;

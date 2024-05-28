@@ -29,7 +29,7 @@ $liste_chambre = recuperer_liste_chambres();
     <div class="card shadow mb-4">
         <?php
         // Affiche un message de succès s'il existe et n'est pas vide
-        if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+        if (!empty($_SESSION['message-success-global'])) {
         ?>
             <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
                 <?= $_SESSION['message-success-global'] ?>
@@ -40,7 +40,7 @@ $liste_chambre = recuperer_liste_chambres();
 
         <?php
         // Affiche un message d'erreur s'il existe et n'est pas vide
-        if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+        if (!empty($_SESSION['message-erreur-global'])) {
         ?>
             <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
                 <?= $_SESSION['message-erreur-global'] ?>
@@ -52,9 +52,9 @@ $liste_chambre = recuperer_liste_chambres();
             <div class="table-responsive">
                 <?php
                 // Vérifie si la liste des chambres existe et n'est pas vide
-                if (isset($liste_chambre) && !empty($liste_chambre)) {
+                if (!empty($liste_chambre)) {
                 ?>
-                    <table class="table table-striped" id="dataTable" width="100%" cellspacing="0" style="text-align:center;">
+                    <table class="table table-striped" id="dataTable"  style="text-align:center;">
                         <thead>
                             <tr>
                                 <th>Numéro de chambre</th>
@@ -118,7 +118,7 @@ $liste_chambre = recuperer_liste_chambres();
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p style="font-size: larger;">Etes-vous sûr de vouloir supprimer la chambre <?= $chambre["lib_typ"]; ?> ?</p>
+                                                    <p style="font-size: larger;">Êtes-vous sûr de vouloir supprimer la chambre <?= $chambre["lib_typ"]; ?> ?</p>
                                                 </div>
                                                 <div class="modal-footer ">
                                                     <a href="<?= PATH_PROJECT ?>administrateur/chambres/traitement-supprimer-chambre/<?= $chambre["num_chambre"]; ?>" class="btn btn-danger">Oui</a>

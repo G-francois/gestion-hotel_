@@ -16,13 +16,13 @@ if (isset($_POST['change_photo'])) {
             } else {
                 $dossierImage = "public/images/";
                 
-                // Vérifier si le dossier chambre existe, sinon le creer
+                // Vérifier si le dossier chambre existe, sinon le créer
                 $dossierChambre = $dossierImage . "Chambres/";
                 if (!is_dir($dossierChambre)) {
                     mkdir($dossierChambre);
                 }
         
-                // Vérifier si le dossier libelle type existe dans le dossier chambres, sinon le creer
+                // Vérifier si le dossier libelle type existe dans le dossier chambres, sinon le créer
                 $dossierLibelle = $dossierChambre . $donnees["lib_typ"] . "/";
                 if (!is_dir($dossierLibelle)) {
                     mkdir($dossierLibelle);

@@ -1,7 +1,8 @@
 <?php
 
 $utilisateurId = $_POST['utilisateur_id'];
-
+$message_success_global ="";
+$message_erreur_global ="";
 // Appeler la fonction d'activation de l'utilisateur
  if (suppression_compte_utilisateur($utilisateurId)){
     $message_success_global = "Le compte de l'utilisateur a été supprimé avec succès !";

@@ -21,14 +21,14 @@ if (isset($_POST['change_photo'])) {
                     mkdir($dossierImage . "upload/");
                 }
 
-                // Vérifier si le dossier Utilisateurs existe, sinon le creer
+                // Vérifier si le dossier Utilisateurs existe, sinon le créer
                 $dossierUtilisateurs = $dossierImage . "upload/Utilisateurs/";
                 if (!is_dir($dossierUtilisateurs)) {
                     mkdir($dossierUtilisateurs);
                 }
 
 
-                // Vérifier si le dossier username existe dans le dossier repas, sinon le creer
+                // Vérifier si le dossier username existe dans le dossier repas, sinon le créer
                 $dossierUsername = $dossierUtilisateurs . $idUtilisateur . "/";
                 if (!is_dir($dossierUsername)) {
                     mkdir($dossierUsername);
@@ -60,7 +60,7 @@ if (isset($_POST['change_photo'])) {
                                 $message_erreur_global =  "La modification de la photo a échoué. Veuillez réessayer.";
                             }
                         } else {
-                            $message_erreur_global = "Désolé, il n'y a pas d'utiisateur.";
+                            $message_erreur_global = "Désolé, il n'y a pas d'utilisateur.";
                         }
                     } else {
                         $message_erreur_global = "Oups ! Une erreur s'est produite lors de l'enregistrement de l'image.";
@@ -73,7 +73,7 @@ if (isset($_POST['change_photo'])) {
             $message_erreur_global = "Veuillez télécharger une image pour l'utilisateur.";
         }
     } else {
-        $message_erreur_global = "La mise à jour à echouer. Vérifier votre mot de passe et réessayez.";
+        $message_erreur_global = "La mise à jour à échouer. Vérifier votre mot de passe et réessayez.";
     }
 }
 $_SESSION['modification-photo-success'] = $message_success_global;

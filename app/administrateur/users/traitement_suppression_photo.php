@@ -18,15 +18,15 @@ if (isset($_POST['supprimer_photo'])) {
             if ($miseajour) {
                 $message_success_global = "La suppression de la photo est effectuée avec succès.";
             } else {
-                // La  mise à jour du statut a échoué
-                $message_erreur_global =  "Oups ! Une erreur s'est produite lors de la suppression de la photo. Veuiller réessayez.";
+                // La mise à jour du statut a échoué.
+                $message_erreur_global =  "Oups ! Une erreur s'est produite lors de la suppression de la photo. Veuillez réessayez.";
             }
         } else {
             // Aucun user disponible
             $message_erreur_global = "Désolé, il n'y a pas d'utilisateur.";
         }
     } else {
-        $message_erreur_global = "La suppression de la photo à echouer. Vérifier votre mot de passe et réessayez.";
+        $message_erreur_global = "La suppression de la photo à échouer. Vérifier votre mot de passe et réessayez.";
     }
 }
 

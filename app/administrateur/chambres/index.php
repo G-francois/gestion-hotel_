@@ -26,7 +26,7 @@ include './app/commum/aside.php';
 
     <?php
     // Vérifier s'il y a un message de succès et s'il n'est pas vide
-    if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+    if (!empty($_SESSION['message-success-global'])) {
     ?>
         <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
             <?= $_SESSION['message-success-global'] ?>
@@ -37,7 +37,7 @@ include './app/commum/aside.php';
 
     <?php
     // Vérifier s'il y a un message d'erreur et s'il n'est pas vide
-    if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+    if (!empty($_SESSION['message-erreur-global'])) {
     ?>
         <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
             <?= $_SESSION['message-erreur-global'] ?>
@@ -57,7 +57,7 @@ include './app/commum/aside.php';
                 </label>
                 <input type="file" class="form-control" id="image" name="image" />
 
-                <?php if (isset($erreurs["image"]) && !empty($erreurs["image"])) { ?>
+                <?php if (!empty($erreurs["image"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["image"]; ?>
                     </span>
@@ -70,7 +70,7 @@ include './app/commum/aside.php';
                     Libellé du type de chambre :
                     <span class="text-danger">(*)</span>
                 </label>
-                <div style="padding-left: 0px; padding-right: 0px;">
+                <div style="padding-left: 0; padding-right: 0;">
                     <select class="lib_typ form-control" id="libelle_type" name="lib_typ">
                         <option value="" disabled selected>Sélectionnez le libellé du type de chambre</option>
                         <option value="Solo">Solo</option>
@@ -78,7 +78,7 @@ include './app/commum/aside.php';
                         <option value="Triple">Triple</option>
                         <option value="Suite">Suite</option>
                     </select>
-                    <?php if (isset($erreurs["lib_typ"]) && !empty($erreurs["lib_typ"])) { ?>
+                    <?php if (!empty($erreurs["lib_typ"])) { ?>
                         <span class="text-danger">
                             <?php echo $erreurs["lib_typ"]; ?>
                         </span>
@@ -92,7 +92,7 @@ include './app/commum/aside.php';
                     Code du type de chambre :
                     <span class="text-danger">(*)</span>
                 </label>
-                <input type="text" name="cod_typ" id="cod_typ" class="form-control" placeholder="Le code du type de chambre sera automatiquement rempli" value="<?= (isset($donnees["cod_typ"]) && !empty($donnees["cod_typ"])) ? $donnees["cod_typ"] : ''; ?>" readonly>
+                <input type="text" name="cod_typ" id="cod_typ" class="form-control" placeholder="Le code du type de chambre sera automatiquement rempli" value="<?= (!empty($donnees["cod_typ"])) ? $donnees["cod_typ"] : ''; ?>" readonly>
 
                 <?php if (isset($erreurs["cod_typ"]) && !empty($erreurs["code_type"])) { ?>
                     <span class="text-danger">
@@ -110,7 +110,7 @@ include './app/commum/aside.php';
                 <textarea name="details_chambre" id="details_chambre" class="form-control" placeholder="Le détail de la chambre sera automatiquement rempli" readonly><?php if (isset($donnees["details_chambre"])) {
                                                                                                                                                                             echo $donnees["details_chambre"];
                                                                                                                                                                         } ?></textarea>
-                <?php if (isset($erreurs["details_chambre"]) && !empty($erreurs["details_chambre"])) { ?>
+                <?php if (!empty($erreurs["details_chambre"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["details_chambre"]; ?>
                     </span>
@@ -121,12 +121,12 @@ include './app/commum/aside.php';
             <!-- Le champ details_personne_chambre -->
             <div class="col-sm-6 mb-3 mb-sm-0">
                 <label for="details_personne_chambre">
-                    Nombre de pesonne(s):
+                    Nombre de personne(s):
                     <span class="text-danger">(*)</span>
                 </label>
                 <input type="text" name="details_personne_chambre" id="details_personne_chambre" class="form-control" placeholder="Le nombre de pesonne(s) sera automatiquement rempli" readonly>
 
-                <?php if (isset($erreurs["details_personne_chambre"]) && !empty($erreurs["details_personne_chambre"])) { ?>
+                <?php if (!empty($erreurs["details_personne_chambre"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["details_personne_chambre"]; ?>
                     </span>
@@ -141,7 +141,7 @@ include './app/commum/aside.php';
                 </label>
                 <input type="text" name="details_superficie_chambre" id="details_superficie_chambre" class="form-control" placeholder="La superficie sera automatiquement rempli" readonly>
 
-                <?php if (isset($erreurs["details_superficie_chambre"]) && !empty($erreurs["details_superficie_chambre"])) { ?>
+                <?php if (!empty($erreurs["details_superficie_chambre"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["details_superficie_chambre"]; ?>
                     </span>
@@ -156,7 +156,7 @@ include './app/commum/aside.php';
                 </label>
                 <input type="text" name="pu" id="prix_unitaire" class="form-control" placeholder="Le prix unitaire sera automatiquement rempli" readonly>
 
-                <?php if (isset($erreurs["pu"]) && !empty($erreurs["pu"])) { ?>
+                <?php if (!empty($erreurs["pu"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["pu"]; ?>
                     </span>

@@ -31,7 +31,7 @@ $liste_clients = recuperer_liste_clients_actifs();
 
     <?php
     // Vérifie s'il y a un message de succès global à afficher
-    if (isset($_SESSION['commande-message-success-global']) && !empty($_SESSION['commande-message-success-global'])) {
+    if (!empty($_SESSION['commande-message-success-global'])) {
     ?>
         <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
             <?= $_SESSION['commande-message-success-global'] ?>
@@ -41,7 +41,7 @@ $liste_clients = recuperer_liste_clients_actifs();
     ?>
     <?php
     // Vérifie s'il y a un message d'erreur global à afficher
-    if (isset($_SESSION['commande-message-erreur-global']) && !empty($_SESSION['commande-message-erreur-global'])) {
+    if (!empty($_SESSION['commande-message-erreur-global'])) {
     ?>
         <div class="alert alert-primary" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
             <?= $_SESSION['commande-message-erreur-global'] ?>
@@ -66,7 +66,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                             <option><?= $client['email'] ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <?php if (isset($erreurs["email"]) && !empty($erreurs["email"])) { ?>
+                    <?php if (!empty($erreurs["email"])) { ?>
                         <span class="text-danger">
                             <?= $erreurs["email"]; ?>
                         </span>
@@ -79,7 +79,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                         <span class="text-danger">(*)</span>
                     </label>
                     <input type="number" name="num_chambre" id="num_chambre" class="form-control" placeholder="Entrez le numéro de la chambre" required>
-                    <?php if (isset($erreurs["num_chambre"]) && !empty($erreurs["num_chambre"])) { ?>
+                    <?php if (!empty($erreurs["num_chambre"])) { ?>
                         <span class="text-danger">
                             <?= $erreurs["num_chambre"]; ?>
                         </span>
@@ -104,7 +104,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                         }
                         ?>
                     </select>
-                    <?php if (isset($erreurs["nom_repas"]) && !empty($erreurs["nom_repas"])) { ?>
+                    <?php if (!empty($erreurs["nom_repas"])) { ?>
                         <span class="text-danger">
                             <?= $erreurs["nom_repas"]; ?>
                         </span>
@@ -115,7 +115,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                 <div class="col-md-4 mb-3">
                     <label for="pu_repas">Prix :</label>
                     <input type="text" class="form-control" placeholder="Prix total du repas" id="pu_repas" name="pu_repas[]" readonly>
-                    <?php if (isset($erreurs["pu_repas"]) && !empty($erreurs["pu_repas"])) { ?>
+                    <?php if (!empty($erreurs["pu_repas"])) { ?>
                         <span class="text-danger">
                             <?= $erreurs["pu_repas"]; ?>
                         </span>

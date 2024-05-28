@@ -5,6 +5,9 @@ $_SESSION['donnees-utilisateur'] = [];
 $donnees = [];
 $erreurs = [];
 
+$message_success_global ="";
+$message_erreur_global ="";
+
 // Récupération de l'ID de la réservation et du type de chambre
 $num_res = $_POST['reservation_id'];
 

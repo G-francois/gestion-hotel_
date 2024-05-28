@@ -1,13 +1,12 @@
 
 <?php
-
-$message_erreur_global = "";
-$message_success_global = "";
 $donnees =  recuperer_chambre_par_son_num_chambre($params[3]);
 $new_donnees = [];
 $erreurs = [];
+$message_erreur_global = "";
+$message_success_global = "";
 
-if (isset($_POST['lib_typ']) && !empty($_POST['lib_typ']) && $_POST['lib_typ'] != $donnees['lib_typ']) {
+if (!empty($_POST['lib_typ']) && $_POST['lib_typ'] != $donnees['lib_typ']) {
     $new_data['lib_typ'] = $_POST['lib_typ'];
 } else {
     if (empty($_POST['lib_typ'])) {
@@ -17,7 +16,7 @@ if (isset($_POST['lib_typ']) && !empty($_POST['lib_typ']) && $_POST['lib_typ'] !
     }
 }
 
-if (isset($_POST['cod_typ']) && !empty($_POST['cod_typ']) && $_POST['cod_typ'] != $donnees['cod_typ']) {
+if (!empty($_POST['cod_typ']) && $_POST['cod_typ'] != $donnees['cod_typ']) {
     $new_data['cod_typ'] = $_POST['cod_typ'];
 } else {
     if (empty($_POST['cod_typ'])) {
@@ -27,7 +26,7 @@ if (isset($_POST['cod_typ']) && !empty($_POST['cod_typ']) && $_POST['cod_typ'] !
     }
 }
 
-if (isset($_POST['details']) && !empty($_POST['details']) && $_POST['details'] != $donnees['details']) {
+if (!empty($_POST['details']) && $_POST['details'] != $donnees['details']) {
     $new_data['details'] = $_POST['details'];
 } else {
     if (empty($_POST['details'])) {
@@ -37,7 +36,7 @@ if (isset($_POST['details']) && !empty($_POST['details']) && $_POST['details'] !
     }
 }
 
-if (isset($_POST['personnes']) && !empty($_POST['personnes']) && $_POST['personnes'] != $donnees['personnes']) {
+if (!empty($_POST['personnes']) && $_POST['personnes'] != $donnees['personnes']) {
     $new_data['personnes'] = $_POST['personnes'];
 } else {
     if (empty($_POST['personnes'])) {
@@ -47,7 +46,7 @@ if (isset($_POST['personnes']) && !empty($_POST['personnes']) && $_POST['personn
     }
 }
 
-if (isset($_POST['superficies']) && !empty($_POST['superficies']) && $_POST['superficies'] != $donnees['superficies']) {
+if (!empty($_POST['superficies']) && $_POST['superficies'] != $donnees['superficies']) {
     $new_data['superficies'] = $_POST['superficies'];
 } else {
     if (empty($_POST['superficies'])) {
@@ -57,7 +56,7 @@ if (isset($_POST['superficies']) && !empty($_POST['superficies']) && $_POST['sup
     }
 }
 
-if (isset($_POST['pu']) && !empty($_POST['pu']) && $_POST['pu'] != $donnees['pu']) {
+if (!empty($_POST['pu']) && $_POST['pu'] != $donnees['pu']) {
     $new_data['pu'] = $_POST['pu'];
 } else {
     if (empty($_POST['pu'])) {
@@ -84,8 +83,8 @@ if (empty($erreurs)) {
         if ($miseajour) {
             $message_success_global = "La chambre a été modifier avec succès !";
         } else {
-            // La  mise à jour du statut a échoué
-            $message_erreur_global =  "Oups ! Une erreur s'est produite lors de la modification de la chambre. Veuiller réessayez.";
+            // La mise à jour du statut a échoué.
+            $message_erreur_global =  "Oups ! Une erreur s'est produite lors de la modification de la chambre. Veuillez réessayez.";
         }
     } else {
         // Aucune chambre disponible de type "Doubles"

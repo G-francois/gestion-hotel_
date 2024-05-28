@@ -7,11 +7,11 @@ $donnees = [];
 
 $erreurs = [];
 
-if (isset($_POST["mot-passe"]) && !empty($_POST["mot-passe"])) {
+if (!empty($_POST["mot-passe"])) {
     $password = $_POST["mot-passe"];
     $pattern = '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
     /* Dans ce code, j'ai ajouté une nouvelle validation pour le champ "mot de passe". J'ai défini le
-	pattern /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ qui vérifie que la chaîne $password respecte les
+	modèle /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ qui vérifie que la chaîne $password respecte les
 	critères suivants :
 
 	Au moins 8 caractères
@@ -19,7 +19,7 @@ if (isset($_POST["mot-passe"]) && !empty($_POST["mot-passe"])) {
 	Au moins une lettre minuscule
 	Au moins un chiffre
 	Au moins un caractère spécial parmi (@$!%*?&)
-	Ensuite, j'ai utilisé la fonction preg_match() pour valider si le mot de passe correspond au pattern. Si c'est le cas, le mot de passe 
+	Ensuite, j'ai utilisé la fonction preg_match() pour valider si le mot de passe correspond au modèle. Si c'est le cas, le mot de passe
 	est ajouté aux données ($donnees["password"]). Sinon, un message d'erreur approprié est stocké dans le tableau $erreurs["password"].
 	*/
     if (preg_match($pattern, $password)) {
@@ -31,11 +31,11 @@ if (isset($_POST["mot-passe"]) && !empty($_POST["mot-passe"])) {
     $erreurs["mot-passe"] = "Le champ mot de passe est requis. Veuillez le renseigner.";
 }
 
-if ((isset($_POST["retapez-mot-passe"]) && !empty($_POST["retapez-mot-passe"]) && $_POST["retapez-mot-passe"] != $_POST["mot-passe"])) {
+if ((!empty($_POST["retapez-mot-passe"]) && $_POST["retapez-mot-passe"] != $_POST["mot-passe"])) {
     $erreurs["retapez-mot-passe"] = "Mot de passe erroné. Entrez le mot de passe du précédent champs";
 }
 
-if ((isset($_POST["mot-passe"]) && !empty($_POST["mot-passe"]) && $_POST["retapez-mot-passe"] == $_POST["mot-passe"])) {
+if ((!empty($_POST["mot-passe"]) && $_POST["retapez-mot-passe"] == $_POST["mot-passe"])) {
     $donnees["mot-passe"] = trim(htmlentities($_POST['mot-passe']));
 }
 

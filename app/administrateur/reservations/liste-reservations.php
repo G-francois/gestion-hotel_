@@ -25,22 +25,6 @@ $liste_clients = recuperer_liste_clients_actifs();
         --bs-btn-hover-border-color: #fff;
     }
 
-    .btn-danger-custom {
-        --bs-btn-color: #fff;
-        --bs-btn-bg: #b30617;
-        --bs-btn-border-color: #fff;
-        --bs-btn-hover-bg: #b30617;
-        --bs-btn-hover-border-color: #fff;
-    }
-
-    .btn-success-custom {
-        --bs-btn-color: #fff;
-        --bs-btn-bg: #013534;
-        --bs-btn-border-color: #fff;
-        --bs-btn-hover-bg: #013534;
-        --bs-btn-hover-border-color: #fff;
-    }
-
     .card-body {
         color: black;
     }
@@ -65,7 +49,7 @@ $liste_clients = recuperer_liste_clients_actifs();
 
         <?php
         // Affiche un message de succès s'il existe et n'est pas vide
-        if (isset($_SESSION['message-success-global']) && !empty($_SESSION['message-success-global'])) {
+        if (!empty($_SESSION['message-success-global'])) {
         ?>
             <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
                 <?= $_SESSION['message-success-global'] ?>
@@ -76,7 +60,7 @@ $liste_clients = recuperer_liste_clients_actifs();
 
         <?php
         // Affiche un message d'erreur s'il existe et n'est pas vide
-        if (isset($_SESSION['message-erreur-global']) && !empty($_SESSION['message-erreur-global'])) {
+        if (!empty($_SESSION['message-erreur-global'])) {
         ?>
             <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
                 <?= $_SESSION['message-erreur-global'] ?>
@@ -110,7 +94,6 @@ $liste_clients = recuperer_liste_clients_actifs();
                                 <th scope="col">Date & Heure</th>
                                 <th scope="col">Client(e)</th>
                                 <th scope="col">Montant Total (FCFA)</th>
-                                <th scope="col">Statut</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -129,7 +112,28 @@ $liste_clients = recuperer_liste_clients_actifs();
                             ?>
                                 <tr>
                                     <!-- <td><input type="checkbox" name="selection[]" value="<?= $reservation['num_res']; ?>"></td> Case à cocher pour la sélection -->
-                                    <td><?= $reservation['num_res'] ?></td>
+                                    <td>
+                                        <?= $reservation['num_res'] ?>
+                                        <br>
+                                        <!-- Afficher le statut des réservations -->
+                                        <?php if ($reservation['statut'] === 'En cours de validation') : ?>
+                                            <span class="badge bg-warning ">
+                                                En cours de validation
+                                            </span>
+                                        <?php elseif ($reservation['statut'] === 'Rejeter') : ?>
+                                            <span class="badge bg-danger ">
+                                                Rejeter
+                                            </span>
+                                        <?php elseif ($reservation['statut'] === 'Valider') : ?>
+                                            <span class="badge bg-success ">
+                                                Validé
+                                            </span>
+                                        <?php else : ?>
+                                            <span class="badge bg-secondary ">
+                                                Statut inconnu
+                                            </span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?= date('d-m-Y H:i:s', strtotime($reservation['creer_le'])) ?></td>
                                     <td>
                                         <?php
@@ -150,20 +154,6 @@ $liste_clients = recuperer_liste_clients_actifs();
                                     </td>
                                     <td>
                                         <?= $reservation['prix_total'] ?>
-                                    </td>
-                                    <td>
-                                        <!-- Afficher les boutons avec les styles en fonction du statut -->
-                                        <div class="btn-group" role="group" aria-label="Actions de réservation">
-                                            <?php if ($reservation['statut'] === 'En cours de validation') : ?>
-                                                <button type="button" class="btn btn-warning" style="color: #fff;">En cours de validation</button>
-                                            <?php elseif ($reservation['statut'] === 'Rejeter') : ?>
-                                                <button type="button" class="btn btn-danger" style="color: #fff;">Rejeter</button>
-                                            <?php elseif ($reservation['statut'] === 'Valider') : ?>
-                                                <button type="button" class="btn btn-success" style="color: #fff;">Validé</button>
-                                            <?php else : ?>
-                                                <button type="button" class="btn btn-secondary">Statut inconnu</button>
-                                            <?php endif; ?>
-                                        </div>
                                     </td>
 
                                     <td>

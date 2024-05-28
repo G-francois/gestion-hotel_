@@ -24,7 +24,7 @@ include './app/commum/aside.php';
 
     <?php
     // Vérifier s'il y a un message de succès et s'il n'est pas vide
-    if (isset($_SESSION['ajout-message-success-global']) && !empty($_SESSION['ajout-message-success-global'])) {
+    if (!empty($_SESSION['ajout-message-success-global'])) {
     ?>
         <div class="alert alert-primary" style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
             <?= $_SESSION['ajout-message-success-global'] ?>
@@ -35,7 +35,7 @@ include './app/commum/aside.php';
 
     <?php
     // Vérifier s'il y a un message d'erreur et s'il n'est pas vide
-    if (isset($_SESSION['ajout-message-erreur-global']) && !empty($_SESSION['ajout-message-erreur-global'])) {
+    if (!empty($_SESSION['ajout-message-erreur-global'])) {
     ?>
         <div class="alert alert-danger" style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
             <?= $_SESSION['ajout-message-erreur-global'] ?>
@@ -53,8 +53,8 @@ include './app/commum/aside.php';
                     Nom:
                     <span class="text-danger">(*)</span>
                 </label>
-                <input type="text" name="nom" id="inscription-nom" class="form-control" placeholder="Veuillez entrer votre nom" value="<?= (isset($donnees["nom"]) && !empty($donnees["nom"])) ? $donnees["nom"] : ''; ?>" required>
-                <?php if (isset($erreurs["nom"]) && !empty($erreurs["nom"])) { ?>
+                <input type="text" name="nom" id="inscription-nom" class="form-control" placeholder="Veuillez entrer votre nom" value="<?= (!empty($donnees["nom"])) ? $donnees["nom"] : ''; ?>" required>
+                <?php if (!empty($erreurs["nom"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["nom"]; ?>
                     </span>
@@ -67,8 +67,8 @@ include './app/commum/aside.php';
                     Prénoms:
                     <span class="text-danger">(*)</span>
                 </label>
-                <input type="text" name="prenom" id="inscription-prenom" class="form-control" placeholder="Veuillez entrer vos prénoms" value="<?= (isset($donnees["prenom"]) && !empty($donnees["prenom"])) ? $donnees["prenom"] : ''; ?>" required>
-                <?php if (isset($erreurs["prenom"]) && !empty($erreurs["prenom"])) { ?>
+                <input type="text" name="prenom" id="inscription-prenom" class="form-control" placeholder="Veuillez entrer vos prénoms" value="<?= (!empty($donnees["prenom"])) ? $donnees["prenom"] : ''; ?>" required>
+                <?php if (!empty($erreurs["prenom"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["prenom"]; ?>
                     </span>
@@ -77,19 +77,19 @@ include './app/commum/aside.php';
         </div>
 
         <div class="form-group row">
-            <!-- Le champs sexe -->
+            <!-- Le champ sexe -->
             <div class="col-sm-6  mb-2">
                 <label for="sexe">
                     Sexe :
                     <span class="text-danger">(*)</span>
                 </label>
-                <div style="padding-left: 0px; padding-right: 0px;">
+                <div style="padding-left: 0; padding-right: 0;">
                     <select class="sexe form-control" id="sexe" name="sexe">
                         <option value="" disabled selected>Sélectionnez le sexe</option>
                         <option value="Masculin">Masculin</option>
                         <option value="Féminin">Féminin</option>
                     </select>
-                    <?php if (isset($erreurs["sexe"]) && !empty($erreurs["sexe"])) { ?>
+                    <?php if (!empty($erreurs["sexe"])) { ?>
                         <span class="text-danger">
                             <?php echo $erreurs["sexe"]; ?>
                         </span>
@@ -103,8 +103,8 @@ include './app/commum/aside.php';
                     Téléphone:
                     <span class="text-danger">(*)</span>
                 </label>
-                <input type="text" name="telephone" id="inscription-telephone" class="form-control" placeholder="Veuillez entrer votre numéro de téléphone" value="<?= (isset($donnees["telephone"]) && !empty($donnees["telephone"])) ? $donnees["telephone"] : ''; ?>" required>
-                <?php if (isset($erreurs["telephone"]) && !empty($erreurs["telephone"])) { ?>
+                <input type="text" name="telephone" id="inscription-telephone" class="form-control" placeholder="Veuillez entrer votre numéro de téléphone" value="<?= (!empty($donnees["telephone"])) ? $donnees["telephone"] : ''; ?>" required>
+                <?php if (!empty($erreurs["telephone"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["telephone"]; ?>
                     </span>
@@ -119,8 +119,8 @@ include './app/commum/aside.php';
                     Adresse mail:
                     <span class="text-danger">(*)</span>
                 </label>
-                <input type="email" name="email" id="inscription-email" class="form-control" placeholder="Veuillez entrer votre adresse mail" value="<?= (isset($donnees["email"]) && !empty($donnees["email"])) ? $donnees["email"] : ''; ?>" required>
-                <?php if (isset($erreurs["email"]) && !empty($erreurs["email"])) { ?>
+                <input type="email" name="email" id="inscription-email" class="form-control" placeholder="Veuillez entrer votre adresse mail" value="<?= (!empty($donnees["email"])) ? $donnees["email"] : ''; ?>" required>
+                <?php if (!empty($erreurs["email"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["email"]; ?>
                     </span>
@@ -133,8 +133,8 @@ include './app/commum/aside.php';
                     Nom d'utilisateur:
                     <span class="text-danger">(*)</span>
                 </label>
-                <input type="text" name="nom-utilisateur" id="inscription-nom-utilisateur" class="form-control" placeholder="Veuillez entrer votre nom d'utilisateur" value="<?= (isset($donnees["nom-utilisateur"]) && !empty($donnees["nom-utilisateur"])) ? $donnees["nom-utilisateur"] : ''; ?>" required>
-                <?php if (isset($erreurs["nom-utilisateur"]) && !empty($erreurs["nom-utilisateur"])) { ?>
+                <input type="text" name="nom-utilisateur" id="inscription-nom-utilisateur" class="form-control" placeholder="Veuillez entrer votre nom d'utilisateur" value="<?= (!empty($donnees["nom-utilisateur"])) ? $donnees["nom-utilisateur"] : ''; ?>" required>
+                <?php if (!empty($erreurs["nom-utilisateur"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["nom-utilisateur"]; ?>
                     </span>
@@ -143,20 +143,20 @@ include './app/commum/aside.php';
         </div>
 
         <div class="form-group row ">
-            <!-- Le champs type d'utilisateur -->
+            <!-- Le champ type d'utilisateur -->
             <div class="col-sm-6  mb-2">
                 <label for="profile">
                     Profile :
                     <span class="text-danger">(*)</span>
                 </label>
-                <div style="padding-left: 0px; padding-right: 0px;">
+                <div style="padding-left: 0; padding-right: 0;">
                     <select class="sexe form-control" id="profile" name="profil">
                         <option value="" disabled selected>Sélectionnez le type d'utilisateur</option>
                         <option value="ADMINISTRATEUR">ADMINISTRATEUR</option>
                         <option value="RECEPTIONNISTE">RECEPTIONNISTE</option>
                         <option value="CLIENT">CLIENT</option>
                     </select>
-                    <?php if (isset($erreurs["profil"]) && !empty($erreurs["profil"])) { ?>
+                    <?php if (!empty($erreurs["profil"])) { ?>
                         <span class="text-danger">
                             <?php echo $erreurs["profil"]; ?>
                         </span>
@@ -170,8 +170,8 @@ include './app/commum/aside.php';
                     Mot de passe:
                     <span class="text-danger">(*)</span>
                 </label>
-                <input type="password" name="mot-passe" id="inscription-mot-passe" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="<?= (isset($donnees["mot-passe"]) && !empty($donnees["mot-passe"])) ? $donnees["mot-passe"] : ''; ?>" required>
-                <?php if (isset($erreurs["mot-passe"]) && !empty($erreurs["mot-passe"])) { ?>
+                <input type="password" name="mot-passe" id="inscription-mot-passe" class="form-control" placeholder="Veuillez entrer votre mot de passe" value="<?= (!empty($donnees["mot-passe"])) ? $donnees["mot-passe"] : ''; ?>" required>
+                <?php if (!empty($erreurs["mot-passe"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["mot-passe"]; ?>
                     </span>
@@ -180,14 +180,14 @@ include './app/commum/aside.php';
         </div>
 
         <div class="form-group row ">
-            <!-- Le champ retapez mot de passe -->
+            <!-- Le champ, retapez mot de passe -->
             <div class="col-sm-6 mb-2">
                 <label for="inscription-retapez-mot-passe">
                     Retaper mot de passe:
                     <span class="text-danger">(*)</span>
                 </label>
-                <input type="password" name="retapez-mot-passe" id="inscription-retapez-mot-passe" class="form-control" placeholder="Veuillez retaper votre mot de passe" value="<?= (isset($donnees["retapez-mot-passe"]) && !empty($donnees["retapez-mot-passe"])) ? $donnees["retapez-mot-passe"] : ''; ?>" required>
-                <?php if (isset($erreurs["retapez-mot-passe"]) && !empty($erreurs["retapez-mot-passe"])) { ?>
+                <input type="password" name="retapez-mot-passe" id="inscription-retapez-mot-passe" class="form-control" placeholder="Veuillez retaper votre mot de passe" value="<?= (!empty($donnees["retapez-mot-passe"])) ? $donnees["retapez-mot-passe"] : ''; ?>" required>
+                <?php if (!empty($erreurs["retapez-mot-passe"])) { ?>
                     <span class="text-danger">
                         <?php echo $erreurs["retapez-mot-passe"]; ?>
                     </span>

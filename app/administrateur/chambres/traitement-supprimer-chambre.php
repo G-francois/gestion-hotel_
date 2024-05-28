@@ -1,5 +1,8 @@
 <?php
 $chambreId = $params[3];
+$message_erreur_global ="";
+$message_success_global = "";
+
 
 // Appeler la fonction de suppression de chambre
 if (supprimer_chambre($chambreId)) {

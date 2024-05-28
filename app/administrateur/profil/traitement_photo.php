@@ -21,14 +21,14 @@ if (!is_dir($dossierImage . "upload/")) {
     mkdir($dossierImage . "upload/");
 }
 
-// Vérifier si le dossier Utilisateurs existe, sinon le creer
+// Vérifier si le dossier Utilisateurs existe, sinon le créer
 $dossierUtilisateurs = $dossierImage . "upload/Utilisateurs/";
 if (!is_dir($dossierUtilisateurs)) {
     mkdir($dossierUtilisateurs);
 }
 
 
-// Vérifier si le dossier categorie existe dans le dossier repas, sinon le creer
+// Vérifier si le dossier catégorie existe dans le dossier repas, sinon le créer
 $dossierUsername = $dossierUtilisateurs . $idUtilisateur . "/";
 if (!is_dir($dossierUsername)) {
     mkdir($dossierUsername);
@@ -72,10 +72,10 @@ if (isset($_POST['change_photo'])) {
                         }
                     } else {
 
-                        $_SESSION['photo-erreurs-admin'] = "La mise à jour de l'image à echouer.";
+                        $_SESSION['photo-erreurs-admin'] = "La mise à jour de l'image à échouer.";
                     }
                 } else {
-                    $_SESSION['photo-erreurs-admin'] = "L'extension de votre image n'est pas pris en compte. <br> Extensions autorisées [ PNG/JPG/JPEG/GIF ]";
+                    $_SESSION['photo-erreurs-admin'] = "L'extension de votre image n'est pas pris en compte. <br> Extensions autorisées [PNG/JPG/JPEG/GIF]";
                 }
             } else {
                 $_SESSION['photo-erreurs-admin'] = "Fichier trop lourd. Poids maximum autorisé : 3mo";

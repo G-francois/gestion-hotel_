@@ -35,7 +35,7 @@ if (empty($erreurs)) {
 
         exit;
     } else {
-        $message_erreur_global = "L'adresse email ou le mot de passe est incorrecte. Veuillez reéssayer.";
+        $message_erreur_global = "L'adresse email ou le mot de passe est incorrecte. Veuillez réssayer.";
     }
 } else {
     $_SESSION['connexion-erreurs-admin'] = $erreurs;

@@ -4,12 +4,12 @@ $message_erreur_global = "";
 $message_success_global = "";
 $erreurs = [];
 
-if (isset($_POST["nom"]) && !empty($_POST["nom"])) {
+if (!empty($_POST["nom"])) {
     $nom = htmlentities($_POST["nom"]);
     $pattern = '/^[A-Z]+$/';
-    /*Dans ce code, j'ai ajouté une nouvelle validation pour le champ "nom". J'ai défini le pattern /^[A-Z]+$/
+    /*Dans ce code, j'ai ajouté une nouvelle validation pour le champ "nom". J'ai défini le modèle /^[A-Z]+$/
 	 qui vérifie que la chaîne $nom contient uniquement des lettres majuscules. Ensuite, j'ai utilisé la fonction
-	 preg_match() pour valider si le nom correspond au pattern. Si c'est le cas, le nom est ajouté aux données
+	 preg_match() pour valider si le nom correspond au modèle. Si c'est le cas, le nom est ajouté aux données
 	 ($donnees["nom"]). Sinon, un message d'erreur approprié est stocké dans le tableau $erreurs["nom"].
 	*/
     if (preg_match($pattern, $nom)) {
@@ -21,25 +21,25 @@ if (isset($_POST["nom"]) && !empty($_POST["nom"])) {
     $erreurs["nom"] = "Le champ nom est requis. Veuillez le renseigner.";
 }
 
-if (isset($_POST["prenom"]) && !empty($_POST["prenom"])) {
+if (!empty($_POST["prenom"])) {
     $donnees["prenom"] = $_POST["prenom"];
 } else {
     $erreurs["prenom"] = "Le champs prénom est requis. Veuillez le renseigné.";
 }
 
-if (isset($_POST["sexe"]) && !empty($_POST["sexe"])) {
+if (!empty($_POST["sexe"])) {
     $donnees["sexe"] = $_POST["sexe"];
 } else {
     $erreurs["sexe"] = "Le champs sexe est requis. Veuillez le renseigné.";
 }
 
-if (isset($_POST["profil"]) && !empty($_POST["profil"])) {
+if (!empty($_POST["profil"])) {
     $donnees["profil"] = $_POST["profil"];
 } else {
     $erreurs["profil"] = "Le champs profile est requis. Veuillez le renseigné.";
 }
 
-if (isset($_POST["telephone"]) && !empty($_POST["telephone"])) {
+if (!empty($_POST["telephone"])) {
     $telephone = trim(htmlentities($_POST["telephone"]));
     $pattern = '/^\d{8,}$/';
 
@@ -53,7 +53,7 @@ if (isset($_POST["telephone"]) && !empty($_POST["telephone"])) {
 }
 
 
-if (isset($_POST["email"]) && !empty($_POST["email"])) {
+if (!empty($_POST["email"])) {
     if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
         $donnees["email"] = trim(htmlentities($_POST["email"]));
     } else {
@@ -63,7 +63,7 @@ if (isset($_POST["email"]) && !empty($_POST["email"])) {
     $erreurs["email"] = "Le champs email est requis. Veuillez le renseigner.";
 }
 
-if (isset($_POST["nom-utilisateur"]) && !empty($_POST["nom-utilisateur"])) {
+if (!empty($_POST["nom-utilisateur"])) {
     $donnees["nom-utilisateur"] = $_POST["nom-utilisateur"];
 } else {
     $erreurs["nom-utilisateur"] = "Le champs nom-utilisateur est requis. Veuillez le renseigner.";
@@ -91,7 +91,7 @@ if (isset($_POST["mot-passe"])) {
 
 
 // if (check_email_exist_in_db($_POST["email"])) {
-//     $erreurs["email"] = "Cette adresse mail est déjà utilisée. Veuillez le changez.";
+//     $erreurs["email"] = "Cette adresse mail est déjà utilisée. Veuillez-le changez.";
 // }
 
 if (check_email_and_profile_in_db($_POST["email"])) {

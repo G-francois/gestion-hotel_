@@ -9,7 +9,7 @@ $erreurs = [];
 
 
 
-if (isset($_POST['nom']) && !empty($_POST['nom']) && $_POST['nom'] != $donnees['nom']) {
+if (!empty($_POST['nom']) && $_POST['nom'] != $donnees['nom']) {
     $new_data['nom'] = $_POST['nom'];
 } else {
     if (empty($_POST['nom'])) {
@@ -19,7 +19,7 @@ if (isset($_POST['nom']) && !empty($_POST['nom']) && $_POST['nom'] != $donnees['
     }
 }
 
-if (isset($_POST['prenom']) && !empty($_POST['prenom']) && $_POST['prenom'] != $donnees['prenom']) {
+if (!empty($_POST['prenom']) && $_POST['prenom'] != $donnees['prenom']) {
     $new_data['prenom'] = $_POST['prenom'];
 } else {
     if (empty($_POST['prenom'])) {
@@ -29,7 +29,7 @@ if (isset($_POST['prenom']) && !empty($_POST['prenom']) && $_POST['prenom'] != $
     }
 }
 
-if (isset($_POST['sexe']) && !empty($_POST['sexe']) && $_POST['sexe'] != $donnees['sexe']) {
+if (!empty($_POST['sexe']) && $_POST['sexe'] != $donnees['sexe']) {
     $new_data['sexe'] = $_POST['sexe'];
 } else {
     if (empty($_POST['sexe'])) {
@@ -39,7 +39,7 @@ if (isset($_POST['sexe']) && !empty($_POST['sexe']) && $_POST['sexe'] != $donnee
     }
 }
 
-if (isset($_POST['telephone']) && !empty($_POST['telephone']) && $_POST['telephone'] != $donnees['telephone']) {
+if (!empty($_POST['telephone']) && $_POST['telephone'] != $donnees['telephone']) {
     $telephone = trim(htmlentities($_POST['telephone']));
     $pattern = '/^\d{8,}$/';
 
@@ -56,9 +56,9 @@ if (isset($_POST['telephone']) && !empty($_POST['telephone']) && $_POST['telepho
     }
 }
 
-die(var_dump($new_data['telephone']));
+//die(var_dump($new_data['telephone']));
 
-if (isset($_POST['email']) && !empty($_POST['email']) && $_POST['email'] != $donnees['email']) {
+if (!empty($_POST['email']) && $_POST['email'] != $donnees['email']) {
     $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
 
     if ($email !== false) {
@@ -75,7 +75,7 @@ if (isset($_POST['email']) && !empty($_POST['email']) && $_POST['email'] != $don
     }
 }
 
-if (isset($_POST[' nom_utilisateur']) && !empty($_POST[' nom_utilisateur']) && $_POST[' nom_utilisateur'] != $donnees[' nom_utilisateur']) {
+if (!empty($_POST[' nom_utilisateur']) && $_POST[' nom_utilisateur'] != $donnees[' nom_utilisateur']) {
     $new_data[' nom_utilisateur'] = $_POST[' nom_utilisateur'];
 } else {
     if (empty($_POST[' nom_utilisateur'])) {
@@ -85,7 +85,7 @@ if (isset($_POST[' nom_utilisateur']) && !empty($_POST[' nom_utilisateur']) && $
     }
 }
 
-if (isset($_POST['profil']) && !empty($_POST['profil']) && $_POST['profil'] != $donnees['profil']) {
+if (!empty($_POST['profil']) && $_POST['profil'] != $donnees['profil']) {
     $new_data['profil'] = $_POST['profil'];
 } else {
     if (empty($_POST['profil'])) {
@@ -111,8 +111,8 @@ if (empty($erreurs)) {
         if ($miseajour) {
             $message_success_global = "Les informations a été modifier avec succès !";
         } else {
-            // La  mise à jour du statut a échoué
-            $message_erreur_global =  "Oups ! Une erreur s'est produite lors de la modification. Veuiller réessayez.";
+            // La mise à jour du statut a échoué.
+            $message_erreur_global =  "Oups ! Une erreur s'est produite lors de la modification. Veuillez réessayez.";
         }
     } else {
         // Aucune user

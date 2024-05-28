@@ -68,7 +68,7 @@ if (isset($_POST['change_photo'])) {
             $message_erreur_global = "Veuillez télécharger une image pour la chambre.";
         }
     } else {
-        $message_erreur_global = "La mise à jour à echouer. Vérifier votre mot de passe et réessayez.";
+        $message_erreur_global = "La mise à jour à échouer. Vérifier votre mot de passe et réessayez.";
     }
 }
 
