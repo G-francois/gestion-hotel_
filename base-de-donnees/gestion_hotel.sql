@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 06 fév. 2024 à 14:01
+-- Généré le : sam. 01 mars 2025 à 07:04
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.2.0
 
@@ -60,39 +60,37 @@ CREATE TABLE IF NOT EXISTS `chambre` (
   `creer_le` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `maj_le` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`num_chambre`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `chambre`
 --
 
 INSERT INTO `chambre` (`num_chambre`, `cod_typ`, `lib_typ`, `details`, `personnes`, `superficies`, `pu`, `photos`, `est_actif`, `est_supprimer`, `creer_le`, `maj_le`) VALUES
-(1, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo.jpg', 1, 0, '2023-12-11 10:54:20', '2024-02-06 12:27:27'),
-(2, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles.jpg', 1, 0, '2023-12-11 10:54:34', '2024-02-06 12:27:27'),
-(3, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples.jpg', 1, 0, '2023-12-11 10:55:23', '2024-02-06 12:48:41'),
-(4, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites.jpg', 1, 0, '2023-12-11 10:55:38', '2024-02-06 12:48:41'),
-(5, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo2.jpg', 1, 0, '2023-12-11 10:56:04', '2024-02-06 11:28:47'),
-(6, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles2.jpg', 1, 0, '2023-12-11 10:56:16', '2023-12-15 11:18:37'),
-(7, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples2.jpg', 1, 0, '2023-12-11 10:56:39', '2023-12-15 09:41:01'),
-(8, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites2.jpg', 1, 0, '2023-12-11 10:56:52', '2023-12-14 15:01:59'),
-(9, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo3.jpg', 1, 0, '2023-12-11 10:57:19', '2023-12-15 09:49:31'),
+(1, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo.jpg', 0, 0, '2023-12-11 10:54:20', '2025-02-24 10:01:00'),
+(2, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles.jpg', 0, 0, '2023-12-11 10:54:34', '2025-02-24 10:01:01'),
+(3, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples.jpg', 0, 0, '2023-12-11 10:55:23', '2025-02-24 10:06:39'),
+(4, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites.jpg', 1, 0, '2023-12-11 10:55:38', '2025-01-02 08:21:46'),
+(5, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo2.jpg', 0, 0, '2023-12-11 10:56:04', '2025-02-24 10:08:45'),
+(6, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles2.jpg', 0, 0, '2023-12-11 10:56:16', '2025-02-24 10:06:40'),
+(7, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples2.jpg', 1, 0, '2023-12-11 10:56:39', '2024-02-06 17:22:20'),
+(8, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites2.jpg', 1, 0, '2023-12-11 10:56:52', '2024-11-01 13:03:59'),
+(9, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo3.jpg', 0, 0, '2023-12-11 10:57:19', '2025-02-24 10:08:45'),
 (10, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles3.jpg', 1, 0, '2023-12-11 11:57:08', '2023-12-15 09:49:32'),
 (11, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples3.jpg', 1, 0, '2023-12-11 11:57:25', '2023-12-15 09:49:32'),
-(12, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites3.jpg', 1, 0, '2023-12-11 11:57:40', NULL),
+(12, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites3.jpg', 1, 0, '2023-12-11 11:57:40', '2025-01-02 13:14:53'),
 (13, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo4.jpg', 1, 0, '2023-12-11 11:57:55', NULL),
-(14, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles4.jpg', 1, 0, '2023-12-11 11:59:05', NULL),
+(14, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles4.jpg', 1, 0, '2023-12-11 11:59:05', '2024-09-16 10:05:30'),
 (15, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples4.jpg', 1, 0, '2023-12-11 11:59:23', '2023-12-11 12:32:19'),
-(16, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites4.jpg', 1, 0, '2023-12-11 11:59:40', '2023-12-11 12:42:40'),
+(16, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites4.jpg', 1, 0, '2023-12-11 11:59:40', '2024-09-16 10:05:30'),
 (17, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo5.jpg', 1, 0, '2023-12-11 11:59:54', NULL),
 (18, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles5.jpg', 1, 0, '2023-12-11 12:06:31', NULL),
-(19, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples5.jpg', 1, 0, '2023-12-11 12:06:53', NULL),
+(19, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples5.jpg', 1, 0, '2023-12-11 12:06:53', '2024-11-01 13:13:08'),
 (20, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites5.jpg', 1, 0, '2023-12-11 12:07:11', '2023-12-14 15:02:31'),
-(21, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo6.jpg', 1, 0, '2023-12-11 12:07:24', '2023-12-14 15:02:31'),
+(21, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo6.jpg', 1, 0, '2023-12-11 12:07:24', '2024-11-01 13:13:08'),
 (22, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles6.jpg', 1, 0, '2023-12-11 12:17:13', NULL),
 (23, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples6.jpg', 1, 0, '2023-12-11 12:17:58', NULL),
 (24, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites6.jpg', 1, 0, '2023-12-11 12:18:26', NULL),
-(25, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo7.jpg', 1, 0, '2023-12-12 08:41:30', NULL),
-(26, 2, 'Double', 'Profitez du balcon et de la vue sur l\'esplanade. Cette chambre est conçue pour héberger deux personnes et est équipée d\'un grand lit standard (140-160*200) ou de deux lits simples (90*200) et a une superficie de 50m².', '2', '50m²', 25000, '/gestion-hotel/public/images/Chambres/Double/Doubles7.jpg', 1, 0, '2023-12-12 08:55:58', NULL),
 (27, 3, 'Triple', 'Idéal pour les excursions en petits groupes. Elle est équipée de 3 couchages et peut donc accueillir 3 personnes. La configuration peut être 3 lits d\'une personne ou bien 1 lit double de 2 personnes et 1 d\'une personne avec un canapé et a une superficie de 70m².', '3', '70m²', 35000, '/gestion-hotel/public/images/Chambres/Triple/Triples7.jpg', 1, 0, '2023-12-12 08:56:12', NULL),
 (28, 4, 'Suite', 'Il possède généralement une salle de bain attenante, un salon et la plupart du temps, un coin repas avec une vue imprenable. Elle a une superficie de 100m² et peut accueillir jusqu\'à cinq voyageurs.', '5', '100m²', 50000, '/gestion-hotel/public/images/Chambres/Suite/Suites7.jpg', 1, 0, '2023-12-12 08:56:28', NULL),
 (29, 1, 'Solo', 'La chambre solo allie confort et fonctionnalité dans un esprit simple et chaleureux. La taille de la chambre et la vue sur la petite cour pavée rappellent Paris et ses ruelles d’antan. Devant le pupitre, le solitaire peut prendre la plume… Rien ne viendra le perturber. Elle a une superficie de 30m² et ne peut accueillir qu\'un seul voyageur.', '1', '30m²', 15000, '/gestion-hotel/public/images/Chambres/Solo/Solo8.jpg', 1, 0, '2023-12-12 08:56:54', NULL),
@@ -199,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `prix_chambres` (
   `creer_le` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `maj_le` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Déchargement des données de la table `prix_chambres`
@@ -230,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `repas` (
   `creer_le` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `maj_le` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`cod_repas`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `repas`
@@ -306,14 +304,7 @@ CREATE TABLE IF NOT EXISTS `token` (
   `créer_le` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `maj_le` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
-
---
--- Déchargement des données de la table `token`
---
-
-INSERT INTO `token` (`id`, `user_id`, `type`, `token`, `est_actif`, `est_supprimer`, `créer_le`, `maj_le`) VALUES
-(1, 1, 'VALIDATION_COMPTE', '65c23b362a211', 0, 1, '2024-02-06 13:59:18', '2024-02-06 12:59:57');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -338,14 +329,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `creer_le` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `maj_le` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
-
---
--- Déchargement des données de la table `utilisateur`
---
-
-INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `sexe`, `telephone`, `email`, `nom_utilisateur`, `avatar`, `profil`, `mot_passe`, `est_actif`, `est_supprimer`, `creer_le`, `maj_le`) VALUES
-(1, 'GNONHOUE', 'Fran&ccedil;ois', NULL, NULL, 'francois.gnonhoue@gmail.com', 'G. Francois', 'Aucune_image', 'CLIENT', '01b307acba4f54f55aafc33bb06bbbf6ca803e9a', 1, 0, '2024-02-06 13:59:18', '2024-02-06 12:59:57');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Contraintes pour les tables déchargées
