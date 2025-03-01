@@ -12,7 +12,7 @@ include './app/commum/aside.php';
 <main id="main" class="container-fluid" style="margin-bottom: 35px;">
 
     <section class="profile">
-        <!-- <style>
+        <style>
             .card-body h4 {
                 font-size: 24px;
                 font-weight: 700;
@@ -92,11 +92,11 @@ include './app/commum/aside.php';
             .col-form-label {
                 color: white;
             }
-        </style> -->
+        </style>
         <div class="pagetitle ml-2 mr-2">
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a style="text-decoration: none; color: #cda45e;" href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
                     <li class="breadcrumb-item"><?= isset($_SESSION['utilisateur_connecter_admin']) ?  $_SESSION['utilisateur_connecter_admin']['profil'] : 'Profile' ?></li>
                     <li class="breadcrumb-item active">Paramètres</li>
                 </ol>
@@ -171,14 +171,14 @@ include './app/commum/aside.php';
                         <!-- Formulaire de la mise à jour photo -->
                         <form action="<?= PATH_PROJECT ?>administrateur/profil/traitement_photo" method="post" enctype="multipart/form-data">
                             <div class="row" style="text-align: center; display:flex;">
-                                <div class="col-sm-9 text-secondary">
-                                    <label class="form-label" for="customFile" style="color: gray;">Changer ma photo de profil</label>
+                                <div class="col-md-8 text-secondary">
+                                    <label class="form-label" for="customFile">Changer ma photo de profil</label>
                                     <input type="file" class="form-control" id="image" name="image" />
                                 </div>
 
-                                <div class="text-center col-sm-3" style="justify-content: center; margin-top: 31px;">
+                                <div class="text-center col-md-4" style="justify-content: center; margin-top: 31px;">
                                     <!-- Bouton du Modal mettre à jour -->
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal0" style="font-size: revert; padding: 9px;">Mettre à jour</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal0">Mettre à jour</button>
 
                                     <div class="col-md-8 col-lg-12">
                                         <div class="text-center" style="color: #070b3a;">
@@ -254,6 +254,7 @@ include './app/commum/aside.php';
                     </div>
                 </form>
 
+                <br>
                 <hr>
                 <!-- Affichage des informations de l'utilisateur -->
                 <div class="profile">
@@ -283,6 +284,8 @@ include './app/commum/aside.php';
                     </div>
 
                 </div>
+
+                <br>
                 <hr>
 
                 <div>
@@ -572,6 +575,7 @@ include './app/commum/aside.php';
 
 </main><!-- End #main -->
 
+</div>
 </div>
 
 <?php

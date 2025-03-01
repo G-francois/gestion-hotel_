@@ -29,12 +29,12 @@ $numClient = recuperer_id_utilisateur_par_son_mail($donnees["email"]);
 unset($_POST['email']);
 
 if (!empty($_POST)) {
-  //die(var_dump($_POST));
+//   die(var_dump($_POST));
     if (!empty($_POST['editing'])) {
-
+        
         $numero_reservation = $_POST['editing'];
 
-        if (vérifier_client_reservation_exist_in_db($numClient, $numero_reservation)) {
+        if (verifier_client_reservation_exist_in_db($numClient, $numero_reservation)) {
             $liste_chambres_reservations = recuperer_liste_chambres_reservations($numero_reservation);
 
             $chambres = [];
@@ -145,10 +145,10 @@ if (!empty($_POST)) {
                         } elseif ((!empty($acc['nom_acc']) && !empty($acc['contact_acc']))) {
 
                             if (empty($errors)) {
-                                if (vérifier_nom_contact_accompagnateur_exist_in_db($acc['nom_acc'], $acc['contact_acc'])) {
+                                if (verifier_nom_contact_accompagnateur_exist_in_db($acc['nom_acc'], $acc['contact_acc'])) {
 
                                     $numAccompagnateur = recuperer_num_acc_par_son_contact($acc['contact_acc']);
-                                } elseif (vérifier_contact_accompagnateur_exist_in_db($acc['contact_acc'])) {
+                                } elseif (verifier_contact_accompagnateur_exist_in_db($acc['contact_acc'])) {
 
                                     if (!empty($numero_reservation)) {
 

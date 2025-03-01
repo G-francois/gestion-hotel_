@@ -19,7 +19,7 @@ $liste_clients = recuperer_liste_clients_actifs();
     <div class="pagetitle ">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
+            <li class="breadcrumb-item"><a style="text-decoration: none; color: #6c7293;" href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
                 <li class="breadcrumb-item active">Ajouter une commande</li>
             </ol>
         </nav>
@@ -52,7 +52,7 @@ $liste_clients = recuperer_liste_clients_actifs();
 
     <form action="<?= PATH_PROJECT ?>administrateur/commandes/ajout-commande-traitement" method="post" class="user">
         <div class="form-group row pt-5">
-            <div class="row">
+            <div class="row mb-3">
                 <!-- Le champ email -->
                 <div class="col-md-6 mb-3">
                     <label for="email"> Email du Client :
@@ -88,13 +88,13 @@ $liste_clients = recuperer_liste_clients_actifs();
 
             </div>
 
-            <div class="row">
+            <div class="row mb-3">
                 <!-- Le champ Nom du Repas -->
                 <div class="col-md-6 mb-3">
                     <label for="nom_repas">Nom du Repas :
                         <span class="text-danger">(*)</span>
                     </label>
-                    <select class="form-control" id="nom_repas" name="nom_repas[]">
+                    <select class="form-control" id="nom_repas" name="nom_repas[]" >
                         <option value="">Sélectionnez un repas</option>
                         <?php
                         $liste_repas = recuperer_nom_prix_repas();
@@ -123,8 +123,8 @@ $liste_clients = recuperer_liste_clients_actifs();
                 </div>
 
                 <!-- Bouton pour ajouter un repas -->
-                <div class="col-md-2 mb-3" style="display: flex; align-items: flex-end; justify-content: center;">
-                    <button type="button" class="btn btn-success" id="ajouter-repas" style="--bs-btn-color: #fff; --bs-btn-bg: #cda45e; --bs-btn-border-color: #000000; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #9d6b15; --bs-btn-hover-border-color: #000000;">+</button>
+                <div class="col-md-2 mb-3  mt-4" style="display: flex; align-items: flex-end; justify-content: center;">
+                    <button type="button" class="btn btn-success" id="ajouter-repas" >+</button>
                 </div>
             </div>
 
@@ -155,6 +155,10 @@ $liste_clients = recuperer_liste_clients_actifs();
     </form>
 
 </div>
+
+<br>
+<br>
+<br>
 
 
 <script>
@@ -202,7 +206,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                 <div class="row" id="repas-${compteurRepas}">
                     <div class="col-md-6 mb-3">
                         <label for="nom_repas-${compteurRepas}">Nom du Repas : <span class="text-danger">(*)</span></label>
-                        <select class="form-control nom_repas" id="nom_repas-${compteurRepas}" name="nom_repas[]-${compteurRepas}">
+                        <select class="form-control nom_repas"  id="nom_repas-${compteurRepas}" name="nom_repas[]-${compteurRepas}">
                             <option value="">Sélectionnez un repas</option>
                             <?php
                             $liste_repas = recuperer_nom_prix_repas();
@@ -215,10 +219,10 @@ $liste_clients = recuperer_liste_clients_actifs();
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="pu_repas-${compteurRepas}">Prix du Repas :</label>
-                        <input type="text" class="form-control pu_repas" placeholder="Le prix du repas sera automatiquement rempli" id="pu_repas-${compteurRepas}" name="pu_repas[]-${compteurRepas}" readonly>
+                        <input type="text" class="form-control pu_repas" placeholder="Prix du repas" id="pu_repas-${compteurRepas}" name="pu_repas[]-${compteurRepas}" readonly>
                     </div>
-                    <div class="col-md-2 mb-3" style="display: flex; align-items: flex-end; justify-content: center;">
-                        <button type="button" class="btn btn-danger" onclick="supprimerRepas(${compteurRepas})" style="--bs-btn-color: #fff; --bs-btn-bg: #3b070c; --bs-btn-border-color: #3b070c; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #b30617; --bs-btn-hover-border-color: #b30617;">-</button>
+                    <div class="col-md-2 mb-3  mt-4" style="display: flex; align-items: flex-end; justify-content: center;">
+                        <button type="button" class="btn btn-danger" onclick="supprimerRepas(${compteurRepas})" >-</button>
                     </div>
                 </div>
             `;

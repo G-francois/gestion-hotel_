@@ -35,7 +35,7 @@ if (!empty($_POST["num_res"])) {
 if (activer_reservation($numRes)) {
     $message_success_global = "La réservation est activer avec succès !";
 } else {
-    $message_erreur_global = "Oups ! Une erreur s'est produite lors de l'activation de la reservatio n.";
+    $message_erreur_global = "Oups ! Une erreur s'est produite lors de l'activation de la reservation.";
 }
 
 $_SESSION['message-erreur-global'] = $message_erreur_global;

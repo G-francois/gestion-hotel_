@@ -1,71 +1,81 @@
 <?php
 if (!check_if_user_connected_client()) {
-	header('location: ' . PATH_PROJECT . 'client/connexion/index');
-	exit;
+    header('location: ' . PATH_PROJECT . 'client/connexion/index');
+    exit;
 }
 
 include('./app/commum/header_client.php');
 
 ?>
 
-    <style>
-        .card-body {
-            color: black;
-        }
-    </style>
+<style>
+    .card-body {
+        color: black;
+    }
+</style>
 
-    <!-- Commencement du contenu de la page -->
-    <div class="container-fluid">
-        <!-- Titre de la page -->
-        <div class="pagetitle" style="padding-top: 126px;">
+<!-- Commencement du contenu de la page -->
+<div class="container-fluid">
+    <!-- Titre de la page -->
+    <!-- <div class="pagetitle" style="padding-top: 126px;">
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                     <li class="breadcrumb-item active">Liste des messages</li>
                 </ol>
             </nav>
+        </div> -->
+
+
+    <section id="hero4" class="d-flex align-items-center">
+        <div class="container-fluid position-relative text-center text-lg-start aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
+            <div class="row mt-5">
+                <div class="col-lg-12 mt-5 mb-4" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h1>Espace<span> Liste des messages</span></h1>
+                </div>
+            </div>
         </div>
+    </section>
+    <!-- Tableau de données liste reservations -->
+    <div class="card shadow mb-4">
 
-        <!-- Tableau de données liste reservations -->
-        <div class="card shadow mb-4">
+        <?php
+        // Affiche un message de succès s'il existe et n'est pas vide
+        if (!empty($_SESSION['message-success-global'])) {
+        ?>
+            <div class="alert alert-primary"
+                style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
+                <?= $_SESSION['message-success-global'] ?>
+            </div>
+        <?php
+        }
+        ?>
 
-			<?php
-			// Affiche un message de succès s'il existe et n'est pas vide
-			if (!empty($_SESSION['message-success-global'])) {
-				?>
-                <div class="alert alert-primary"
-                     style="color: white; background-color: #2653d4; text-align:center; border-color: snow;">
-					<?= $_SESSION['message-success-global'] ?>
-                </div>
-				<?php
-			}
-			?>
+        <?php
+        // Affiche un message d'erreur s'il existe et n'est pas vide
+        if (!empty($_SESSION['message-erreur-global'])) {
+        ?>
+            <div class="alert alert-danger"
+                style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
+                <?= $_SESSION['message-erreur-global'] ?>
+            </div>
+        <?php
+        }
+        ?>
 
-			<?php
-			// Affiche un message d'erreur s'il existe et n'est pas vide
-			if (!empty($_SESSION['message-erreur-global'])) {
-				?>
-                <div class="alert alert-danger"
-                     style="color: white; background-color: #9f0808; text-align:center; border-color: snow;">
-					<?= $_SESSION['message-erreur-global'] ?>
-                </div>
-				<?php
-			}
-			?>
+        <div class="card-body" style="color: black;">
+            <div class="table-responsive">
+                <?php
+                // Récupérer la liste des réservations avec les informations du client et des accompagnateurs
+                $clientConnecteID = $_SESSION['utilisateur_connecter_client']['id'];
 
-            <div class="card-body" style="color: black;">
-                <div class="table-responsive">
-					<?php
-					// Récupérer la liste des réservations avec les informations du client et des accompagnateurs
-					$clientConnecteID = $_SESSION['utilisateur_connecter_client']['id'];
+                $liste_messages = recuperer_liste_messages($clientConnecteID);
 
-					$liste_messages = recuperer_liste_messages($clientConnecteID);
-
-					if (!empty($liste_messages)) {
-						?>
-                        <table class="table table-striped" id="dataTable" width="100%" cellspacing="0"
-                               style="text-align: center;">
-                            <thead>
+                if (!empty($liste_messages)) {
+                ?>
+                    <table class="table table-striped" id="dataTable" width="100%" cellspacing="0"
+                        style="text-align: center;">
+                        <thead>
                             <tr>
                                 <th scope="col">Numéro de messages</th>
                                 <th scope="col">Date & Heure</th>
@@ -74,13 +84,13 @@ include('./app/commum/header_client.php');
                                 <th scope="col">Message</th>
                                 <th scope="col">Actions</th>
                             </tr>
-                            </thead>
+                        </thead>
 
-                            <tbody>
-							<?php
-							// Parcours de la liste des chambres
-							foreach ($liste_messages as $messages) {
-								?>
+                        <tbody>
+                            <?php
+                            // Parcours de la liste des chambres
+                            foreach ($liste_messages as $messages) {
+                            ?>
                                 <tr>
                                     <td><?php echo $messages['id']; ?></td>
                                     <td><?php echo $messages['creer_le']; ?></td>
@@ -92,29 +102,29 @@ include('./app/commum/header_client.php');
                                         <div style="display: flex; align-items: center;">
                                             <!-- Button Modifier modal -->
                                             <i class="far fa-edit modifier-icon" style="margin-right: 20px;"
-                                               data-bs-toggle="modal"
-                                               data-bs-target="#modifierModal-<?php echo $messages['id'] ?>"
-                                               data-num-messages="<?php echo $messages['id'] ?>"
-                                               title="Modifier le message ">
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modifierModal-<?php echo $messages['id'] ?>"
+                                                data-num-messages="<?php echo $messages['id'] ?>"
+                                                title="Modifier le message ">
                                             </i>
 
                                             <!-- Modal Modifier-->
                                             <div class="modal fade" id="modifierModal-<?php echo $messages['id'] ?>"
-                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier
                                                                 le message <?php echo $messages['id'] ?></h1>
                                                             <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <!-- Formulaire de modification de message -->
                                                             <form action="<?= PATH_PROJECT ?>client/liste_des_messages/traitement-modifier-messages"
-                                                                  method="post" enctype="multipart/form-data">
+                                                                method="post" enctype="multipart/form-data">
                                                                 <input type="hidden" name="message_id"
-                                                                       value="<?php echo $messages['id'] ?>">
+                                                                    value="<?php echo $messages['id'] ?>">
 
                                                                 <!-- Le champ sujet du message-->
                                                                 <div class="form-group mt-3">
@@ -123,27 +133,27 @@ include('./app/commum/header_client.php');
                                                                         <span class="text-danger">(*)</span>
                                                                     </label>
                                                                     <input type="text" class="form-control"
-                                                                           name="subject" id="inscription-subject"
-                                                                           placeholder="Veuillez entrer le sujet du message"
-                                                                           value="<?= !empty($messages['type_sujet']) ? $messages['type_sujet'] : '' ?>"
-                                                                           required/>
-																	<?php if (!empty($erreurs["subject"])) { ?>
+                                                                        name="subject" id="inscription-subject"
+                                                                        placeholder="Veuillez entrer le sujet du message"
+                                                                        value="<?= !empty($messages['type_sujet']) ? $messages['type_sujet'] : '' ?>"
+                                                                        required />
+                                                                    <?php if (!empty($erreurs["subject"])) { ?>
                                                                         <span class="text-danger">
                                                                             <?php echo $erreurs["subject"]; ?>
                                                                         </span>
-																	<?php } ?>
+                                                                    <?php } ?>
                                                                 </div>
 
                                                                 <!-- Le champ message -->
                                                                 <div class="form-group mt-3">
                                                                     <textarea class="form-control" name="message"
-                                                                              rows="8" required
-                                                                              style="background-color: white;"> <?= !empty($messages['messages']) ? $messages['messages'] : '' ?> </textarea>
-																	<?php if (!empty($erreurs["message"])) { ?>
+                                                                        rows="8" required
+                                                                        style="background-color: white;"> <?= !empty($messages['messages']) ? $messages['messages'] : '' ?> </textarea>
+                                                                    <?php if (!empty($erreurs["message"])) { ?>
                                                                         <span class="text-danger">
                                                                             <?php echo $erreurs["message"]; ?>
                                                                         </span>
-																	<?php } ?>
+                                                                    <?php } ?>
                                                                 </div>
 
 
@@ -151,15 +161,15 @@ include('./app/commum/header_client.php');
                                                                 <div class="form-group">
                                                                     <label for="passwordImput">Mot de passe :</label>
                                                                     <input type="password" name="password"
-                                                                           id="passwordInput" class="form-control"
-                                                                           placeholder="Veuillez entrer votre mot de passe"
-                                                                           required>
+                                                                        id="passwordInput" class="form-control"
+                                                                        placeholder="Veuillez entrer votre mot de passe"
+                                                                        required>
                                                                 </div>
 
 
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Fermer
+                                                                        data-dismiss="modal">Fermer
                                                                     </button>
                                                                     <button type="submit" class="btn btn-primary">
                                                                         Enregistrer les modifications
@@ -173,13 +183,13 @@ include('./app/commum/header_client.php');
 
                                             <!-- Button supprimer modal -->
                                             <i class="far fa-trash-alt supprimer-icon" data-bs-toggle="modal"
-                                               data-bs-target="#supprimerModal-<?php echo $messages['id'] ?>"
-                                               title="Supprimer le message ">
+                                                data-bs-target="#supprimerModal-<?php echo $messages['id'] ?>"
+                                                title="Supprimer le message ">
                                             </i>
 
                                             <!-- Modal supprimer -->
                                             <div class="modal fade" id="supprimerModal-<?php echo $messages['id'] ?>"
-                                                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -187,29 +197,29 @@ include('./app/commum/header_client.php');
                                                                 Supprimer la
                                                                 réservation <?php echo $messages['id'] ?></h1>
                                                             <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form action="<?= PATH_PROJECT ?>client/liste_des_messages/traitement_supprimer_messages"
-                                                                  method="post" enctype="multipart/form-data">
+                                                                method="post" enctype="multipart/form-data">
                                                                 <!-- Début du formulaire de supprimer commande -->
                                                                 <input type="hidden" name="message_id"
-                                                                       value="<?php echo $messages['id'] ?>">
+                                                                    value="<?php echo $messages['id'] ?>">
 
                                                                 <div class="form-group">
                                                                     <label for="passwordImput"
-                                                                           class="col-12 col-form-label"
-                                                                           style="color: #070b3a;">Veuillez entrer votre
+                                                                        class="col-12 col-form-label"
+                                                                        style="color: #070b3a;">Veuillez entrer votre
                                                                         mot de passe</label>
                                                                     <input type="password" name="password"
-                                                                           id="passwordImput" class="form-control"
-                                                                           placeholder="Veuillez entrer votre mot de passe"
-                                                                           value="" required>
+                                                                        id="passwordImput" class="form-control"
+                                                                        placeholder="Veuillez entrer votre mot de passe"
+                                                                        value="" required>
                                                                 </div>
 
                                                                 <div class="modal-footer">
                                                                     <button type="submit" name="supprimer"
-                                                                            class="btn btn-primary">Valider
+                                                                        class="btn btn-primary">Valider
                                                                     </button>
                                                                 </div>
                                                             </form>
@@ -220,29 +230,29 @@ include('./app/commum/header_client.php');
                                         </div>
                                     </td>
                                 </tr>
-								<?php
-							}
-							?>
-                            </tbody>
-                        </table>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
 
 
-						<?php
-					} else {
-						// Aucune réservation n'a été trouvée, affichez le message en couleur noire
-						?>
-                        <p style="color: black;">Aucun message(s) n'a été trouvé!</p>
-						<?php
-					}
-					?>
-                </div>
+                <?php
+                } else {
+                    // Aucune réservation n'a été trouvée, affichez le message en couleur noire
+                ?>
+                    <p style="color: black;">Aucun message(s) n'a été trouvé!</p>
+                <?php
+                }
+                ?>
             </div>
         </div>
-
     </div>
 
-    <!-- Ajoutez ce script JavaScript à la fin de votre page -->
-    <!-- <script>
+</div>
+
+<!-- Ajoutez ce script JavaScript à la fin de votre page -->
+<!-- <script>
     $(document).ready(function() {
         $('.ajouter-repas').click(function() {
             var repasId = $(this).data('repas-id');
@@ -253,12 +263,12 @@ include('./app/commum/header_client.php');
                     <select class="form-control nom_repas" id="nom_repas" name="nom_repas[]">
                         <option value="">Sélectionnez un repas</option>
                         <?php
-	$liste_repas = recuperer_nom_prix_repas();
+                        $liste_repas = recuperer_nom_prix_repas();
 
-	foreach ($liste_repas as $repas) {
-		echo '<option value="' . $repas['cod_repas'] . '" data-prix="' . $repas['pu_repas'] . '">' . $repas['nom_repas'] . '</option>';
-	}
-	?>
+                        foreach ($liste_repas as $repas) {
+                            echo '<option value="' . $repas['cod_repas'] . '" data-prix="' . $repas['pu_repas'] . '">' . $repas['nom_repas'] . '</option>';
+                        }
+                        ?>
                     </select>
                 </div>
 

@@ -17,7 +17,7 @@ include './app/commum/aside.php';
     <div class="pagetitle ">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
+                <li class="breadcrumb-item"><a style="text-decoration: none; color: #cda45e;" href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
                 <li class="breadcrumb-item active">Ajouter un repas</li>
             </ol>
         </nav>
@@ -46,7 +46,7 @@ include './app/commum/aside.php';
     ?>
 
     <!-- Formulaire d'ajout de repas -->
-    <form action="<?= PATH_PROJECT ?>administrateur/repas/ajout-repas-traitement" method="post" class="user" enctype="multipart/form-data" >
+    <form action="<?= PATH_PROJECT ?>administrateur/repas/ajout-repas-traitement" method="post" class="user" enctype="multipart/form-data">
 
         <div class="form-group row pt-5">
 

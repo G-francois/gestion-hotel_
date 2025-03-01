@@ -9,7 +9,8 @@ if (check_if_user_connected_admin()) {
 include './app/commum/header.php';
 ?>
 
-<div class="container">
+<div class="container" style="color: black;">
+
     <div class="card o-hidden border-0 shadow-lg" style="margin-top: 2rem; margin-bottom: 2rem;">
         <div class="card-body p-0">
             <!-- Nested Row within Card Body -->

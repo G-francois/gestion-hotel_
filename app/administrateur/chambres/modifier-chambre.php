@@ -54,7 +54,7 @@ if (!empty($params[3])) {
     }
     ?>
 
-    <section class="content">
+    <section class="content p-3">
         <?php if (empty($chambre)) { ?>
 
             <!-- Affiche un message d'erreur si la chambre n'existe pas -->
@@ -88,22 +88,27 @@ if (!empty($params[3])) {
                 ?>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm zoom-effect-container">
-                            <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="auto" src="<?= $chambre['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $chambre['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail" alt="">
+                    <h4 style="text-transform: uppercase;"> à Propos de la chambre </h4>
+
+
+
+
+                    <div class="col-md-4 pt-2">
+                        <div class="card mb-4 shadow-sm zoom-effect-container" style="width: 400px;">
+                            <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="192" src="<?= $chambre['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $chambre['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail" alt="" style="height: 268px;">
                         </div>
 
                         <!-- Formulaire de la mise à jour photo -->
                         <form action="<?= PATH_PROJECT . "administrateur/chambres/traitement_photo" ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" enctype="multipart/form-data">
-                            <div class="row" style="text-align: center; display:flex;">
+                            <div class="row" style="display:flex;">
                                 <div class="col-sm-9 text-secondary">
                                     <label class="form-label" for="customFile" style="color: gray;">Changer la photo de la chambre</label>
                                     <input type="file" class="form-control" id="image" name="image" />
                                 </div>
 
-                                <div class="text-center col-sm-3" style="justify-content: center; margin-top: 31px;">
+                                <div class="row text-center col-sm-3" style="justify-content: center; margin-top: 31px;  margin-left :-4px;">
                                     <!-- Bouton du Modal mettre à jour -->
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal0" style="font-size: revert; padding: 8px;">MModifier</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal0" style=" padding: 8px;">Modifier</button>
 
                                     <div class="col-md-8 col-lg-12">
                                         <div class="text-center" style="color: #070b3a;">
@@ -140,10 +145,10 @@ if (!empty($params[3])) {
                         </form>
 
                         <!-- Formulaire de la suppression photo -->
-                        <form action="<?= PATH_PROJECT . "administrateur/chambres/traitement_suppression_photo"  ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" enctype="multipart/form-data" style="display: flex; justify-content: center; align-items: center;">
-                            <div class="row">
+                        <form action="<?= PATH_PROJECT . "administrateur/chambres/traitement_suppression_photo"  ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" enctype="multipart/form-data">
+                            <div class="row m-auto">
                                 <!-- Bouton du Modal supprimer -->
-                                <button type="reset" class="btn btn-primary mt-4" data-toggle="modal" data-target="#modal1"><i class="fa fa-trash"></i> Supprimer</button>
+                                <button type="reset" class="btn btn-primary mt-4" style="background-color: #9f0808;" data-toggle="modal" data-target="#modal1"><i class="fa fa-trash"></i> Supprimer</button>
 
                                 <div class="col-md-8 col-lg-12">
                                     <div class="text-center" style="color: #070b3a;">
@@ -185,7 +190,7 @@ if (!empty($params[3])) {
                         <h5 style="color: #cda45e; text-align:center; ">
                             <i class="bi bi-exclamation-triangle me-1"></i> Les champs ci-dessous ne doivent pas être soumis vide. Au cas contraire, elles affichent les anciennes informations.
                         </h5>
-                        
+
                         <form action="<?= PATH_PROJECT . "administrateur/chambres/modifier-chambre-traitement" ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" novalidate method="post" class="user">
                             <div class="form-group row">
                                 <!-- Le champ Libellé du type de chambre -->

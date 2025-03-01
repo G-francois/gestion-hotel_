@@ -16,7 +16,7 @@ include './app/commum/aside.php';
     <div class="pagetitle ">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
+                <li class="breadcrumb-item"><a style="text-decoration: none; color: #cda45e;" href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
                 <li class="breadcrumb-item active">Ajouter un utilisateur</li>
             </ol>
         </nav>

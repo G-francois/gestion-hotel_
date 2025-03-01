@@ -20,8 +20,8 @@ $liste_clients = recuperer_liste_clients_actifs();
     <div class="pagetitle ">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
-                <li class="breadcrumb-item active">Liste des repas</li>
+            <li class="breadcrumb-item"><a style="text-decoration: none; color: #cda45e;" href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
+            <li class="breadcrumb-item active">Liste des repas</li>
             </ol>
         </nav>
     </div>
@@ -114,7 +114,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                                         <div style="display: flex; align-items: center;">
 
                                             <!-- Button Détails modal -->
-                                            <i class="far fa-eye details-icon " style="margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal-<?= $commande['num_cmd']; ?>" title="Voir les détails">
+                                            <i class="far fa-eye details-icon " style=" color:green; margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal-<?= $commande['num_cmd']; ?>" title="Voir les détails">
                                             </i>
 
 
@@ -146,6 +146,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                                         ?>
                                                                         <tr>
                                                                             <th scope="col">Liste des Repas</th>
+                                                                            <th scope="col">Photos</th>
                                                                             <th scope="col">Prix Unitaire</th>
                                                                             <th scope="col">Numéro de Réservation</th>
                                                                             <th scope="col">Numéro de Chambres</th>
@@ -173,6 +174,31 @@ $liste_clients = recuperer_liste_clients_actifs();
                                                                                 }
                                                                                 ?>
                                                                             </td>
+                                                                            <!-- Liste des repas commandé(s) -->
+                                                                            <td>
+                                                                                <?php
+                                                                                if (empty($repas_commande)) {
+                                                                                    echo 'Aucune photos';
+                                                                                } else {
+                                                                                    foreach ($repas_commande as $repas) {
+                                                                                        $info_repas = recuperer_info_repas($repas['cod_repas']);
+                                                                                        if ($info_repas !== null) {
+                                                                                            // Vérifier si le champ 'photos' contient une image
+                                                                                            if (!empty($info_repas['photos'])) {
+                                                                                                // Afficher l'image en utilisant la balise <img> avec le style 'rounded-circle'
+                                                                                                echo '<img src="' . $info_repas['photos'] . '" alt="Photo du repas" class="rounded-circle" style="width: 24px;height:auto;"><br>';
+                                                                                            } else {
+                                                                                                echo 'Photo non disponible<br>';
+                                                                                            }
+                                                                                        } else {
+                                                                                            echo 'Nom du repas non disponible<br>';
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                ?>
+                                                                            </td>
+
+
                                                                             <!-- Liste des prix unitaire de chaque repas commandé(s) -->
                                                                             <td>
                                                                                 <?php
@@ -239,7 +265,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                                             </div>
 
                                             <!-- Button Modifier modal -->
-                                            <i class="far fa-edit modifier-icon" style="margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#modifierModal-<?php echo $num_cmd ?>" data-num-cmd="<?php echo $num_cmd ?>" data-nom-repas="<?= htmlspecialchars(json_encode($repas_commande)) ?>" title="Modifier la commande ">
+                                            <i class="far fa-edit modifier-icon" style="color: #d99727; margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#modifierModal-<?php echo $num_cmd ?>" data-num-cmd="<?php echo $num_cmd ?>" data-nom-repas="<?= htmlspecialchars(json_encode($repas_commande)) ?>" title="Modifier la commande ">
                                             </i>
 
 
@@ -362,7 +388,7 @@ $liste_clients = recuperer_liste_clients_actifs();
 
 
                                             <!-- Button supprimer modal -->
-                                            <a href="#" data-toggle="modal" data-target="#supprimer-commande-<?php echo $num_cmd ?>">
+                                            <a href="#" data-toggle="modal" data-target="#supprimer-commande-<?php echo $num_cmd ?>" style="color: #7e0707;">
                                                 <i class="far fa-trash-alt supprimer-icon"></i>
                                             </a>
 

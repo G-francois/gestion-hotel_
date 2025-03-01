@@ -50,7 +50,7 @@ if (!empty($_SESSION['enregistrer-erreurs'])) {
     <link href="<?= PATH_PROJECT ?>public/images/al_copyrighter.png" rel="apple-touch-icon"/>
     <link href="<?= PATH_PROJECT ?>public/outils/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
     <link href="<?= PATH_PROJECT ?>public/outils/boxicons/css/boxicons.min.css" rel="stylesheet"/>
-    <link href="<?= PATH_PROJECT ?>public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= PATH_PROJECT ?>public/outils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
     <link href="<?= PATH_PROJECT ?>public/css/sb-admin-2.css" rel="stylesheet">

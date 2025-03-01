@@ -1,5 +1,7 @@
 <?php
 
+// die(var_dump($_POST));
+
 $utilisateurId = $_POST['utilisateur_id'];
 $message_erreur_global = "";
 $message_success_global = "";
@@ -13,3 +15,7 @@ $message_success_global = "";
  $_SESSION['message-erreur-global'] = $message_erreur_global;
  $_SESSION['message-success-global'] = $message_success_global;
 header('Location: ' . PATH_PROJECT . 'administrateur/users/liste-users');
+
+
+
+

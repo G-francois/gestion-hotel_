@@ -55,7 +55,7 @@ if (!empty($params[3])) {
     }
     ?>
 
-    <section class="content">
+    <section class="content p-3">
         <?php if (empty($repas)) { ?>
 
             <!-- Affiche un message d'erreur si le repas n'existe pas -->
@@ -87,23 +87,26 @@ if (!empty($params[3])) {
             ?>
 
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm zoom-effect-container">
-                        <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="auto" src="<?= $repas['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $repas['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail" alt="">
+                <h4 style="text-transform: uppercase;"> à Propos du repas </h4>
+
+                <div class="col-md-4 pt-2">
+                    <div class=" mb-4 zoom-effect-container" style="width: 330px;">
+                        <img height="192px" width="auto" src="<?= $repas['photos'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_chambre.jpeg' : $repas['photos'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail" alt="" class="rounded-circle img-fluid img-custom mx-auto d-block" style="height: 198px;">
                     </div>
 
                     <!-- Formulaire de la mise à jour photo -->
                     <form action="<?= PATH_PROJECT . "administrateur/repas/traitement_photo" ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="categorie" value="<?= !empty($repas['categorie']) ? $repas['categorie'] : '' ?>">
-                        <div class="row" style="text-align: center; display:flex;">
+                        <div class="row" style="display:flex;">
                             <div class="col-sm-9 text-secondary">
                                 <label class="form-label" for="customFile" style="color: gray;">Changer la photo du repas</label>
                                 <input type="file" class="form-control" id="image" name="image" />
                             </div>
 
-                            <div class="text-center col-sm-3" style="justify-content: center; margin-top: 31px;">
+
+                            <div class="row text-center col-sm-3" style="justify-content: center; margin-top: 31px; margin-left :-4px;">
                                 <!-- Bouton du Modal mettre à jour -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal0" style="font-size: revert; padding: 8px;">Modifier</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal0" style=" padding: 8px;">Modifier</button>
 
                                 <div class="col-md-8 col-lg-12">
                                     <div class="text-center" style="color: #070b3a;">
@@ -140,10 +143,10 @@ if (!empty($params[3])) {
                     </form>
 
                     <!-- Formulaire de la suppression photo -->
-                    <form action="<?= PATH_PROJECT . "administrateur/repas/traitement_suppression_photo"  ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" enctype="multipart/form-data" style="display: flex; justify-content: center; align-items: center;">
-                        <div class="row">
+                    <form action="<?= PATH_PROJECT . "administrateur/repas/traitement_suppression_photo"  ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" enctype="multipart/form-data">
+                        <div class="row m-auto">
                             <!-- Bouton du Modal supprimer -->
-                            <button type="reset" class="btn btn-primary mt-4" data-toggle="modal" data-target="#modal1"><i class="fa fa-trash"></i> Supprimer</button>
+                            <button type="reset" class="btn btn-primary mt-4" style="background-color: #9f0808;" data-toggle="modal" data-target="#modal1"><i class="fa fa-trash"></i> Supprimer</button>
 
                             <div class="col-md-8 col-lg-12">
                                 <div class="text-center" style="color: #070b3a;">
@@ -174,18 +177,19 @@ if (!empty($params[3])) {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </form>
+
                 </div>
+
 
                 <div class="col-md-8">
                     <!-- Affiche le formulaire de modification du repas -->
                     <form action="<?= PATH_PROJECT . "administrateur/repas/modifier-repas-traitement" ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" class="user" novalidate>
                         <div class="form-group row pt-5">
                             <!-- Champ pour le nom du repas -->
-                            <div class="col-sm-6 mb-3 mb-sm-0">
+                            <div class="col-sm-6 mb-4 mb-sm-0">
                                 <label for="inscription-nom" class="col-sm-12 col-form-label">
                                     Nom du repas :
                                     <span class="text-danger">(*)</span>
@@ -201,45 +205,8 @@ if (!empty($params[3])) {
                                 <?php } ?>
                             </div>
 
-                            <!-- Champ pour la description -->
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <label for="inscription-descriptions" class="col-sm-12 col-form-label">
-                                    Descriptions :
-                                    <span class="text-danger">(*)</span>
-                                </label>
-
-                                <textarea class="form-control" name="descriptions" id="inscription-descriptions" placeholder="Veuillez entrer la description" required><?= (!empty($donnees_repas_modifier["descriptions"])) ? $donnees_repas_modifier["descriptions"] : $repas["descriptions"]; ?></textarea>
-                                    <?php if (!empty($erreurs["descriptions"])) { ?>
-                                        <span class="text-danger">
-                                            <?= $erreurs["descriptions"]; ?>
-                                        </span>
-                                    <?php } ?>
-
-                                <?php
-                                if (!empty($erreurs["descriptions"])) { ?>
-                                    <span class="text-danger">
-                                        <?php echo $erreurs["descriptions"]; ?>
-                                    </span>
-                                <?php } ?>
-                            </div>
-
-                            <!-- Champ pour le prix unitaire -->
-                            <div class="col-sm-6">
-                                <label for="inscription-prix" class="col-sm-12 col-form-label">
-                                    Prix unitaire :
-                                    <span class="text-danger">(*)</span>
-                                </label>
-                                <input type="number" class="form-control" name="pu_repas" id="inscription-prix" placeholder="Veuillez entrer le prix du repas" value="<?= (!empty($_POST["pu_repas"])) ? $_POST["pu_repas"] : $repas["pu_repas"]; ?>" required>
-
-                                <?php if (!empty($erreurs["pu_repas"])) { ?>
-                                    <span class="text-danger">
-                                        <?php echo $erreurs["pu_repas"]; ?>
-                                    </span>
-                                <?php } ?>
-                            </div>
-
                             <!-- Le champ categorie -->
-                            <div class="col-sm-6 mb-3">
+                            <div class="col-sm-6 mb-4">
                                 <label for="inscription-categorie" class="col-sm-12 col-form-label">
                                     Catégorie:
                                     <span class="text-danger">(*)</span>
@@ -263,8 +230,47 @@ if (!empty($params[3])) {
                                     </span>
                                 <?php } ?>
                             </div>
+
+                            <!-- Champ pour la description -->
+                            <div class="col-sm-12 mb-3 mb-sm-0">
+                                <label for="inscription-descriptions" class="col-sm-12 col-form-label">
+                                    Descriptions :
+                                    <span class="text-danger">(*)</span>
+                                </label>
+
+                                <textarea class="form-control" name="descriptions" id="inscription-descriptions" placeholder="Veuillez entrer la description" required><?= (!empty($donnees_repas_modifier["descriptions"])) ? $donnees_repas_modifier["descriptions"] : $repas["descriptions"]; ?></textarea>
+                                <?php if (!empty($erreurs["descriptions"])) { ?>
+                                    <span class="text-danger">
+                                        <?= $erreurs["descriptions"]; ?>
+                                    </span>
+                                <?php } ?>
+
+                                <?php
+                                if (!empty($erreurs["descriptions"])) { ?>
+                                    <span class="text-danger">
+                                        <?php echo $erreurs["descriptions"]; ?>
+                                    </span>
+                                <?php } ?>
+                            </div>
+
+
+                            <!-- Champ pour le prix unitaire -->
+                            <div class="col-sm-6" style="margin-top: 20px;">
+                                <label for="inscription-prix" class="col-sm-12 col-form-label">
+                                    Prix unitaire :
+                                    <span class="text-danger">(*)</span>
+                                </label>
+                                <input type="number" class="form-control" name="pu_repas" id="inscription-prix" placeholder="Veuillez entrer le prix du repas" value="<?= (!empty($_POST["pu_repas"])) ? $_POST["pu_repas"] : $repas["pu_repas"]; ?>" required>
+
+                                <?php if (!empty($erreurs["pu_repas"])) { ?>
+                                    <span class="text-danger">
+                                        <?php echo $erreurs["pu_repas"]; ?>
+                                    </span>
+                                <?php } ?>
+                            </div>
+
                             <!-- Le bouton modifié -->
-                            <div class="col-sm-12 mb-3" style="margin-top: 35px;">
+                            <div class="col-sm-6 mb-3" style="margin-top: 58px;">
                                 <input type="submit" value="Modifier" class="btn btn-primary btn-block">
                             </div>
                         </div>

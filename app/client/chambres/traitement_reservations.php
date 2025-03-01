@@ -227,7 +227,7 @@ if (!empty($_POST)) {
 	}
 }
 
-//die(var_dump($num_chambres, $numAccompagnateurs, $deb_occs, $fin_occs, $montants));
+// die(var_dump($num_chambres, $numAccompagnateurs, $deb_occs, $fin_occs, $montants));
 
 if (!empty($errors)) {
 

@@ -165,11 +165,11 @@ h6 {
     color: white;
 }
 
-#topbar .languages ul li + li {
+#topbar .languages ul li+li {
     padding-left: 10px;
 }
 
-#topbar .languages ul li + li::before {
+#topbar .languages ul li+li::before {
     display: inline-block;
     padding-right: 10px;
     color: rgba(255, 255, 255, 0.5);
@@ -373,7 +373,7 @@ header .intro-text .intro-heading {
 
 .navbar a:hover,
 .navbar .active:focus,
-.navbar li:hover > a {
+.navbar li:hover>a {
     color: #d9ba85;
 }
 
@@ -408,11 +408,11 @@ header .intro-text .intro-heading {
 
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
-.navbar .dropdown ul li:hover > a {
+.navbar .dropdown ul li:hover>a {
     color: #cda45e;
 }
 
-.navbar .dropdown:hover > ul {
+.navbar .dropdown:hover>ul {
     opacity: 1;
     top: 100%;
     visibility: visible;
@@ -424,7 +424,7 @@ header .intro-text .intro-heading {
     visibility: hidden;
 }
 
-.navbar .dropdown .dropdown:hover > ul {
+.navbar .dropdown .dropdown:hover>ul {
     opacity: 1;
     top: 0;
     left: 100%;
@@ -436,7 +436,7 @@ header .intro-text .intro-heading {
         left: -90%;
     }
 
-    .navbar .dropdown .dropdown:hover > ul {
+    .navbar .dropdown .dropdown:hover>ul {
         left: -100%;
     }
 }
@@ -505,7 +505,7 @@ header .intro-text .intro-heading {
 
 .navbar-mobile a:hover,
 .navbar-mobile .active,
-.navbar-mobile li:hover > a {
+.navbar-mobile li:hover>a {
     color: #cda45e;
 }
 
@@ -540,11 +540,11 @@ header .intro-text .intro-heading {
 
 .navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
-.navbar-mobile .dropdown ul li:hover > a {
+.navbar-mobile .dropdown ul li:hover>a {
     color: #cda45e;
 }
 
-.navbar-mobile .dropdown > .dropdown-active {
+.navbar-mobile .dropdown>.dropdown-active {
     display: block;
 }
 
@@ -1114,11 +1114,11 @@ section {
     font-size: 14px;
 }
 
-.breadcrumbs ol li + li {
+.breadcrumbs ol li+li {
     padding-left: 10px;
 }
 
-.breadcrumbs ol li + li::before {
+.breadcrumbs ol li+li::before {
     display: inline-block;
     padding-right: 10px;
     color: #37332a;
@@ -1572,7 +1572,7 @@ section {
     font-weight: 600;
 }
 
-.book-a-table .php-email-form .error-message br + br {
+.book-a-table .php-email-form .error-message br+br {
     margin-top: 25px;
 }
 

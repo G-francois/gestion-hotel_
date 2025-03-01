@@ -11,7 +11,8 @@ include './app/commum/header.php'
 
 <div class="container" style="margin-top: 120px; ">
     <div class="container" style="margin-top: 120px; max-width: 1420px;">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center;" style="color:black; justify-content:center;">
+
 
             <div class="col-xl-10 col-lg-12 col-md-9">
 

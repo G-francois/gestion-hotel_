@@ -286,7 +286,6 @@ include('./app/commum/header_client.php');
         <div class="container" data-aos="fade-up">
             <div class="section-title">
                 <h2>Témoignages</h2>
-
                 <p>Ce qu'ils disent de nous</p>
             </div>
 

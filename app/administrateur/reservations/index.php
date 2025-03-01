@@ -4,6 +4,7 @@ if (!check_if_user_connected_admin()) {
     exit;
 }
 
+
 include './app/commum/header.php';
 
 include './app/commum/aside.php';
@@ -17,22 +18,23 @@ $liste_clients = recuperer_liste_clients_actifs();
 
 ?>
 
-<section>
+
+<section style="padding: 10px 0;">
     <div class="container-fluid" id="alertContainer">
         <!-- Titre de la page -->
-        <div class="pagetitle ">
+        <div class="pagetitle">
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a style="text-decoration: none; color: #cda45e;" href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
                     <li class="breadcrumb-item active">Ajouter une reservation</li>
                 </ol>
             </nav>
         </div>
 
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-5 pb-3">
                 <span id="container"></span>
-                <div class="accordion" id="accordionExample" style="margin-top: 50px;">
+                <div class="accordion" id="accordionExample" style="margin-top: 30px;">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button text-danger fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -40,7 +42,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body" style="color: black;">
                                 <ol>
                                     <li>
                                         <strong>Selon le type de chambre choisi, il y a un nombre maximum d'accompagnateurs qu'il est possible d'ajouter.</strong>
@@ -96,11 +98,11 @@ $liste_clients = recuperer_liste_clients_actifs();
                         </div>
 
                         <!-- Le champ Numéro de chambre -->
-                        <div class="col-md-12 mb-2" style="padding-left: 0rem;">
+                        <div class="col-md-12 mb-4" style="padding-left: 0rem;">
                             <label for="num_chambre">Chambres :
                                 <span class="text-danger">(*)</span>
                             </label>
-                            <select class="form-control chambre-select" id="num_chambre" name="chambre1[num]" required>
+                            <select class="form-control chambre-select" id="num_chambre" name="chambre1[num]" style=" color:black;">
                                 <option value="" data-type="standard" data-prix="0">Sélectionnez le numéro de chambre</option>
 
                                 <?php
@@ -132,8 +134,8 @@ $liste_clients = recuperer_liste_clients_actifs();
                             </div>
 
                             <!-- Bouton pour ajouter un accompagnateur -->
-                            <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
-                                <button type="button" class="btn btn-custom ajouter-accompagnateur-btn">+</button>
+                            <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center;margin-top:2rem;">
+                                <button type="button" class="btn btn-success ajouter-accompagnateur-btn">+</button>
                             </div>
 
 
@@ -201,6 +203,8 @@ $liste_clients = recuperer_liste_clients_actifs();
                             <button type="button" class="btn btn-danger" id="retirer-chambre" style="--bs-btn-color: #fff; --bs-btn-bg: #b30617; --bs-btn-border-color: #b30617;">Retirer une chambre</button>
                         </div>
 
+                        <br>
+
                         <div class="float-right" style="text-align: right;">
                             <button type="reset" class="btn btn-danger">
                                 Annuler
@@ -241,7 +245,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                     <input type="text" name="chambre1[ACCS][acc${incAc}][contact_acc]" class="form-control">
                 </div>
 
-                <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
+                <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 2rem;">
                     <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)">-</button>
                 </div>
             </div>
@@ -293,7 +297,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                     </div>
 
                     <!-- Bouton pour ajouter un accompagnateur -->
-                    <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
+                    <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 2rem;">
                         <button type="button" class="btn btn-success ajouter-accompagnateur2-btn">+</button>
                     </div>
 
@@ -372,7 +376,7 @@ $liste_clients = recuperer_liste_clients_actifs();
                         <input type="text" name="chambre${incCh}[ACCS][acc${incAcc}][contact_acc]" class="form-control">
                     </div>
 
-                    <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
+                    <div class="col-md-1 mb-3" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 2rem;">
                         <button type="button" class="btn btn-danger" onclick="supprimerAccompagnateur(this)">-</button>
                     </div>
                 </div>
@@ -391,7 +395,7 @@ $liste_clients = recuperer_liste_clients_actifs();
         row.remove();
     }
 
-    
+
 
     // Fonction pour retirer une chambre
     function retirerChambre(element) {

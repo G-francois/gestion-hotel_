@@ -298,6 +298,31 @@ function recuperer_liste_chambres_acceuil(): array
 }
 
 /**
+ * Récupère la liste des chambres pour la page d'accueil.
+ *
+ * @return array Un tableau contenant les détails des chambres récupérées.
+ */
+function recuperer_liste_chambres_acceuil2(): array
+{
+	$db = connect_db();
+	$liste_chambre = [];
+
+	if (is_object($db)) {
+		$requete = 'SELECT * FROM chambre '; 
+
+		$verifier_liste_chambres = $db->prepare($requete);
+
+		$resultat = $verifier_liste_chambres->execute();
+
+		if ($resultat) {
+			$liste_chambre = $verifier_liste_chambres->fetchAll(PDO::FETCH_ASSOC);
+		}
+	}
+
+	return $liste_chambre;
+}
+
+/**
  * Récupère une liste de chambres en fonction de la pagination et du type de chambre donné.
  *
  * @param int $page Le numéro de la page actuelle.
@@ -345,6 +370,57 @@ function liste_chambres(int $page, string $type = null): array
 	return $liste_chambres;
 }
 
+
+/**
+ * Récupère une liste de chambres en fonction de la pagination et du type de chambre donné.
+ *
+ * @param int $page Le numéro de la page actuelle.
+ * @param string|null $type Le type de chambre (facultatif).
+ * @return array Un tableau contenant les détails des chambres récupérées.
+ */
+function liste_chambres_admin(int $page, string $type = null): array
+{
+
+	$liste_chambres = [];
+
+	$nb_chambres_par_page = 8;
+
+	$database = connect_db();
+
+	if (!is_null($type)) {
+
+		$request = "SELECT * FROM chambre WHERE lib_typ = :lib_typ and est_actif = 1 and est_supprimer = 0 ORDER BY num_chambre ASC LIMIT " . $nb_chambres_par_page . "  OFFSET " . $nb_chambres_par_page * ($page - 1);
+
+		$request_prepare = $database->prepare($request);
+
+		$request_execution = $request_prepare->execute([
+			'lib_typ' => $type
+		]);
+	} else {
+
+		$request = "SELECT * FROM chambre WHERE est_actif = 1 and est_supprimer = 0 ORDER BY num_chambre ASC LIMIT " . $nb_chambres_par_page . "  OFFSET " . $nb_chambres_par_page * ($page - 1);
+
+		$request_prepare = $database->prepare($request);
+
+		$request_execution = $request_prepare->execute();
+	}
+
+
+	if (!empty($request_execution)) {
+
+		$data = $request_prepare->fetchAll(PDO::FETCH_ASSOC);
+
+		if (!empty($data) && is_array($data)) {
+
+			$liste_chambres = $data;
+		}
+	}
+
+	return $liste_chambres;
+}
+
+
+
 /**
  * Récupère la liste des types de chambres disponibles.
  *
@@ -380,6 +456,88 @@ function liste_types(): array
 
 	return $types;
 }
+
+
+
+/**
+ * Récupère une liste de repas en fonction de la pagination et de la catégorie donnée.
+ *
+ * @param int $page Le numéro de la page actuelle.
+ * @param string|null $categorie La catégorie de repas (facultatif).
+ * @return array Un tableau contenant les détails des repas récupérés.
+ */
+function liste_repas(int $page, string $categorie = null): array
+{
+    $liste_repas = [];
+    $nb_repas_par_page = 8;
+    $database = connect_db();
+
+    try {
+        if (!is_null($categorie)) {
+            $request = "SELECT * FROM repas WHERE categorie = :categorie AND est_actif = 1 AND est_supprimer = 0 ORDER BY cod_repas ASC LIMIT :limit OFFSET :offset";
+            $request_prepare = $database->prepare($request);
+            $request_prepare->bindValue(':categorie', $categorie, PDO::PARAM_STR);
+        } else {
+            $request = "SELECT * FROM repas WHERE est_actif = 1 AND est_supprimer = 0 ORDER BY cod_repas ASC LIMIT :limit OFFSET :offset";
+            $request_prepare = $database->prepare($request);
+        }
+
+        $request_prepare->bindValue(':limit', $nb_repas_par_page, PDO::PARAM_INT);
+        $request_prepare->bindValue(':offset', $nb_repas_par_page * ($page - 1), PDO::PARAM_INT);
+
+        $request_execution = $request_prepare->execute();
+
+        if ($request_execution) {
+            $data = $request_prepare->fetchAll(PDO::FETCH_ASSOC);
+            if (!empty($data) && is_array($data)) {
+                $liste_repas = $data;
+            }
+        }
+
+    } catch (PDOException $e) {
+        echo "Erreur SQL : " . $e->getMessage();
+    }
+
+    return $liste_repas;
+}
+
+
+/**
+ * Récupère la liste des catégories de repas disponibles.
+ *
+ * @return array Un tableau contenant les noms des catégories.
+ */
+function liste_categorie(): array
+{
+
+	$categories = [];
+
+	$database = connect_db();
+
+	$request = "SELECT * FROM repas WHERE est_actif = 1 and est_supprimer = 0";
+
+	$request_prepare = $database->prepare($request);
+
+	$request_execution = $request_prepare->execute();
+
+
+	if (!empty($request_execution)) {
+
+		$data = $request_prepare->fetchAll(PDO::FETCH_ASSOC);
+
+		if (!empty($data) && is_array($data)) {
+
+			foreach ($data as $categorie) {
+				$categories[] = $categorie['categorie'];
+			}
+
+			$categories = array_unique($categories);
+		}
+	}
+
+	return $categories;
+}
+
 
 /** Cette fonction permet d'inserer un utilisateur de profile CLIENT
  * @param string $nom
@@ -1109,6 +1267,38 @@ function recuperer_mettre_a_jour_informations_utilisateur(int $id): array
 
 
 /**
+ * Cette fonction permet d'activer_utilisateur
+ *
+ * @param int $id
+ * @return bool
+ */
+function activer_utilisateur(int $id): bool
+{
+	$profile_active = false;
+
+	$date = date("Y-m-d H:i:s");
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$request = "UPDATE utilisateur SET est_actif = :est_actif, maj_le = :maj_le WHERE id = :id";
+		$request_prepare = $db->prepare($request);
+		$request_execution = $request_prepare->execute(array(
+			'id' => $id,
+			'est_actif' => 1,
+			'maj_le' => $date
+		));
+
+		if ($request_execution) {
+			$profile_active = true;
+		}
+	}
+
+	return $profile_active;
+}
+
+
+/**
  * Cette fonction permet de désactiver un UTILISATEUR
  *
  * @param int $id
@@ -1117,7 +1307,7 @@ function recuperer_mettre_a_jour_informations_utilisateur(int $id): array
 function desactiver_utilisateur(int $id): bool
 {
 
-	$profile_active = false;
+	$profile_desactive = false;
 
 	$date = date("Y-m-d H:i:s");
 
@@ -1137,11 +1327,11 @@ function desactiver_utilisateur(int $id): bool
 
 		if ($request_execution) {
 
-			$profile_active = true;
+			$profile_desactive = true;
 		}
 	}
 
-	return $profile_active;
+	return $profile_desactive;
 }
 
 
@@ -1229,6 +1419,159 @@ function enregistrer_utilisateur_admin(string $nom, string $prenom, string $sexe
 }
 
 
+
+
+/**
+ * Récupère une liste de chambres en fonction de la pagination et du type de chambre donné.
+ *
+ * @param int $page Le numéro de la page actuelle.
+ * @param string|null $type Le type de chambre (facultatif).
+ * @return array Un tableau contenant les détails des chambres récupérées.
+ */
+function liste_utilisateurs(int $page, string $profil = null): array
+{
+
+	$liste_utilisateurs = [];
+
+	$nb_utilisateurs_par_page = 8;
+
+	$database = connect_db();
+
+	if (!is_null($profil)) {
+
+		$request = "SELECT * FROM utilisateur WHERE profil = :profil and  est_supprimer = 0 ORDER BY id ASC LIMIT " . $nb_utilisateurs_par_page . "  OFFSET " . $nb_utilisateurs_par_page * ($page - 1);
+
+		$request_prepare = $database->prepare($request);
+
+		$request_execution = $request_prepare->execute([
+			'profil' => $profil
+		]);
+	} else {
+
+		$request = "SELECT * FROM utilisateur WHERE est_supprimer = 0 ORDER BY id ASC LIMIT " . $nb_utilisateurs_par_page . "  OFFSET " . $nb_utilisateurs_par_page * ($page - 1);
+
+		$request_prepare = $database->prepare($request);
+
+		$request_execution = $request_prepare->execute();
+	}
+
+
+	if (!empty($request_execution)) {
+
+		$data = $request_prepare->fetchAll(PDO::FETCH_ASSOC);
+
+		if (!empty($data) && is_array($data)) {
+
+			$liste_utilisateurs = $data;
+		}
+	}
+
+	return $liste_utilisateurs;
+}
+
+
+/**
+ * Récupère la liste des types de chambres disponibles.
+ *
+ * @return array Un tableau contenant les noms des types de chambres.
+ */
+// function liste_profiles(): array
+// {
+
+// 	$profiles = [];
+
+// 	$database = connect_db();
+
+// 	$request = "SELECT * FROM utilisateur WHERE est_actif = 1 and est_supprimer = 0";
+
+// 	$request_prepare = $database->prepare($request);
+
+// 	$request_execution = $request_prepare->execute();
+
+
+// 	if (!empty($request_execution)) {
+
+// 		$data = $request_prepare->fetchAll(PDO::FETCH_ASSOC);
+
+// 		if (!empty($data) && is_array($data)) {
+
+// 			foreach ($data as $profiles) {
+// 				$profiles[] = $profiles['profil'];
+// 			}
+
+// 			$profiles = array_unique($profiles);
+// 		}
+// 	}
+
+// 	return $profiles;
+// }
+
+function liste_profiles(): array
+{
+    $profiles = [];
+
+    $database = connect_db();
+
+    $request = "SELECT DISTINCT profil FROM utilisateur WHERE est_actif = 1 AND est_supprimer = 0";
+
+    $request_prepare = $database->prepare($request);
+
+    $request_execution = $request_prepare->execute();
+
+    if (!empty($request_execution)) {
+
+        $data = $request_prepare->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($data) && is_array($data)) {
+            foreach ($data as $row) {
+                $profiles[] = $row['profil'];
+            }
+        }
+    }
+
+    return $profiles;
+}
+
+
+
+function liste_administrateurs_actifs(): array
+{
+    // Tableau pour stocker les administrateurs actifs
+    $administrateurs = [];
+
+    // Connexion à la base de données
+    $database = connect_db();
+
+    // Requête SQL pour récupérer les administrateurs actifs dont est_actif = 1 et est_supprimer = 0
+    $request = "SELECT id FROM utilisateur WHERE profil = 'ADMINISTRATEUR' AND est_actif = 1 AND est_supprimer = 0";
+
+    // Préparer la requête
+    $request_prepare = $database->prepare($request);
+
+    // Exécuter la requête
+    $request_execution = $request_prepare->execute();
+
+    // Vérifier si la requête a été exécutée avec succès
+    if (!empty($request_execution)) {
+
+        // Récupérer les résultats
+        $data = $request_prepare->fetchAll(PDO::FETCH_ASSOC);
+
+        // Vérifier si des données sont récupérées et si c'est un tableau
+        if (!empty($data) && is_array($data)) {
+            // Parcourir chaque ligne et ajouter l'ID à la liste des administrateurs
+            foreach ($data as $row) {
+                $administrateurs[] = $row['id'];
+            }
+        }
+    }
+
+    // Retourner la liste des administrateurs actifs
+    return $administrateurs;
+}
+
+
+
 /**
  * Cette fonction permet de récupérer la liste des utilisateurs de la base de donnée.
  *
@@ -1251,37 +1594,6 @@ function recuperer_liste_utilisateurs(): array
 	return $liste_utilisateurs;
 }
 
-
-/**
- * Cette fonction permet d'activer_utilisateur
- *
- * @param int $id
- * @return bool
- */
-function activer_utilisateur(int $id): bool
-{
-	$profile_active = false;
-
-	$date = date("Y-m-d H:i:s");
-
-	$db = connect_db();
-
-	if (is_object($db)) {
-		$request = "UPDATE utilisateur SET est_actif = :est_actif, maj_le = :maj_le WHERE id = :id";
-		$request_prepare = $db->prepare($request);
-		$request_execution = $request_prepare->execute(array(
-			'id' => $id,
-			'est_actif' => 1,
-			'maj_le' => $date
-		));
-
-		if ($request_execution) {
-			$profile_active = true;
-		}
-	}
-
-	return $profile_active;
-}
 
 
 /**
@@ -3014,6 +3326,37 @@ function recuperer_type_chambre_pour_affichage(int $num_chambre): bool|string
 }
 
 /**
+ * Cette fonction permet de récupérer le photo de chambre pour une réservation.
+ *
+ * @param int $num_chambre Le numéro de la chambre.
+ * @return string|bool Le type de chambre ou false si non trouvé.
+ */
+function recuperer_photo_chambre_pour_affichage(int $num_chambre): bool|string
+{
+	$db = connect_db();
+
+	if (is_object($db)) {
+		// Requête pour récupérer le type de chambre associé au numéro de chambre
+		$requete_chambre = 'SELECT photos FROM chambre WHERE num_chambre = :num_chambre';
+
+		$recuperer_chambre = $db->prepare($requete_chambre);
+
+		if ($recuperer_chambre->execute(['num_chambre' => $num_chambre])) {
+
+			$resultat_chambre = $recuperer_chambre->fetch(PDO::FETCH_ASSOC);
+
+			if ($resultat_chambre && isset($resultat_chambre['photos'])) {
+
+				return $resultat_chambre['photos'];
+			}
+		}
+	}
+
+	return false;
+}
+
+
+/**
  * Cette fonction permet de modifier la date de debut et fin occupations ainsi que le prix total pour le type de chambre solo.
  *
  * @param $num_chambre
@@ -3113,7 +3456,7 @@ function mis_a_jour_accompagnateur_des_reservations(mixed $num_res, mixed $numAc
  * @param int $num_res Le numéro de réservation.
  * @return bool Indique si la suppression a réussi ou non.
  */
-function supprimer_accompagnateurs_reservation(int $num_res): bool
+function supprimer_accompagnateurs_reservation(string $num_res): bool
 {
 	$suppression_reussie = false;
 
@@ -3342,6 +3685,7 @@ function recuperer_donnee_reservation_par_num_chambre(int $numChambre)
 
 	return $donneesReservation;
 }
+
 
 /**
  * Cette fonction permet de récupérer tous les informations qui concerne une réservation grâce son id
@@ -4181,4 +4525,317 @@ function recuperer_chambres(): bool|array
 	}
 
 	return $liste_chambre;
+}
+
+
+
+
+/**
+ * Cette fonction permet d'enregistrer un type de chambre
+ *
+ * @param string $type_chambre
+ * @param string $details_chambre
+ * @param int $details_personne_chambre
+ * @param string $details_superficie_chambre
+ * @param float $pu
+ * @param int $est_actif
+ * @return bool
+ */
+function enregistrer_type_chambre(string $type_chambre, string $details_chambre, int $details_personne_chambre, string $details_superficie_chambre, float $pu, int $est_actif = 1): bool
+{
+	$enregistrer_type = false;
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$requette = 'INSERT INTO prix_chambres (type_chambre, details, personnes, superficie, montant, est_actif) VALUES (:type_chambre, :details, :personnes, :superficie, :pu, :est_actif)';
+
+		$inserer_type = $db->prepare($requette);
+
+		$resultat = $inserer_type->execute([
+			'type_chambre' => $type_chambre,
+			'details' => $details_chambre,
+			'personnes' => $details_personne_chambre,
+			'superficie' => $details_superficie_chambre,
+			'pu' => $pu,
+			'est_actif' => $est_actif
+		]);
+
+		$enregistrer_type = $resultat;
+	}
+
+	return $enregistrer_type;
+}
+
+
+
+/**
+ * Cette fonction permet de récupérer les type de chambre
+ * 
+ * @return bool|array
+ */
+function recuperer_type_chambres(): bool|array
+{
+	$liste_type_chambre = [];
+	$db = connect_db();
+
+	if (is_object($db)) {
+
+		$requete = 'SELECT * FROM prix_chambres';
+
+		$verifier_liste_type_chambre = $db->prepare($requete);
+
+		$resultat = $verifier_liste_type_chambre->execute();
+
+		if ($resultat) {
+
+			$liste_type_chambre = $verifier_liste_type_chambre->fetchAll(PDO::FETCH_ASSOC);
+		}
+	}
+
+	return $liste_type_chambre;
+}
+
+
+/**
+ * Cette fonction permet de récupérer les informations d'un type de chambre à partir de son id.
+ *
+ * @param int $id L'identifiant du type de chambre
+ * @return array
+ */
+function recuperer_type_chambre_par_son_id(int $id): array
+{
+	$type_chambre = [];
+
+	$db = connect_db();
+
+	$requette = 'SELECT * FROM prix_chambres WHERE id = :id ';
+
+	$verifier_type_chambre = $db->prepare($requette);
+
+	$resultat = $verifier_type_chambre->execute([
+		"id" => $id
+	]);
+
+	if ($resultat) {
+
+		$type_chambre = $verifier_type_chambre->fetch(PDO::FETCH_ASSOC);
+	}
+
+	return $type_chambre;
+}
+
+
+/**
+ * Cette fonction permet de supprimer defintivement un type de chambre de la base de données à partir de son numero de chambre.
+ *
+ * @param int $id L'id du type de chambre.
+ * @return bool Indique si la suppression a réussi ou non.
+ */
+function supprimer_type_chambre(int $id): bool
+{
+	$type_chambre_est_supprimer = false;
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$requete = 'DELETE FROM prix_chambres WHERE id = :id';
+
+		$suppression_reussie = $db->prepare($requete);
+
+		$resultat = $suppression_reussie->execute([
+			'id' => $id,
+		]);
+
+		if ($resultat) {
+			$type_chambre_est_supprimer = true;
+		}
+	}
+
+	return $type_chambre_est_supprimer;
+}
+
+/**
+ * Cette fonction permet de modifier le type d'une chambre existant dans la base de données via son id.
+ *
+ * @param int $id L'id du type de chambre
+ * @param string $type_chambre Le type  de chambre
+ * @param string $details Le details du type  de chambre
+ * @param string $personnes Le nombre de personne pour chambre
+ * @param string $superficies La superficies du type  de chambre
+ * @param int $pu Le prix unitaire  de la chambre
+ * @return bool Indique si la modification a réussi ou non.
+ */
+
+function modifier_type_chambre(int $id, string $type_chambre, string $details, string $personnes, string $superficies, float $pu): bool
+{
+	$modifier_type_chambre = false;
+
+	$date = date("Y-m-d H:i:s");
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$requete = 'UPDATE prix_chambres  SET type_chambre = :type_chambre, details = :details, personnes = :personnes, superficie = :superficie, montant= :montant, maj_le = :maj_le WHERE id = :id';
+
+		$modifier_type_chambre = $db->prepare($requete);
+
+		$resultat = $modifier_type_chambre->execute([
+			'id' => $id,
+			'type_chambre' => $type_chambre,
+			'details' => $details,
+			'personnes' => $personnes,
+			'superficie' => $superficies,
+			'montant' => $pu,
+			'maj_le' => $date
+		]);
+
+		if ($resultat) {
+
+			$modifier_type_chambre = true;
+		}
+	}
+
+	return $modifier_type_chambre;
+}
+
+
+
+function recuperer_nombre_reservations()
+{
+	$reservation_count = 0;
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$query = "SELECT count(*) as nbr_reservations FROM reservations";
+
+		$verifier_reservations = $db->prepare($query);
+
+		$resultat = $verifier_reservations->execute();
+
+		if ($resultat) {
+			$nbr_reservations = $verifier_reservations->fetch(PDO::FETCH_ASSOC)["nbr_reservations"];
+			$reservation_count = $nbr_reservations;
+		}
+	}
+
+	return $reservation_count;
+}
+
+
+function recuperer_nombre_reservations_encours()
+{
+	$reservation_count = 0;
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$query = "SELECT count(*) as nbr_reservations FROM reservations WHERE statut = 'En cours de validation' ";
+
+		$verifier_reservations = $db->prepare($query);
+
+		$resultat = $verifier_reservations->execute();
+
+		if ($resultat) {
+			$nbr_reservations = $verifier_reservations->fetch(PDO::FETCH_ASSOC)["nbr_reservations"];
+			$reservation_count = $nbr_reservations;
+		}
+	}
+
+	return $reservation_count;
+}
+
+function recuperer_nombre_reservations_active()
+{
+	$reservation_count = 0;
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$query = "SELECT count(*) as nbr_reservations FROM reservations WHERE statut = 'valider' ";
+
+		$verifier_reservations = $db->prepare($query);
+
+		$resultat = $verifier_reservations->execute();
+
+		if ($resultat) {
+			$nbr_reservations = $verifier_reservations->fetch(PDO::FETCH_ASSOC)["nbr_reservations"];
+			$reservation_count = $nbr_reservations;
+		}
+	}
+
+	return $reservation_count;
+}
+
+function recuperer_nombre_reservations_rejeter()
+{
+	$reservation_count = 0;
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$query = "SELECT count(*) as nbr_reservations FROM reservations WHERE statut = 'rejeter' ";
+
+		$verifier_reservations = $db->prepare($query);
+
+		$resultat = $verifier_reservations->execute();
+
+		if ($resultat) {
+			$nbr_reservations = $verifier_reservations->fetch(PDO::FETCH_ASSOC)["nbr_reservations"];
+			$reservation_count = $nbr_reservations;
+		}
+	}
+
+	return $reservation_count;
+}
+
+
+function recuperer_revenue_total_reservations_valide() {
+    $total_revenue = 0.0;
+
+    $db = connect_db();
+
+    $query = "SELECT SUM(prix_total) as total_revenue FROM reservations WHERE statut = 'valide'";
+
+    $verifier_revenue = $db->prepare($query);
+
+    $resultat = $verifier_revenue->execute();
+
+    if ($resultat) {
+
+		$total_revenue = $verifier_revenue->fetch(PDO::FETCH_ASSOC)["total_revenue"];
+
+		if (is_null($total_revenue)) {
+
+			$total_revenue = 0.0;
+		}
+
+    }
+
+    return $total_revenue;
+}
+
+
+function recuperer_nombre_commandes()
+{
+	$commande_count = 0;
+
+	$db = connect_db();
+
+	if (is_object($db)) {
+		$query = "SELECT count(*) as nbr_commande FROM commande";
+
+		$verifier_commandes = $db->prepare($query);
+
+		$resultat = $verifier_commandes->execute();
+
+		// Vérifiez si la requête a réussi
+		if ($resultat) {
+			// Récupérez le nombre de réservations
+			$nbr_commande = $verifier_commandes->fetch(PDO::FETCH_ASSOC)["nbr_commande"];
+			$commande_count = $nbr_commande;
+		}
+	}
+	// Retournez le nombre de réservations
+	return $commande_count;
 }

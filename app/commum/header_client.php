@@ -75,7 +75,7 @@ if (!empty($_SESSION['erreurs'])) {
     <link href="<?= PATH_PROJECT ?>public/images/al_copyrighter.png" rel="apple-touch-icon"/>
     <link href="<?= PATH_PROJECT ?>public/outils/animate.css/animate.min.css" rel="stylesheet"/>
     <link href="<?= PATH_PROJECT ?>public/outils/aos/aos.css" rel="stylesheet"/>
-    <link href="<?= PATH_PROJECT ?>public/vendor/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= PATH_PROJECT ?>public/outils/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css">
     <link href="<?= PATH_PROJECT ?>public/outils/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="<?= PATH_PROJECT ?>public/outils/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
     <link href="<?= PATH_PROJECT ?>public/outils/boxicons/css/boxicons.min.css" rel="stylesheet"/>
@@ -85,12 +85,12 @@ if (!empty($_SESSION['erreurs'])) {
 
 
     <!-- Custom styles for this page -->
-    <link href="<?= PATH_PROJECT ?>public/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="<?= PATH_PROJECT ?>public/outils/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-    <script src="<?= PATH_PROJECT ?>public/jquery/jquery.min.js"></script>
+    <script src="<?= PATH_PROJECT ?>public/outils/jquery/jquery.min.js"></script>
     <script src="<?= PATH_PROJECT ?>public/js/ajax.js"></script>
 
-    <link href="<?= PATH_PROJECT ?>public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= PATH_PROJECT ?>public/outils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -294,6 +294,13 @@ if (!empty($_SESSION['erreurs'])) {
                                                     <a class="dropdown-item" href="<?= PATH_PROJECT ?>client/liste_des_commandes" style="justify-content: unset;">
                                                         <i class="bi bi-card-checklist" style="margin-right: 12px;"></i>
                                                         Liste des commandes
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item" href="<?= PATH_PROJECT ?>client/factures" style="justify-content: unset;">
+                                                    <i class="bi bi-card-checklist" style="margin-right: 12px;"></i>
+                                                        Facturation
                                                     </a>
                                                 </li>
 

@@ -56,7 +56,7 @@ if (!empty($params[3])) {
     }
     ?>
 
-    <section class="content">
+    <section class="content p-3">
         <?php if (empty($utilisateurs)) { ?>
             <!-- Affiche un message d'erreur si l'utilisateur n'existe pas -->
             <div class="alert alert-danger" role="alert">
@@ -108,20 +108,21 @@ if (!empty($params[3])) {
                 ?>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm zoom-effect-container">
-                            <img class="bd-placeholder-img card-img-top zoom-effect" width="auto" height="auto" src="<?= $utilisateurs['avatar'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_profil.jpg' : $utilisateurs['avatar'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail" alt="">
+                    <h4 style="text-transform: uppercase;"> à Propos de l'utilisateur </h4>
+                    <div class="col-md-4 pt-3">
+                        <div class="mb-4 zoom-effect-container" style="width: 330px;">
+                            <img width="auto" height="192px" src="<?= $utilisateurs['avatar'] == 'Aucune_image' ? PATH_PROJECT . 'public/images/default_profil.jpg' : $utilisateurs['avatar'] ?>" focusable="false" role="img" aria-label="Placeholder: Thumbnail" alt="" class="rounded-circle img-fluid img-custom mx-auto d-block" style="height: 255px;">
                         </div>
 
                         <!-- Formulaire de la mise à jour photo -->
                         <form action="<?= PATH_PROJECT . "administrateur/users/traitement_photo" ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" enctype="multipart/form-data">
-                            <div class="row" style="text-align: center; display:flex;">
+                            <div class="row" style="display:flex;">
                                 <div class="col-sm-9 text-secondary">
                                     <label class="form-label" for="customFile" style="color: gray;">Changer la photo de l'utilisateur</label>
                                     <input type="file" class="form-control" id="image" name="image" />
                                 </div>
 
-                                <div class="text-center col-sm-3" style="justify-content: center; margin-top: 31px;">
+                                <div class="row text-center col-sm-3" style="justify-content: center; margin-top: 31px;">
                                     <!-- Bouton du Modal mettre à jour -->
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal0" style="font-size: revert; padding: 8px;">Modifier</button>
 
@@ -160,10 +161,10 @@ if (!empty($params[3])) {
                         </form>
 
                         <!-- Formulaire de la suppression photo -->
-                        <form action="<?= PATH_PROJECT . "administrateur/users/traitement_suppression_photo"  ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" enctype="multipart/form-data" style="display: flex; justify-content: center; align-items: center;">
-                            <div class="row">
+                        <form action="<?= PATH_PROJECT . "administrateur/users/traitement_suppression_photo"  ?><?= !empty($params[3]) ? "/" . $params[3] : "" ?>" method="post" enctype="multipart/form-data">
+                            <div class="row m-auto">
                                 <!-- Bouton du Modal supprimer -->
-                                <button type="reset" class="btn btn-primary mt-4" data-toggle="modal" data-target="#modal1"><i class="fa fa-trash"></i> Supprimer</button>
+                                <button type="reset" class="btn btn-primary mt-4"style="background-color: #9f0808;" data-toggle="modal" data-target="#modal1"><i class="fa fa-trash"></i> Supprimer</button>
 
                                 <div class="col-md-8 col-lg-12">
                                     <div class="text-center" style="color: #070b3a;">
@@ -202,7 +203,7 @@ if (!empty($params[3])) {
 
                     <div class="col-md-8">
 
-                        <h5 style="color: #cda45e; text-align:center; ">
+                        <h5 style="color: #cda45e; text-align:center; margin-bottom:25px ">
                             <i class="bi bi-exclamation-triangle me-1"></i> Les champs ci-dessous ne doivent pas être soumis vide. Au cas contraire, elles affichent les anciennes informations.
                         </h5>
 

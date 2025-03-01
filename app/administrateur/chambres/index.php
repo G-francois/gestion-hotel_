@@ -10,7 +10,8 @@ include './app/commum/header.php';
 
 include './app/commum/aside.php';
 
-?>
+// Appeler la fonction pour récupérer la liste des clients
+$liste_type_chambres = recuperer_type_chambres(); ?>
 
 <!-- Commencement du contenu de la page -->
 <div class="container-fluid">
@@ -18,7 +19,7 @@ include './app/commum/aside.php';
     <div class="pagetitle ">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= PATH_PROJECT ?>administrateur/dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item"><a style="text-decoration: none; color: #cda45e;" href="<?= PATH_PROJECT ?>administrateur/dashboard/index">Dashboard</a></li>
                 <li class="breadcrumb-item active">Ajouter une chambre</li>
             </ol>
         </nav>
@@ -72,20 +73,23 @@ include './app/commum/aside.php';
                 </label>
                 <div style="padding-left: 0; padding-right: 0;">
                     <select class="lib_typ form-control" id="libelle_type" name="lib_typ">
-                        <option value="" disabled selected>Sélectionnez le libellé du type de chambre</option>
-                        <option value="Solo">Solo</option>
-                        <option value="Double">Double</option>
-                        <option value="Triple">Triple</option>
-                        <option value="Suite">Suite</option>
+                        <option value="" disabled selected>Sélectionnez le type de chambre</option>
+
+                        <?php foreach ($liste_type_chambres as $type_chambres) : ?>
+                            <option><?= $type_chambres['type_chambre'] ?></option>
+                        <?php endforeach; ?>
+
                     </select>
-                    <?php if (!empty($erreurs["lib_typ"])) { ?>
+                    <?php if (!empty($erreurs["type_chambres"])) { ?>
                         <span class="text-danger">
-                            <?php echo $erreurs["lib_typ"]; ?>
+                            <?php echo $erreurs["type_chambres"]; ?>
                         </span>
                     <?php } ?>
                 </div>
             </div>
 
+            <div style="display: none;">
+         
             <!-- Le champ Code du type de chambre -->
             <div class="col-sm-6 mb-3">
                 <label for="cod_typ">
@@ -163,9 +167,10 @@ include './app/commum/aside.php';
                 <?php } ?>
             </div>
 
-
+       
+            </div>
             <!-- Le bouton d'ajout -->
-            <div class="col-sm-6 mt-5">
+            <div class="col-sm-12 mt-5">
                 <button type="submit" class="btn btn-primary btn-block">Ajouter</button>
             </div>
 
@@ -224,7 +229,8 @@ include './app/commum/aside.php';
 
     // Appeler la fonction au chargement de la page
     updateFields();
-</script><?php
+</script>
+<?php
 // Supprimer les variables de session
 unset($_SESSION['message-success-global'], $_SESSION['message-erreur-global'], $_SESSION['erreurs-chambre'], $_SESSION['donnees-chambre']);
 

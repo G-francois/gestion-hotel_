@@ -101,14 +101,14 @@
 </a>
 
 <!-- Bootstrap core JavaScript-->
-<script src="<?= PATH_PROJECT ?>public/vendor/jquery/jquery.min.js"></script>
-<script src="<?= PATH_PROJECT ?>public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?= PATH_PROJECT ?>public/outils/jquery/jquery.min.js"></script>
+<!-- <script src="<?= PATH_PROJECT ?>public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
 <!-- Core plugin JavaScript-->
-<script src="<?= PATH_PROJECT ?>public/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="<?= PATH_PROJECT ?>public/outils/jquery-easing/jquery.easing.min.js"></script>
 
-<script src="<?= PATH_PROJECT ?>public/vendor/datatables/jquery.dataTables.js"></script>
-<script src="<?= PATH_PROJECT ?>public/vendor/datatables/dataTables.bootstrap4.js"></script>
+<script src="<?= PATH_PROJECT ?>public/outils/datatables/jquery.dataTables.js"></script>
+<script src="<?= PATH_PROJECT ?>public/outils/datatables/dataTables.bootstrap4.js"></script>
 
 
 <!-- outils JS Files -->
