@@ -9,7 +9,7 @@ include('./app/commum/header_client.php');
 
 // Récupération des informations du client
 $clientId   = $_SESSION['utilisateur_connecter_client']['id'];
-$clientName = $_SESSION['utilisateur_connecter_client']['nom'] ?? 'Client Inconnu';
+$clientName = $_SESSION['utilisateur_connecter_client']['nom_utilisateur'] ?? 'Client Inconnu';
 
 // Récupération de toutes les réservations du client
 $liste_reservations = recuperer_liste_reservations($clientId);
@@ -101,7 +101,7 @@ if (!empty($liste_commandes_client)) {
         foreach ($reservationsPage as $index => $reservation):
             $totalGeneral = 0; // Initialisation du total général
         ?>
-            <div class="accordion-item">
+            <div class="accordion-item mb-4">
                 <h2 class="accordion-header" id="heading<?= $reservation['num_res']; ?>">
                     <button class="accordion-button <?= $index != 0 ? 'collapsed' : ''; ?>" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapse<?= $reservation['num_res']; ?>"

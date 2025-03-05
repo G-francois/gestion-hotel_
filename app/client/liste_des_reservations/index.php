@@ -45,25 +45,28 @@ $liste_chambre = recuperer_chambres();
 <div class="container-fluid" id="alertContainer">
     <!-- Titre de la page -->
     <!-- <div class="pagetitle"
-             style="padding-top: 126px; padding-bottom: 12px; display: flex; justify-content: space-between;">
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Liste des reservations</li>
-                </ol>
-            </nav>
+        style="padding-top: 126px; padding-bottom: 12px; display: flex; justify-content: space-between;">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active">Liste des reservations</li>
+            </ol>
+        </nav>
 
 
-            <a class="btn btn-primary"
-               style="--bs-btn-color: #fff; --bs-btn-bg: #cda45e; --bs-btn-border-color: #000000; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #9d6b15; --bs-btn-hover-border-color: #000000;"
-               href="<?= PATH_PROJECT . 'client/chambres/reservations' ?>">
-                Faire une Réservation
-            </a>
-        </div> -->
+        <a class="btn btn-primary"
+            style="--bs-btn-color: #fff; --bs-btn-bg: #cda45e; --bs-btn-border-color: #000000; --bs-btn-hover-color: #fff; --bs-btn-hover-bg: #9d6b15; --bs-btn-hover-border-color: #000000;"
+            href="<?= PATH_PROJECT . 'client/chambres/reservations' ?>">
+            Faire une Réservation
+        </a>
+    </div> -->
+
     <section id="hero4" class="d-flex align-items-center">
-        <div class="container-fluid position-relative text-center text-lg-start aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
+        <div class="container-fluid position-relative text-center text-lg-start aos-init aos-animate" data-aos="zoom-in"
+            data-aos-delay="100">
             <div class="row mt-5">
-                <div class="col-lg-12 mt-5 mb-4" style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="col-lg-12 mt-5 mb-4"
+                    style="display: flex; justify-content: space-between; align-items: center;">
                     <h1>Espace<span> Liste de reservations des chambres</span></h1>
 
                     <a class="btn btn-primary"
@@ -76,6 +79,7 @@ $liste_chambre = recuperer_chambres();
             </div>
         </div>
     </section>
+
     <!-- Tableau de données liste reservations -->
     <div class="card shadow mb-4">
 
@@ -184,15 +188,16 @@ $liste_chambre = recuperer_chambres();
                                             </i>
 
                                             <!-- Modal Détails-->
-                                            <div class="modal modal-blur fade"
-                                                id="exampleModal-<?= $reservation['num_res']; ?>" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+                                            <div class="modal modal-blur fade" id="exampleModal-<?= $reservation['num_res']; ?>"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div
+                                                    class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Détails de la réservation <?php echo $reservation['num_res']; ?></h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Détails de la
+                                                                réservation <?php echo $reservation['num_res']; ?></h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="table-responsive">
@@ -224,11 +229,13 @@ $liste_chambre = recuperer_chambres();
                                                                             <tr>
                                                                                 <th scope="row"><?= $_chambre['num_chambre'] ?></th>
                                                                                 <td><?= $typ_chambre ?></td>
-                                                                                <td><?= number_format($prix_chambre['montant'], 0, ',', ' '); ?></td>
+                                                                                <td><?= number_format($prix_chambre['montant'], 0, ',', ' '); ?>
+                                                                                </td>
                                                                                 <td><?= $deb_occ ?></td>
                                                                                 <td><?= $fin_occ ?></td>
                                                                                 <td><?= $jours . ' nuitée(s)' ?></td>
-                                                                                <td><?= number_format($_chambre['montant'], 0, ',', ' ');  ?></td>
+                                                                                <td><?= number_format($_chambre['montant'], 0, ',', ' ');  ?>
+                                                                                </td>
                                                                                 <td>
                                                                                     <?php
                                                                                     if (!empty($liste_accompagnateurs_chambres_reservations[$_chambre['num_chambre']])) {
@@ -269,23 +276,20 @@ $liste_chambre = recuperer_chambres();
                                                 <div class="modal modal-blur fade"
                                                     id="exampleModal1-<?= $reservation['num_res']; ?>" tabindex="-1"
                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-                                                        <div class="modal-content"
-                                                            id="container<?= $reservation['num_res']; ?>">
+                                                    <div
+                                                        class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                                                        <div class="modal-content" id="container<?= $reservation['num_res']; ?>">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                                                                     Modifier la
                                                                     réservation <?php echo $reservation['num_res']; ?></h1>
                                                                 <!-- Bouton pour ajouter un conteneur -->
-                                                                <div class="col-md"
-                                                                    style="justify-content: end; display: flex;">
-                                                                    <button type="button"
-                                                                        class="btn btn-custom text-light"
+                                                                <div class="col-md" style="justify-content: end; display: flex;">
+                                                                    <button type="button" class="btn btn-custom text-light"
                                                                         id="ajouter-chambres">Ajouter une chambre
                                                                     </button>
                                                                 </div>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
@@ -304,7 +308,8 @@ $liste_chambre = recuperer_chambres();
                                                                     foreach ($liste_chambres_reservations as $i => $chambre_) {
                                                                         $typ_chambre = recuperer_type_chambre_pour_affichage($chambre_['num_chambre']);
                                                                     ?>
-                                                                        <div id="champs-chambres-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>">
+                                                                        <div
+                                                                            id="champs-chambres-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>">
 
                                                                             <!-- Le champ Numéro de chambre -->
                                                                             <div class="col-md-12 mb-3">
@@ -312,8 +317,7 @@ $liste_chambre = recuperer_chambres();
                                                                                     <span class="text-danger">(*)</span>
                                                                                 </label>
                                                                                 <select class="form-control chambre-select"
-                                                                                    id="num_chambre"
-                                                                                    name="chambre<?= $i + 1 ?>[num]"
+                                                                                    id="num_chambre" name="chambre<?= $i + 1 ?>[num]"
                                                                                     required>
                                                                                     <option value="">Sélectionnez le
                                                                                         numéro de chambre
@@ -328,7 +332,9 @@ $liste_chambre = recuperer_chambres();
                                                                                             //$prix_par_chambre = $chambre['pu'];
                                                                                             ///echo '<option value="' . $chambre['num_chambre'] . '&' . $chambre['lib_typ'] . '">' . $option_value . '</option>';
                                                                                     ?>
-                                                                                            <option value="<?= $value ?>" <?= $compared_value == $value ? 'selected' : '' ?>><?= $option_text ?></option>
+                                                                                            <option value="<?= $value ?>"
+                                                                                                <?= $compared_value == $value ? 'selected' : '' ?>>
+                                                                                                <?= $option_text ?></option>
                                                                                     <?php
                                                                                         }
                                                                                     }
@@ -349,8 +355,7 @@ $liste_chambre = recuperer_chambres();
                                                                                         </label>
                                                                                         <input type="text"
                                                                                             name="chambre<?= $i + 1 ?>[ACCS][acc<?= $j + 1 ?>][nom_acc]"
-                                                                                            id="modification-nom_acc"
-                                                                                            class="form-control"
+                                                                                            id="modification-nom_acc" class="form-control"
                                                                                             value="<?= $accompagnateur['nom_acc'] ?>">
                                                                                     </div>
 
@@ -369,8 +374,7 @@ $liste_chambre = recuperer_chambres();
                                                                                     <!-- Bouton pour retirer un accompagnateur anciennement ajouter -->
                                                                                     <div class="col-md-1 mb-3"
                                                                                         style="display: flex; align-items: flex-end; justify-content: center; margin-top: 21px;">
-                                                                                        <button type="button"
-                                                                                            class="btn btn-danger"
+                                                                                        <button type="button" class="btn btn-danger"
                                                                                             onclick="supprimerAccompagnateur(this)">
                                                                                             -
                                                                                         </button>
@@ -385,7 +389,8 @@ $liste_chambre = recuperer_chambres();
                                                                             <div class="row">
                                                                                 <!-- Le champ nom_acc -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="modification-nom_acc-<?= $reservation['num_res'] ?>">
+                                                                                    <label
+                                                                                        for="modification-nom_acc-<?= $reservation['num_res'] ?>">
                                                                                         Nom de l'accompagnateur:
                                                                                     </label>
                                                                                     <input type="text"
@@ -396,7 +401,8 @@ $liste_chambre = recuperer_chambres();
 
                                                                                 <!-- Le champ contact_acc -->
                                                                                 <div class="col-md-5 mb-1">
-                                                                                    <label for="modification-contact_acc-<?= $reservation['num_res'] ?>">
+                                                                                    <label
+                                                                                        for="modification-contact_acc-<?= $reservation['num_res'] ?>">
                                                                                         Contact de l'accompagnateur:
                                                                                     </label>
                                                                                     <input type="text"
@@ -416,7 +422,8 @@ $liste_chambre = recuperer_chambres();
                                                                                 </div>
 
                                                                                 <!-- Conteneur pour les champs d'accompagnateur dynamiques -->
-                                                                                <div id="champs-accompagnateur-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>">
+                                                                                <div
+                                                                                    id="champs-accompagnateur-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>">
                                                                                     <!-- Les champs d'accompagnateur seront ajoutés ici en fonction des boutons "+" -->
                                                                                 </div>
                                                                             </div>
@@ -425,13 +432,16 @@ $liste_chambre = recuperer_chambres();
                                                                             <div class="row">
                                                                                 <!-- Le champ date de début occupation -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="inscription-deb_occ-<?php echo $reservation['num_res']; ?>-1">
+                                                                                    <label
+                                                                                        for="inscription-deb_occ-<?php echo $reservation['num_res']; ?>-1">
                                                                                         Début de séjour :
                                                                                         <span class="text-danger">(*)</span>
                                                                                     </label>
                                                                                     <div class="input-group mb-3">
-                                                                                        <input type="date" id="inscription-deb_occ-<?php echo $reservation['num_res']; ?>"
-                                                                                            name="chambre<?= $i + 1 ?>[deb_occ]" id="inscription-deb_occ"
+                                                                                        <input type="date"
+                                                                                            id="inscription-deb_occ-<?php echo $reservation['num_res']; ?>"
+                                                                                            name="chambre<?= $i + 1 ?>[deb_occ]"
+                                                                                            id="inscription-deb_occ"
                                                                                             class="form-control"
                                                                                             placeholder="Veuillez entrer votre date de début occupation"
                                                                                             value="<?= date('Y-m-d', strtotime($chambre_['deb_occ'])) ?>"
@@ -441,14 +451,20 @@ $liste_chambre = recuperer_chambres();
 
                                                                                 <!-- Le champ date de fins occupations -->
                                                                                 <div class="col-md-6 mb-1">
-                                                                                    <label for="inscription-fin_occ-<?php echo $reservation['num_res']; ?>-2">
+                                                                                    <label
+                                                                                        for="inscription-fin_occ-<?php echo $reservation['num_res']; ?>-2">
                                                                                         Fin de séjour:
                                                                                         <span class="text-danger">(*)</span>
                                                                                     </label>
                                                                                     <div class="input-group mb-3">
-                                                                                        <input type="date" id="inscription-fin_occ-<?php echo $reservation['num_res']; ?>" name="chambre<?= $i + 1 ?>[fin_occ]" id="inscription-fin_occ"
-                                                                                            class="form-control" placeholder="Veuillez entrer votre date de fin occupation"
-                                                                                            value="<?= date('Y-m-d', strtotime($chambre_['fin_occ'])) ?>" required>
+                                                                                        <input type="date"
+                                                                                            id="inscription-fin_occ-<?php echo $reservation['num_res']; ?>"
+                                                                                            name="chambre<?= $i + 1 ?>[fin_occ]"
+                                                                                            id="inscription-fin_occ"
+                                                                                            class="form-control"
+                                                                                            placeholder="Veuillez entrer votre date de fin occupation"
+                                                                                            value="<?= date('Y-m-d', strtotime($chambre_['fin_occ'])) ?>"
+                                                                                            required>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -456,8 +472,7 @@ $liste_chambre = recuperer_chambres();
                                                                             <!-- Bouton pour supprimer un conteneur -->
                                                                             <div class="col-md-12 mb-2"
                                                                                 style="justify-content: center; display: flex;">
-                                                                                <button type="button"
-                                                                                    class="btn btn-danger"
+                                                                                <button type="button" class="btn btn-danger"
                                                                                     onclick="retirer_Chambre('champs-chambres-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>')"
                                                                                     style="--bs-btn-color: #fff; --bs-btn-bg: #b30617; --bs-btn-border-color: #b30617;">
                                                                                     Retirer cette chambre
@@ -476,15 +491,15 @@ $liste_chambre = recuperer_chambres();
                                                                     <hr>
 
                                                                     <div class="col-md mb-1">
-                                                                        <label for="password-<?php echo $reservation['num_res']; ?>">
+                                                                        <label
+                                                                            for="password-<?php echo $reservation['num_res']; ?>">
                                                                             Mot de passe:
                                                                             <span class="text-danger">(*)</span>
                                                                         </label>
                                                                         <div class="input-group mb-3">
                                                                             <input type="password"
                                                                                 id="password-<?php echo $reservation['num_res']; ?>"
-                                                                                name="password"
-                                                                                class="form-control mb-2"
+                                                                                name="password" class="form-control mb-2"
                                                                                 placeholder="Veuillez entrez votre mot de passe utilisateur puis valider"
                                                                                 id="">
                                                                         </div>
@@ -515,27 +530,27 @@ $liste_chambre = recuperer_chambres();
                                                 </i>
 
                                                 <!-- Modal supprimer -->
-                                                <div class="modal fade"
-                                                    id="exampleModal2-<?= $reservation['num_res']; ?>" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="exampleModal2-<?= $reservation['num_res']; ?>"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                                                                     Supprimer la
                                                                     réservation <?php echo $reservation['num_res']; ?></h1>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="<?= PATH_PROJECT ?>client/liste_des_reservations/traitement_supprimer_reservation"
+                                                                <form
+                                                                    action="<?= PATH_PROJECT ?>client/liste_des_reservations/traitement_supprimer_reservation"
                                                                     method="post" enctype="multipart/form-data">
                                                                     <!-- Début du formulaire de supression du reservation -->
                                                                     <input type="hidden" name="reservation_id"
                                                                         value="<?php echo $reservation['num_res']; ?>">
                                                                     <div class="form-group">
-                                                                        <label for="passwordImput2-<?php echo $reservation['num_res']; ?>"
+                                                                        <label
+                                                                            for="passwordImput2-<?php echo $reservation['num_res']; ?>"
                                                                             class="col-12 col-form-label"
                                                                             style="color: #070b3a;">Veuillez entrer
                                                                             votre mot de passe pour supprimer la
@@ -571,27 +586,27 @@ $liste_chambre = recuperer_chambres();
                                                 </i>
 
                                                 <!-- Modal supprimer -->
-                                                <div class="modal fade"
-                                                    id="exampleModal2-<?= $reservation['num_res']; ?>" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="exampleModal2-<?= $reservation['num_res']; ?>"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                                                                     Supprimer la
                                                                     réservation <?php echo $reservation['num_res']; ?></h1>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="<?= PATH_PROJECT ?>client/liste_des_reservations/traitement_supprimer_reservation"
+                                                                <form
+                                                                    action="<?= PATH_PROJECT ?>client/liste_des_reservations/traitement_supprimer_reservation"
                                                                     method="post" enctype="multipart/form-data">
                                                                     <!-- Début du formulaire de supression du reservation -->
                                                                     <input type="hidden" name="reservation_id"
                                                                         value="<?php echo $reservation['num_res']; ?>">
                                                                     <div class="form-group">
-                                                                        <label for="passwordImput2-<?php echo $reservation['num_res']; ?>"
+                                                                        <label
+                                                                            for="passwordImput2-<?php echo $reservation['num_res']; ?>"
                                                                             class="col-12 col-form-label"
                                                                             style="color: #070b3a;">Veuillez entrer
                                                                             votre mot de passe pour supprimer la
@@ -687,7 +702,9 @@ foreach ($liste_reservations as $reservation) {
                         console.log('Erreur lors de la requête AJAX : ' + error);
                         console.log('Réponse du serveur : ' + xhr.responseText);
 
-                        showAlert('danger', 'Erreur', 'Une erreur s\'est produite lors du processus. Assurez-vous d\'avoir bien rempli le formulaire.');
+                        showAlert('danger', 'Erreur',
+                            'Une erreur s\'est produite lors du processus. Assurez-vous d\'avoir bien rempli le formulaire.'
+                        );
 
                         $submitButton.attr('disabled', false);
                         $loader.removeClass('show');
@@ -721,13 +738,15 @@ foreach ($liste_reservations as $reservation) {
         <!-- edt -->
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var ajouterAccompagnateurBtn = document.getElementById('ajouter-accompagnateur-btn<?= $chambre_['num_chambre'] + 1 ?>');
+                var ajouterAccompagnateurBtn = document.getElementById(
+                    'ajouter-accompagnateur-btn<?= $chambre_['num_chambre'] + 1 ?>');
 
                 var incAc = <?= $k + 2 ?>;
                 // Écouteur d'événement pour le bouton "+" (ajouter accompagnateur)
                 ajouterAccompagnateurBtn.addEventListener('click', function() {
                     // Ajoutez ici le code pour ajouter dynamiquement les champs d'accompagnateur
-                    var container = document.getElementById('champs-accompagnateur-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>');
+                    var container = document.getElementById(
+                        'champs-accompagnateur-dynamiques-container<?= $chambre_['num_chambre'] + 1 ?>');
                     var nouvelAccompagnateur = document.createElement('div');
                     nouvelAccompagnateur.innerHTML = `
                     <div class="row">
@@ -801,17 +820,19 @@ foreach ($liste_reservations as $reservation) {
             $('#nouveaux-accompagnateurs-' + reservationId).append(nouveauChamp);
 
             // Ajoutez une validation pour le champ "Contact de l'accompagnateur" ici
-            $('#nouveaux-accompagnateurs-' + reservationId + ' input[name="contact_acc[]"]').on('input', function() {
-                var contactAcc = $(this).val();
+            $('#nouveaux-accompagnateurs-' + reservationId + ' input[name="contact_acc[]"]').on('input',
+                function() {
+                    var contactAcc = $(this).val();
 
-                // Utilisez une expression régulière pour vérifier si contact_acc contient uniquement des nombres
-                var numbersOnlyRegex = /^[0-9]+$/;
+                    // Utilisez une expression régulière pour vérifier si contact_acc contient uniquement des nombres
+                    var numbersOnlyRegex = /^[0-9]+$/;
 
-                if (!numbersOnlyRegex.test(contactAcc)) {
-                    alert('Le champ Contact de l\'accompagnateur doit contenir uniquement des nombres.');
-                    $(this).val(''); // Effacez la saisie incorrecte
-                }
-            });
+                    if (!numbersOnlyRegex.test(contactAcc)) {
+                        alert(
+                            'Le champ Contact de l\'accompagnateur doit contenir uniquement des nombres.');
+                        $(this).val(''); // Effacez la saisie incorrecte
+                    }
+                });
         });
     });
 
@@ -928,7 +949,8 @@ foreach ($liste_reservations as $reservation) {
                 // Ajoutez ici le code pour ajouter dynamiquement les champs d'accompagnateur
                 //console.log(event.target === ajouterAccompagnateur2Btn)
                 if (event.target === ajouterAccompagnateur2Btn) {
-                    var container = nouvelleChambre.querySelector('.champs-accompagnateur2-dynamiques-container');
+                    var container = nouvelleChambre.querySelector(
+                        '.champs-accompagnateur2-dynamiques-container');
                     var nouvelAccompagnateur2 = document.createElement('div');
                     nouvelAccompagnateur2.innerHTML = `
                             <div class="row">
